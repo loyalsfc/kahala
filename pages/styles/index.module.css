@@ -1,0 +1,24 @@
+.categoriesContainer::-webkit-scrollbar{
+    display: none;
+}
+.categoriesContainer{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    list-style-type:none;
+    gap: 1rem;
+    background-color: white;
+    margin-top: 1rem;
+}
+.categoriesItem{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+.categoriesItem img{
+    object-fit: cover;
+    border-radius: 1rem;
+}
