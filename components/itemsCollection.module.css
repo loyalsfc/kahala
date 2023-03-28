@@ -27,6 +27,9 @@
 }
 .topSellingTitle{
     font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .slashedPrice{
     font-size: 12px;
