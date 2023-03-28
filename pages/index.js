@@ -9,6 +9,7 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import ItemsCollection from "../components/itemsCollection"
 import useSWR from 'swr'
 import Footer from "../components/footer"
+import Link from "next/link"
 
 function Index({categories, topSelling, limitedStocks}) {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -57,13 +58,15 @@ function Index({categories, topSelling, limitedStocks}) {
                                         key={category?.id}
                                         className={styles.categoriesItem}
                                     >
-                                        <Image
-                                            src={category.image}
-                                            width="120"
-                                            height="120"
-                                            alt={category?.name}
-                                        />
-                                        {category?.name}
+                                        <Link href={`/products/${category?.id}`}>
+                                            <Image
+                                                src={category.image}
+                                                width="120"
+                                                height="120"
+                                                alt={category?.name}
+                                            />
+                                            {category?.name}
+                                        </Link>
                                     </li>
                                 )
                             })

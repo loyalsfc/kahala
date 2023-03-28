@@ -1,4 +1,5 @@
 import style from './header.module.css'
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
@@ -7,7 +8,9 @@ function Header() {
     return (
         <header className={style.header}>
             <div className={style.container}>
-                <span className={style.title}>Kahala <span className={style.orange}>Store</span></span>
+                <Link href='/'>
+                    <span className={style.title}>Kahala <span className={style.orange}>Store</span></span>
+                </Link>
                 <form className={style.inputContainer}>
                     <div className={style.inputWrapper}>
                         <span><FontAwesomeIcon icon={faSearch}/></span>
