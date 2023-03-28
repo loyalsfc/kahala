@@ -1,8 +1,9 @@
 import Image from "next/image"
+import styles from "./itemsCollection.module.css"
 
-function ItemsCollection({styles, percentageSlash, item}) {
+function ItemsCollection({percentageSlash, item}) {
     return (
-        <li key={item?.id}>
+        <li className={styles.mainItemsWrap} key={item?.id}>
             <span className={styles.percentageSlash}>-{percentageSlash}%</span>
             <Image
                 className={styles.topSellingImage}

@@ -32,6 +32,7 @@
     justify-content: space-around;
     flex-wrap: nowrap;
     overflow-x: scroll;
+    overflow-y: fixed;
     list-style-type:none;
     gap: 1rem;
     margin-top: 1rem;
@@ -94,33 +95,10 @@
     gap: 0.5rem;
     font-weight: 500;
 }
-.percentageSlash{
-    position: absolute;
-    color: #f68b1e;
-    background-color: #fef3e9;
-    top: 0.5rem;
-    right: 0.5rem;
-    padding: 2px 4px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 2px;
-}
 .topSellingContainer li{
     flex-shrink: 0;
     list-style: none;
     position: relative;
-}
-.topSellingImage{
-    border-radius: 5px 5px 0 0;
-}
-.topSellingTitle{
-    font-size: 15px;
-}
-.slashedPrice{
-    font-size: 12px;
-    color: #75757a;
-    text-decoration:line-through;
-    line-height: 0.6;
 }
 .limitedstockWrapper{
     background-color: #fff;

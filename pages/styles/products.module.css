@@ -33,3 +33,88 @@
     padding: 0.75rem 1rem;
     font-size: 1.25rem;
 }
+.limitedStockContainer{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: 0.5rem;
+    font-weight: 500;
+    position: relative;
+    list-style: none;
+    padding: 10px;
+}
+.limitedStockContainer li{
+    flex-shrink: 0;
+    list-style: none;
+    position: relative;
+}
+.limitedStockContainer::-webkit-scrollbar{
+    display: none;
+}
+.mainProductSection{
+    display: flex;
+    margin: 1rem 0;
+    gap: 1rem;
+}
+.aside{
+    width: 282px;
+    background-color: white;
+    flex-shrink: 0;
+    border-radius: 5px;
+}
+.mainProducts{
+    flex: 1;
+    background-color: #fff;
+    border-radius: 5px;
+    padding-bottom: 1rem;
+}
+.mainProducts h3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ededed;
+    padding: 0.5rem;
+}
+.totalProducts{
+    color: #75757A;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ededed;
+    font-size: 14px;
+    font-weight: bold;
+}
+.mainPageItems{
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding: 1rem;
+}
+.imageWrapper{
+    position: relative;
+    aspect-ratio: 4 / 3;
+}
+.mainPageItems img{
+    width: 100%;
+    object-fit: "cover";
+}
+.percentageSlash{
+    color: #f68b1e;
+    background-color: #fef3e9;
+    padding: 2px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 2px;
+    display: inline-block;  
+    margin-left: 0.25rem;
+}
+.addButton{
+    width: 100%;
+    background-color: #f68b1e;
+    border: 0;
+    padding: 0.5rem;
+    font-weight: bold;
+    color: #FFF;
+    margin-top: 1rem;
+    visibility: hidden;
+    cursor: pointer;
+}
