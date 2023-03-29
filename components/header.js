@@ -28,10 +28,12 @@ function Header() {
                     <span>Help</span>
                     <FontAwesomeIcon icon={faAngleDown} />
                 </p>
-                <p className={style.headerMenu}>
-                    <FontAwesomeIcon icon={faCartShopping} />
-                    <span>Cart</span>
-                </p>
+                <Link href="/cart">
+                    <p className={style.headerMenu}>
+                        <FontAwesomeIcon icon={faCartShopping} />
+                        <span>Cart</span>
+                    </p>
+                </Link>
             </div>
         </header>
     )

@@ -8,10 +8,10 @@ import styles from './productsPage.module.css';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faCartPlus, faRetweet, faShield, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faFacebook, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "./lga"
 import DeliveryDetails from '../../../components/deliveryDetails';
-// import { Twitter } from '@mui/icons-material';
+
 function Product({products}) {
   const productDiscount = useMemo(()=>(Math.floor(Math.random() * 50)),[products]);
   const [imageIndex, setImageIndex] = useState(0);
@@ -59,7 +59,7 @@ function Product({products}) {
                   <article>
                     <h5>SHARE THIS PRODUCT</h5>
                     <button>
-                      {/* <Twitter /> */}
+                      <FontAwesomeIcon icon="fa-brands fa-facebook" />
                     </button>
                   </article>
                 </div>

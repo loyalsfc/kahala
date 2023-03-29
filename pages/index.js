@@ -10,11 +10,12 @@ import ItemsCollection from "../components/itemsCollection"
 import useSWR from 'swr'
 import Footer from "../components/footer"
 import Link from "next/link"
+import TopSelling from "../components/topSelling"
 
-function Index({categories, topSelling, limitedStocks}) {
+function Index({categories, topSellingProducts, limitedStocks}) {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading} = useSWR('/api/phone_accessories', fetcher)
-    console.log(data)
+    
     return (
         <div>
             <Head>
@@ -74,19 +75,7 @@ function Index({categories, topSelling, limitedStocks}) {
                     </ul>
                 </div>
 
-                <section className={styles.topSellingWrapper}>
-                    <h4 className={styles.categoryTitle}>Top Selling Items</h4>
-                    <div>
-                        <ul className={styles.topSellingContainer}>
-                            {
-                                topSelling.map(item => {
-                                    const randomPercentage = Math.floor(Math.random() * 50)
-                                    return <ItemsCollection item={item} styles={styles} percentageSlash={randomPercentage} />
-                                })
-                            }
-                        </ul>
-                    </div>
-                </section>
+                <TopSelling products={topSellingProducts}/>
 
                 <section className={styles.limitedstockWrapper}>
                     <h4 className={styles.limitedstockTitle}>Limited Stocks Deals</h4>
@@ -134,7 +123,7 @@ export async function getStaticProps(){
     const categories = await res.json()
 
     const productRes = await fetch('https://api.escuelajs.co/api/v1/products?offset=10&limit=10');
-    const topSelling = await productRes.json()
+    const topSellingProducts = await productRes.json()
 
     const productsResponse = await fetch('https://api.escuelajs.co/api/v1/products?offset=30&limit=10')
     const limitedStocks = await productsResponse.json()
@@ -142,7 +131,7 @@ export async function getStaticProps(){
     return{
         props: {
             categories,
-            topSelling,
+            topSellingProducts,
             limitedStocks        
         }
     }

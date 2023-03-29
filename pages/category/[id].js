@@ -30,23 +30,25 @@ function Categories({products, param}) {
         const randomPercentage = Math.floor(Math.random() * 50)
         return(
             <li className={`${style.mainItemsWrap} ${style.mainProducts}`} key={item?.id}>
-                <div className={styles.imageWrapper}>
-                    <Image
-                        src={item?.images?.[0]}
-                        fill={true}
-                    />
-                </div>
-                <article>
-                    <h5 className={style.topSellingTitle}>{item?.title}</h5>
-                    <p>${item?.price}</p>
-                    {randomPercentage != 0 &&
-                        <p>
-                            <span className={style.slashedPrice}>${((item?.price * randomPercentage) / 100 + item?.price).toFixed(0)}</span>
-                            <span className={styles.percentageSlash}>-{randomPercentage}%</span>
-                        </p>
-                    }
-                    <button className={styles.addButton}>Add to Cart</button>
-                </article>
+                <Link href={`/category/product/${item?.id}`}>
+                    <div className={styles.imageWrapper}>
+                        <Image
+                            src={item?.images?.[0]}
+                            fill={true}
+                        />
+                    </div>
+                    <article>
+                        <h5 className={style.topSellingTitle}>{item?.title}</h5>
+                        <p>${item?.price}</p>
+                        {randomPercentage != 0 &&
+                            <p>
+                                <span className={style.slashedPrice}>${((item?.price * randomPercentage) / 100 + item?.price).toFixed(0)}</span>
+                                <span className={styles.percentageSlash}>-{randomPercentage}%</span>
+                            </p>
+                        }
+                    </article>
+                </Link>
+                <button className={styles.addButton}>Add to Cart</button>
             </li>
         )
     }), [fetchedProducts, sortParam])
