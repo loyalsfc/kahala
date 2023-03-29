@@ -1,0 +1,45 @@
+.main{
+    background-color: #f5f5f5;
+    padding-bottom: 1rem;
+    min-height: 40vh;
+}
+.breadCrumb{
+    padding: 0.5rem 0;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+.breadCrumb span{
+    color: #75757A;
+}
+.productInfoWrapper{
+    display: flex;
+    gap: 1rem;
+}
+.productInfo{
+    background-color: #FFF;
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex: 1;
+}
+.productInfoImages{
+    width: fit-content;
+    flex-shrink: 0;
+}
+.otherImages{
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #EDEDED;
+}
+.ProductInfoDetails{
+    padding: 0 0.5rem;
+}
+.ProductInfoDetails h1{
+    font-size: 1.25rem;
+}
+.aside{
+    width: 221px;
+    flex-shrink: 0;
+}

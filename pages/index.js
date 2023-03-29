@@ -58,7 +58,7 @@ function Index({categories, topSelling, limitedStocks}) {
                                         key={category?.id}
                                         className={styles.categoriesItem}
                                     >
-                                        <Link href={`/products/${category?.id}`}>
+                                        <Link href={`/category/${category?.id}`}>
                                             <Image
                                                 src={category.image}
                                                 width="120"

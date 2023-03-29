@@ -10,7 +10,7 @@ import ItemsCollection from '../../components/itemsCollection'
 import Image from 'next/image'
 import { Slider } from '@mui/material'
 
-function Products({products, param}) {
+function Categories({products, param}) {
     const [fetchedProducts, setFetchedProducts] = useState(products)
     const [sortParam, setSortParam] = useState('default');
     const [sortText, setSortText] = useState('Popularity');
@@ -83,7 +83,7 @@ function Products({products, param}) {
         <Header />
         <main className={styles.main}>
             <Layout>
-                <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <Link href={`/products/${param}`}>{categoryName}</Link></p>
+                <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <Link href={`/category/${param}`}>{categoryName}</Link></p>
                 <h2 className={styles.categoryTitle}>{categoryName}</h2>
 
                 <section className={styles.limitedStocks}>
@@ -172,4 +172,4 @@ export async function getStaticProps({ params }){
     }
 }
 
-export default Products
+export default Categories
