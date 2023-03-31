@@ -93,6 +93,7 @@
 .shippingSFee{
     font-weight: bold;
     font-size: 0.75rem;
+    margin-bottom: 1.25rem;
 }
 .addCartBtn{
     padding: 0.75rem 1rem;
@@ -106,7 +107,6 @@
     align-items: center;
     justify-content: space-between;
     text-transform: uppercase;
-    margin-top: 1.25rem;
     border-radius: 4px;
 }
 .addCartBtn:hover{

@@ -8,6 +8,6 @@ const nextConfig = {
 module.exports = {
   nextConfig,
   images: {
-    domains: ['api.lorem.space', 'firebasestorage.googleapis.com', 'placeimg.com', 'picsum.photos', "t1.gstatic.com"],
+    domains: ['api.lorem.space', 'firebasestorage.googleapis.com', 'placeimg.com', 'picsum.photos', "t1.gstatic.com", "imgflip.com", 'static.wikia.nocookie.net'],
   },
 }

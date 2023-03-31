@@ -1,16 +1,19 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import Head from 'next/head'
-import Header from '../../components/header'
-import Footer from '../../components/footer'
-import styles from '../styles/products.module.css'
-import style from '../../components/itemsCollection.module.css'
-import Link from 'next/link'
-import Layout from '../../components/layout'
-import ItemsCollection from '../../components/itemsCollection'
-import Image from 'next/image'
-import { Slider } from '@mui/material'
+import React, { useEffect, useMemo, useState } from 'react';
+import Head from 'next/head';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import styles from '../styles/products.module.css';
+import Link from 'next/link';
+import Layout from '../../components/layout';
+import ItemsCollection from '../../components/itemsCollection';
+import { Slider } from '@mui/material';
+import ProductsList from '../../components/productsList';
+import { useDispatch, useSelector } from 'react-redux';
+import { calculateTotal } from '../../store/cartSlice';
 
 function Categories({products, param}) {
+    const dispatch = useDispatch()
+    const {cart} = useSelector((state) => state.cart)
     const [fetchedProducts, setFetchedProducts] = useState(products)
     const [sortParam, setSortParam] = useState('default');
     const [sortText, setSortText] = useState('Popularity');
@@ -27,30 +30,7 @@ function Categories({products, param}) {
             return a.id - b.id
         }
     }).map(item => {
-        const randomPercentage = Math.floor(Math.random() * 50)
-        return(
-            <li className={`${style.mainItemsWrap} ${style.mainProducts}`} key={item?.id}>
-                <Link href={`/category/product/${item?.id}`}>
-                    <div className={styles.imageWrapper}>
-                        <Image
-                            src={item?.images?.[0]}
-                            fill={true}
-                        />
-                    </div>
-                    <article>
-                        <h5 className={style.topSellingTitle}>{item?.title}</h5>
-                        <p>${item?.price}</p>
-                        {randomPercentage != 0 &&
-                            <p>
-                                <span className={style.slashedPrice}>${((item?.price * randomPercentage) / 100 + item?.price).toFixed(0)}</span>
-                                <span className={styles.percentageSlash}>-{randomPercentage}%</span>
-                            </p>
-                        }
-                    </article>
-                </Link>
-                <button className={styles.addButton}>Add to Cart</button>
-            </li>
-        )
+        return <ProductsList item={item} />
     }), [fetchedProducts, sortParam])
 
     const limitedStock = useMemo(()=>
@@ -60,6 +40,10 @@ function Categories({products, param}) {
                 return <ItemsCollection item={item} styles={styles} percentageSlash={randomPercentage} />
             }
     }), [products])
+
+    useEffect(()=>{
+        dispatch(calculateTotal())
+    }, [cart])
 
     const priceFiltering = async() => {
         const res = await fetch(`https://api.escuelajs.co/api/v1/products/?categoryId=${param}&price_min=${value[0]}&price_max=${value[1]}`)

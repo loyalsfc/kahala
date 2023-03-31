@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Footer from '../../../components/footer';
 import Header from '../../../components/header';
 import Layout from '../../../components/layout';
@@ -11,36 +11,53 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faCartPlus, faFacebook, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "./lga"
 import DeliveryDetails from '../../../components/deliveryDetails';
-import { useDispatch } from 'react-redux';
-import { addCart } from '../../../store/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCart, calculateTotal, decreaseCartItem, removeCart } from '../../../store/cartSlice';
+import CartModifyBtn from '../../../components/cartModifyBtn';
 
-function Product({products}) {
-  const productDiscount = useMemo(()=>(Math.floor(Math.random() * 50)),[products]);
+function Product({product, param}) {
+  const { category, title, images, price, description } = product;
+  const [productDiscount, setProductDiscount] = useState(0)
+  useEffect(()=>setProductDiscount(Math.floor(Math.random() * 50)),[product]);
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
-
-  const dispatch = useDispatch()
-
+  const { cart } = useSelector(state => state.cart);
+  const [quantity, setQuantity] = useState(1)
+  const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    dispatch(calculateTotal())
+    setQuantity(cart.products.find(product => product.item.id == param)?.quantity)
+  }, [cart])
+  console.log
   const handleClick = () => {
     dispatch(addCart({
-      item: products,
-      quantity: 1
+        item: product,
+        quantity: 1
     }))
+}
+
+  const decreaseQty = () => {
+    if(quantity > 1) {
+      dispatch(decreaseCartItem(parseInt(param)))
+    }else{
+      dispatch(removeCart(parseInt(param)))
+    } 
   }
 
   return (
     <div>
       <Head>
-        <title>{products.title} || Kahala</title>
+        <title>{product.title} || Kahala</title>
       </Head>
       <Header />
       <main className={styles.main}>
         <Layout>
           <p className={styles.breadCrumb}>
             <Link href="/">Home</Link> / 
-            <Link href={`/category/${products?.category?.id}`}> {products?.category?.name}</Link> / 
-            <span>{products?.title}</span>
+            <Link href={`/category/${category?.id}`}> {category?.name}</Link> / 
+            <span>{title}</span>
           </p>
 
           <section className={styles.productInfoWrapper}>
@@ -48,14 +65,14 @@ function Product({products}) {
               <div className={styles.productInfo}>
                 <div className={styles.productInfoImages}>
                   <Image
-                    src={products?.images[imageIndex]}
+                    src={images[imageIndex]}
                     width={240}
                     height={240}
                     alt="Product Image"
                   />
                   <div className={styles.otherImages}>
                     {
-                      products?.images.map((img, index) => {
+                      images.map((img, index) => {
                         return <Image 
                           key={index}
                           src={img} 
@@ -70,14 +87,14 @@ function Product({products}) {
                   <article>
                     <h5>SHARE THIS PRODUCT</h5>
                     <button>
-                      <FontAwesomeIcon icon="fa-brands fa-facebook" />
+                      {/* <FontAwesomeIcon icon="fa-brands fa-facebook" /> */}
                     </button>
                   </article>
                 </div>
                 <article className={styles.ProductInfoDetails}>
                   <div>
                     <h1>
-                      <span>{products?.title}</span>
+                      <span>{title}</span>
                       <FontAwesomeIcon icon={faHeart} />
                     </h1>
                     <div className={styles.ratingContainer}>
@@ -90,24 +107,27 @@ function Product({products}) {
                     </div>
                   </div>
                   <div>
-                    <h2 className={styles.price}>$ {products?.price}</h2>
+                    <h2 className={styles.price}>$ {price}</h2>
                     {productDiscount !== 0 &&  <p>
-                      <span className={styles.originalAmount}>$ {(products?.price * (productDiscount / 100) + products?.price).toFixed(0)}</span>
+                      <span className={styles.originalAmount}>$ {(price * (productDiscount / 100) + price).toFixed(0)}</span>
                       <span className={styles.discountedPercentage}>-{productDiscount}%</span>
                     </p>}
                     <span className={styles.inStockTag}>In stock</span>
                     <p className={styles.shippingSFee}>+ shipping from $10 to {selectedLg}</p>
-                    <button onClick={handleClick} className={styles.addCartBtn}>
-                      <FontAwesomeIcon icon={faCartPlus} />
-                      <span>Add to Cart</span>
-                      <span />
-                    </button>
+                    { !cart.products.some(product => product.item.id == param) ?
+                      <button onClick={handleClick} className={styles.addCartBtn}>
+                        <FontAwesomeIcon icon={faCartPlus} />
+                        <span>Add to Cart</span>
+                        <span />
+                      </button> : 
+                      <CartModifyBtn id={parseInt(param)} quantity={quantity} handleClick={decreaseQty}/>
+                    }
                   </div>
                 </article>
               </div>
               <article className={styles.productDetails}>
                 <h4>Product details</h4>
-                <p>{products?.description}</p>
+                <p>{description}</p>
               </article>
             </div>
             <aside className={styles.aside}>
@@ -115,7 +135,6 @@ function Product({products}) {
               <div className={styles.deliveryLocation}>
                 <h5>Choose your location </h5>
                 <select className={styles.selectState} value={selectedState} onChange={(e)=>setSelectedState(e.target.value)}>
-                  <option selected disabled value="">Select your state? </option>
                   <option value="Abuja">ABUJA FCT</option>
                   <option value="Abia">ABIA</option>
                   <option value="Adamawa">ADAMAWA</option>
@@ -157,7 +176,7 @@ function Product({products}) {
                 <select className={styles.selectState} onChange={(e)=>setSelectedLg(e.target.value)}>
                   {
                     lga?.[selectedState].map((lga, index) => {
-                      return <option>{lga}</option>
+                      return <option key={index}>{lga}</option>
                     })
                   }
                 </select>
@@ -200,10 +219,10 @@ export async function getStaticPaths(){
 
 export async function getStaticProps({params}){
   const res = await fetch(`https://api.escuelajs.co/api/v1/products/${params.id}`)
-  const products = await res.json()
+  const product = await res.json()
 
   return {
-    props: {products}, 
+    props: {product, param: params.id}, 
   }
 }
 

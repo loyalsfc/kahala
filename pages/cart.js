@@ -3,23 +3,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CartProducts from '../components/cartProducts';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Layout from '../components/layout';
 import TopSelling from '../components/topSelling';
+import { calculateTotal } from '../store/cartSlice';
 import styles from './styles/cart.module.css'
 
-function Cart({products, carts}) {
+function Cart({products}) {
     const {cart} = useSelector(state => state.cart)
-    console.log(cart)
+    const dispatch = useDispatch()
+    
     const cartsItems = useMemo(()=>
-        carts.map(items => {
-            <CartProducts key={items?.id} />            
-    }), [])
+        cart.products.map(item => {
+            return <CartProducts items={item} key={item?.id} />          
+    }), [cart])
+
+    useEffect(()=>{
+        dispatch(calculateTotal())
+    }, [cart])
 
     return (
         <div>
@@ -30,7 +36,7 @@ function Cart({products, carts}) {
             <Layout>
                 <main>
                     <div className={styles.cartWrapper}>
-                        {carts.length === 0 ?
+                        {cart.products.length === 0 ?
                             (
                                 <div className={styles.emptyCart}>
                                     <article>
@@ -45,7 +51,7 @@ function Cart({products, carts}) {
                             ):(
                                 <div className={styles.cartSectionContainer}>
                                     <div className={styles.cartItemsWrapper}>
-                                        <h1>Cart ({carts.length})</h1>
+                                        <h1>Cart ({cart.totalProducts})</h1>
                                         <ul className={styles.cartsItemsList}>
                                             {cartsItems}
                                         </ul>
@@ -54,10 +60,10 @@ function Cart({products, carts}) {
                                         <h4>Cart Summary</h4>
                                         <p>
                                             <span>Subtotal</span>
-                                            <span className={styles.subTotal}>${400}</span>
+                                            <span className={styles.subTotal}>${cart.totalPrice}</span>
                                         </p>
                                         <div className={styles.checkoutBtnWrapper}>
-                                            <button className={styles.checkoutBtn}>CHECKOUT (${400})</button>
+                                            <button className={styles.checkoutBtn}>CHECKOUT (${cart.totalPrice})</button>
                                         </div>
                                     </aside>
                                 </div>
@@ -76,13 +82,9 @@ export async function getStaticProps(){
     const res = await fetch('https://api.escuelajs.co/api/v1/products?offset=10&limit=10')
     const products = await res.json()
 
-    const cartRes = await fetch('https://api.escuelajs.co/api/v1/products?offset=10&limit=3')
-    const carts = await cartRes.json()
-
     return {
         props: {
-            products,
-            carts
+            products
         }
     }
 }

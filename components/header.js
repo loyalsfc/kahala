@@ -3,8 +3,11 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
+import { useSelector } from 'react-redux'
 
 function Header() {
+    const {cart}  = useSelector(state => state.cart)
+    
     return (
         <header className={style.header}>
             <div className={style.container}>
@@ -30,7 +33,10 @@ function Header() {
                 </p>
                 <Link href="/cart">
                     <p className={style.headerMenu}>
-                        <FontAwesomeIcon icon={faCartShopping} />
+                        <span className={style.cartItemsCountWrapper}>
+                            <span className={style.cartItemsCount}>{cart.totalProducts}</span>
+                            <FontAwesomeIcon icon={faCartShopping} />
+                        </span>
                         <span>Cart</span>
                     </p>
                 </Link>
