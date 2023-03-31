@@ -45,7 +45,7 @@
 .cartSectionContainer{
     display: flex;
     gap: 1rem;
-    align-items: start;
+    align-items: flex-start;
     position: relative;
 }
 .cartItemsWrapper{
@@ -95,7 +95,7 @@
     width: 30%;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     margin-left: auto;
     gap: 0.25rem;
 }

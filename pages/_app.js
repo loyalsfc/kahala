@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import {Roboto} from 'next/font/google'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import { Provider } from 'react-redux'
+import { store } from '../store/store'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -18,7 +20,9 @@ export default function App ({Component, pageProps}){
                     font-family: ${roboto.style.fontFamily};
                 }
             `}</style>
-            <Component {...pageProps} />
+            <Provider store={store}>
+                <Component {...pageProps} />
+            </Provider>
         </>
         )
 }

@@ -11,12 +11,23 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faCartPlus, faFacebook, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "./lga"
 import DeliveryDetails from '../../../components/deliveryDetails';
+import { useDispatch } from 'react-redux';
+import { addCart } from '../../../store/cartSlice';
 
 function Product({products}) {
   const productDiscount = useMemo(()=>(Math.floor(Math.random() * 50)),[products]);
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
-  const [selectedLg, setSelectedLg] = useState('Agege')
+  const [selectedLg, setSelectedLg] = useState('Agege');
+
+  const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch(addCart({
+      item: products,
+      quantity: 1
+    }))
+  }
 
   return (
     <div>
@@ -50,7 +61,7 @@ function Product({products}) {
                           src={img} 
                           height={38} 
                           width={38} 
-                          alt="Alt image"
+                          alt="image item"
                           onClick={()=>{console.log(index); setImageIndex(index)}} 
                         />
                       })
@@ -86,7 +97,7 @@ function Product({products}) {
                     </p>}
                     <span className={styles.inStockTag}>In stock</span>
                     <p className={styles.shippingSFee}>+ shipping from $10 to {selectedLg}</p>
-                    <button className={styles.addCartBtn}>
+                    <button onClick={handleClick} className={styles.addCartBtn}>
                       <FontAwesomeIcon icon={faCartPlus} />
                       <span>Add to Cart</span>
                       <span />

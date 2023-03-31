@@ -10,8 +10,7 @@ function TopSelling({products}) {
                 <ul className={styles.topSellingContainer}>
                     {
                         products.map(item => {
-                            const randomPercentage = Math.floor(Math.random() * 50)
-                            return <ItemsCollection item={item} styles={styles} percentageSlash={randomPercentage} />
+                            return <ItemsCollection key={item?.id} item={item} styles={styles} />
                         })
                     }
                 </ul>

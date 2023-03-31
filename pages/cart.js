@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import CartProducts from '../components/cartProducts';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import Layout from '../components/layout';
@@ -12,49 +14,12 @@ import TopSelling from '../components/topSelling';
 import styles from './styles/cart.module.css'
 
 function Cart({products, carts}) {
-
+    const {cart} = useSelector(state => state.cart)
+    console.log(cart)
     const cartsItems = useMemo(()=>
         carts.map(items => {
-            const randomDiscount = Math.floor(Math.random() * 50)
-            return (
-                <li key={items?.id}>
-                    <Link className={styles.cartItemsDetails} href={`/category/product/${items?.id}`}>
-                        <Image 
-                            width={72}
-                            height={72}
-                            src={items?.images[0]}
-                            alt={items?.title}
-                        />
-                        <article className={styles.cartItemTitleWrapper}>
-                            <h4>{items?.title}</h4>
-                            <span>In stock </span>
-                        </article>
-                        <article className={styles.cartItemPriceWrapper}>
-                            <h4 className={styles.cartItemPrice}>${items?.price}</h4>
-                            <p>
-                                <span className={styles.slashedPrice}>${((randomDiscount / 100 * items?.price) + items?.price).toFixed()}</span>
-                                <span className={styles.discountedPercentage}>-{randomDiscount}%</span>
-                            </p>
-                        </article>
-                    </Link>
-                    <div className={styles.cartItemModify}>
-                        <button className={styles.cartItemRemoveBtn}>
-                            <FontAwesomeIcon icon={faTrashAlt} />
-                            <span>Delete</span>
-                        </button>
-                        <div className={styles.cartItemNumber}>
-                            <button disabled={true} className={styles.cartItemBtn}>
-                                <FontAwesomeIcon icon={faMinus} />
-                            </button>
-                            <span>1</span>
-                            <button className={styles.cartItemBtn}>
-                                <FontAwesomeIcon icon={faPlus} />
-                            </button>
-                        </div>
-                    </div>
-                </li>
-            )
-    }), [carts])
+            <CartProducts key={items?.id} />            
+    }), [])
 
     return (
         <div>
