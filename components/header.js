@@ -4,9 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
+import { useRef } from 'react'
 
 function Header() {
     const {cart}  = useSelector(state => state.cart)
+    const router = useRouter()
+    const searchInput = useRef()
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        router.push({
+            pathname: '/catalog/search',
+            query: {q: searchInput.current.value}
+        })
+    }
     
     return (
         <header className={style.header}>
@@ -14,10 +26,10 @@ function Header() {
                 <Link href='/'>
                     <span className={style.title}>Kahala <span className={style.orange}>Store</span></span>
                 </Link>
-                <form className={style.inputContainer}>
+                <form onSubmit={handleSubmit} className={style.inputContainer}>
                     <div className={style.inputWrapper}>
                         <span><FontAwesomeIcon icon={faSearch}/></span>
-                        <input type="search" className={style.searchInput} placeholder='Search for product, brands and categories ' />
+                        <input type="search" ref={searchInput} className={style.searchInput} placeholder='Search for product, brands and categories ' />
                     </div>
                     <button className={style.searchButton}>SEARCH</button>
                 </form>
@@ -34,7 +46,7 @@ function Header() {
                 <Link href="/cart">
                     <p className={style.headerMenu}>
                         <span className={style.cartItemsCountWrapper}>
-                            <span className={style.cartItemsCount}>{cart.totalProducts}</span>
+                            {cart.totalProducts !== 0 && <span className={style.cartItemsCount}>{cart.totalProducts}</span>}
                             <FontAwesomeIcon icon={faCartShopping} />
                         </span>
                         <span>Cart</span>

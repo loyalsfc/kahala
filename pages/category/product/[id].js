@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
-import Footer from '../../../components/footer';
-import Header from '../../../components/header';
 import Layout from '../../../components/layout';
 import styles from './productsPage.module.css';
 import Image from 'next/image';
@@ -51,7 +49,6 @@ function Product({product, param}) {
       <Head>
         <title>{product.title} || Kahala</title>
       </Head>
-      <Header />
       <main className={styles.main}>
         <Layout>
           <p className={styles.breadCrumb}>
@@ -197,7 +194,6 @@ function Product({product, param}) {
           </section>
         </Layout>
       </main>
-      <Footer />
     </div>
   )
 }

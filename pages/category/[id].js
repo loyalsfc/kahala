@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
-import Header from '../../components/header';
-import Footer from '../../components/footer';
 import styles from '../styles/products.module.css';
 import Link from 'next/link';
 import Layout from '../../components/layout';
@@ -66,7 +64,6 @@ function Categories({products, param}) {
         <Head>
             <title>Kahala Store</title>
         </Head>
-        <Header />
         <main className={styles.main}>
             <Layout>
                 <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <Link href={`/category/${param}`}>{categoryName}</Link></p>
@@ -131,7 +128,6 @@ function Categories({products, param}) {
                 </section>
             </Layout>
         </main>
-        <Footer />
     </div>
   )
 }

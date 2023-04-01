@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import ItemsCollection from "../components/itemsCollection"
 import useSWR from 'swr'
-import Footer from "../components/footer"
 import Link from "next/link"
 import TopSelling from "../components/topSelling"
 
@@ -21,7 +20,6 @@ function Index({categories, topSellingProducts, limitedStocks}) {
             <Head>
                 <title>Kahala Store</title>
             </Head>
-            <Header />
             <Layout>
                 <section className={styles.heroSection}>
                     <SwiperContainer />
@@ -113,7 +111,6 @@ function Index({categories, topSellingProducts, limitedStocks}) {
                     </ul>
                 </section>
             </Layout>
-            <Footer />
         </div>
     )
 }
