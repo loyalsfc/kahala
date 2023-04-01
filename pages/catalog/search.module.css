@@ -40,3 +40,14 @@
     line-height: 1rem;
     padding: 1rem;
 }
+.goHomeBtn:hover{
+    opacity: 0.8;
+}
+.breadcrumb{
+    color: #313133;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+.breadcrumb span {
+    color: #75757A;
+}
