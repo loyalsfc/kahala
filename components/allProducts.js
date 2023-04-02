@@ -3,9 +3,9 @@ import styles from '../pages/styles/products.module.css'
 import { Slider } from '@mui/material';
 
 function AllProducts({productsItem, categoryName, fetchedProducts, setFetchedProducts, searchFilter, setSortParam}) {
-    const [value, setValue] = useState([0, 1000])
+    const [value, setValue] = useState([0, 1000]);
     const [sortText, setSortText] = useState('Popularity');
-    const [showSort, setShowSort] = useState(false)
+    const [showSort, setShowSort] = useState(false);
 
     const priceFiltering = async() => {
         const res = await fetch(`https://api.escuelajs.co/api/v1/products/?price_min=${value[0]}&price_max=${value[1]}&${searchFilter}`)
@@ -24,7 +24,7 @@ function AllProducts({productsItem, categoryName, fetchedProducts, setFetchedPro
     }
 
     return (
-        <section className={styles.mainProductSection}>
+    <section className={styles.mainProductSection}>
         <aside className={styles.aside}>
             <div className={styles.priceFiltering}>
                 <h4 className={styles.priceFilteringHeader}>

@@ -12,6 +12,7 @@ import DeliveryDetails from '../../../components/deliveryDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCart, calculateTotal, decreaseCartItem, removeCart } from '../../../store/cartSlice';
 import CartModifyBtn from '../../../components/cartModifyBtn';
+import Toast from '../../../components/toast/toast';
 
 function Product({product, param}) {
   const { category, title, images, price, description } = product;
@@ -23,6 +24,10 @@ function Product({product, param}) {
   const { cart } = useSelector(state => state.cart);
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch();
+  const [toastCount, setToastCount] = useState({
+    count: 0,
+    cartMessage: ""
+  });
   
   useEffect(()=>{
     dispatch(calculateTotal())
@@ -34,6 +39,8 @@ function Product({product, param}) {
         item: product,
         quantity: 1
     }))
+    setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
+    
 }
 
   const decreaseQty = () => {
@@ -41,6 +48,7 @@ function Product({product, param}) {
       dispatch(decreaseCartItem(parseInt(param)))
     }else{
       dispatch(removeCart(parseInt(param)))
+      setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
     } 
   }
 
@@ -50,6 +58,9 @@ function Product({product, param}) {
         <title>{product.title} || Kahala</title>
       </Head>
       <main className={styles.main}>
+        {[...Array(toastCount.count)].map((_, index) => (
+            <Toast key={index} message={toastCount.cartMessage} duration={5000} />
+          ))}
         <Layout>
           <p className={styles.breadCrumb}>
             <Link href="/">Home</Link> / 

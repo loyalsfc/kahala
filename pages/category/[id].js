@@ -8,12 +8,15 @@ import ProductsList from '../../components/productsList';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateTotal } from '../../store/cartSlice';
 import AllProducts from '../../components/allProducts';
+import Toast from '../../components/toast/toast';
 
 function Categories({products, param}) {
     const dispatch = useDispatch()
     const {cart} = useSelector((state) => state.cart)
     const [fetchedProducts, setFetchedProducts] = useState(products)
     const [sortParam, setSortParam] = useState('default');
+    const [toastCount, setToastCount] = useState(0);
+
 
     const categoryName = products?.[0]?.category?.name; 
 

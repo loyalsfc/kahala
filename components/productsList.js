@@ -3,13 +3,15 @@ import styles from "../pages/styles/products.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
 import style from './itemsCollection.module.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addCart } from '../store/cartSlice'
 
 function ProductsList({item}) {
     const {id, images, price, title } = item;
     const [randomDiscount, setRandomDiscount] = useState(0)
     const dispatch = useDispatch();
+    const {cart} = useSelector(state => state.cart)
+    console.log(cart)
 
     useEffect(()=>{
         setRandomDiscount(Math.floor(Math.random() * 50))
