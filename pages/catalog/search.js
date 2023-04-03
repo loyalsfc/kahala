@@ -10,24 +10,9 @@ import { useState, useMemo } from 'react';
 import ProductsList from '../../components/productsList';
 import Link from 'next/link';
 
-function Search({products}) {
-    const [fetchedProducts, setFetchedProducts] = useState(products)
-    const [sortParam, setSortParam] = useState('default');
-
-    const productsItem = useMemo(() => fetchedProducts.sort((a, b) => {
-        if(sortParam === "ascending"){
-            return b.price - a.price
-        } else if(sortParam === "descending"){
-            return a.price - b.price
-        } else {
-            return a.id - b.id
-        }
-    }).map(item => {
-        return <ProductsList item={item} />
-    }), [fetchedProducts, sortParam])
-
+function Search({products, topSelling}) {
     const {query} = useRouter();
-    console.log(products) 
+
     return (
         <div>
             <Head>
@@ -43,12 +28,9 @@ function Search({products}) {
                                         <Link href='/'>Home</Link> / <Link href={'/allproduct'}>All Products </Link> / <span>{query.q}</span>
                                     </p>
                                     <AllProducts 
-                                        productsItem={productsItem}
                                         categoryName={"Shop Online in Nigeria"}
-                                        fetchedProducts={fetchedProducts}
-                                        setFetchedProducts={setFetchedProducts}
+                                        products={products}
                                         searchFilter={`title=${query.q}`}
-                                        setSortParam={setSortParam}
                                     />
                                 </div>
                             ):(
@@ -69,7 +51,7 @@ function Search({products}) {
                             )
                         }
                     </div>
-                    {/* <TopSelling products={topSelling} /> */}
+                    <TopSelling products={topSelling} />
                 </main>
             </Layout>
         </div>
@@ -79,10 +61,13 @@ function Search({products}) {
 export async function getServerSideProps({query}){
     const res = await fetch(`https://api.escuelajs.co/api/v1/products/?title=${query.q}`);
     const products = await res.json();
-    
+
+    const topSellingRes = await fetch("https://api.escuelajs.co/api/v1/products/?offset=10&limit=10")
+    const topSelling = await topSellingRes.json()
     return {
         props: {
-            products
+            products,
+            topSelling
         }
     }
 }

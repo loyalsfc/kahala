@@ -4,14 +4,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import style from './itemsCollection.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCart } from '../store/cartSlice'
+import { addCart, decreaseCartItem, removeCart } from '../store/cartSlice'
+import CartModifyBtn from './cartModifyBtn'
+import Toast from './toast/toast'
 
 function ProductsList({item}) {
     const {id, images, price, title } = item;
     const [randomDiscount, setRandomDiscount] = useState(0)
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.cart)
-    console.log(cart)
+    const quantity = cart.products.find(product => product.item.id == id)?.quantity
+    const [toastCount, setToastCount] = useState({
+        count: 0,
+        cartMessage: ""
+    })
 
     useEffect(()=>{
         setRandomDiscount(Math.floor(Math.random() * 50))
@@ -22,10 +28,23 @@ function ProductsList({item}) {
             item: item,
             quantity: 1
         }))
+        setToastCount({count: toastCount.count + 1, cartMessage: "Item Added to Cart Successfully"});
+    }
+
+    const decreaseQty = (id) => {
+        if(quantity > 1) {
+          dispatch(decreaseCartItem(id))
+        }else{
+          dispatch(removeCart(id))
+          setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
+        } 
     }
 
     return(
             <li className={`${style.mainItemsWrap} ${style.mainProducts}`} key={id}>
+                {[...Array(toastCount.count)].map((_, index) => (
+                    <Toast key={index} message={toastCount.cartMessage} duration={5000} />
+                ))}
                 <Link href={`/category/product/${id}`}>
                     <div className={styles.imageWrapper}>
                         <Image
@@ -45,12 +64,24 @@ function ProductsList({item}) {
                         }
                     </article>
                 </Link>
-                <button 
-                    className={styles.addButton}
-                    onClick={handleClick}
-                >
-                    Add to Cart
-                </button>
+                <div className={styles.btnWrapper}>
+                    {cart.products.some(product => product.item.id == id) ?
+                        (
+                            <CartModifyBtn 
+                                quantity={quantity} 
+                                id={id} 
+                                handleClick={()=>decreaseQty(id)}
+                            />
+                        ):(
+                            <button 
+                                className={styles.addButton}
+                                onClick={handleClick}
+                            >
+                                Add to Cart
+                            </button>
+                        )
+                    }
+                </div>
             </li>
     )
 }

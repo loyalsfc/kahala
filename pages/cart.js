@@ -1,7 +1,6 @@
-import { faCartShopping, faMinus, faPlus, faTrash, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useMemo } from 'react';

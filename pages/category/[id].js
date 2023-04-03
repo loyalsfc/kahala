@@ -4,33 +4,15 @@ import styles from '../styles/products.module.css';
 import Link from 'next/link';
 import Layout from '../../components/layout';
 import ItemsCollection from '../../components/itemsCollection';
-import ProductsList from '../../components/productsList';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateTotal } from '../../store/cartSlice';
 import AllProducts from '../../components/allProducts';
-import Toast from '../../components/toast/toast';
 
 function Categories({products, param}) {
     const dispatch = useDispatch()
     const {cart} = useSelector((state) => state.cart)
-    const [fetchedProducts, setFetchedProducts] = useState(products)
-    const [sortParam, setSortParam] = useState('default');
-    const [toastCount, setToastCount] = useState(0);
-
 
     const categoryName = products?.[0]?.category?.name; 
-
-    const productsItem = useMemo(() => fetchedProducts.sort((a, b) => {
-        if(sortParam === "ascending"){
-            return b.price - a.price
-        } else if(sortParam === "descending"){
-            return a.price - b.price
-        } else {
-            return a.id - b.id
-        }
-    }).map(item => {
-        return <ProductsList item={item} />
-    }), [fetchedProducts, sortParam])
 
     const limitedStock = useMemo(()=>
         products.map((item, index) => {
@@ -63,12 +45,9 @@ function Categories({products, param}) {
                     </div>
                 </section>
                 <AllProducts 
-                    productsItem={productsItem}
+                    products={products}
                     categoryName={categoryName}
-                    fetchedProducts={fetchedProducts}
-                    setFetchedProducts={setFetchedProducts}
                     searchFilter={`categoryId=${param}`}
-                    setSortParam={setSortParam}
                 />
             </Layout>
         </main>

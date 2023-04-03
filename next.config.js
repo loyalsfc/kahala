@@ -20,6 +20,8 @@ module.exports = {
     "platzi.com",
     "wikiwikiexample.pythonanywhere.com",
     "imgs.search.brave.com",
+    "img.tgdd.vn",
+    "bizweb.dktcdn.net"
   ],
   },
 }
