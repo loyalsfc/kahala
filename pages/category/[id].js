@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from '../styles/products.module.css';
 import Link from 'next/link';

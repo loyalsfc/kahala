@@ -40,12 +40,10 @@
     gap: 0.5rem;
     font-weight: 500;
     position: relative;
-    list-style: none;
     padding: 10px;
 }
 .limitedStockContainer li{
     flex-shrink: 0;
-    list-style: none;
     position: relative;
 }
 .limitedStockContainer::-webkit-scrollbar{
@@ -84,7 +82,6 @@
     font-weight: bold;
 }
 .mainPageItems{
-    list-style: none;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.5rem;
@@ -99,7 +96,7 @@
     object-fit: "cover";
 }
 .percentageSlash{
-    color: #f68b1e;
+    color: var(--primary);
     background-color: #fef3e9;
     padding: 2px 4px;
     font-size: 12px;
@@ -116,7 +113,7 @@
 }
 .addButton{
     width: 100%;
-    background-color: #f68b1e;
+    background-color: var(--primary);
     border: 0;
     padding: 0.5rem;
     font-weight: bold;
@@ -134,11 +131,10 @@
     border-radius: 4px;
 }
 .sortingWrapper p:hover{
-    color: #f68b1e;
+    color: var(--primary);
 }
 .sortContainer{
     position: absolute;
-    list-style: none;
     font-size: 14px;
     font-weight: 500;
     background-color: #FFF;
@@ -159,7 +155,7 @@
     background-color: #EDEDED;
 }
 .sliderColor{
-    color: #f68b1e;
+    color: var(--primary);
 }
 .priceFiltering{
     padding: 1rem;
@@ -172,7 +168,7 @@
 }
 .priceFilteringHeader button{
     background-color: transparent;
-    color: #f68b1e;
+    color: var(--primary);
     font-weight: 700;
     border: none;
     font-size: 14px;
@@ -188,4 +184,31 @@
     width: 83px;
     border: 1px solid #ededed;
     border-radius: 4px;
+}
+.paginationContainer{
+    margin: 1rem auto;
+    display: flex;
+    gap: 0.5rem;
+    width: fit-content;
+    /* background-color: blue; */
+}
+.pagesLi, .nextClass{
+    height: 2rem;
+    width: 2.5rem;
+    border: 1px solid #313133;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+.pagesLi > a, .nextClass > a{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
+.active{
+    border-color: var(--primary);
+}
+.nextClass.disabled{
+    border-color: #EDEDED;
 }
