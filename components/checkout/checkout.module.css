@@ -1,0 +1,146 @@
+.wrapper{
+    background-color: #FFF;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0;
+}
+.heading{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--borderColor);
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: #000;
+    text-transform: uppercase;
+}
+.changeBtn{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-left: auto;
+}
+.mainContent{
+    padding: 1rem 3rem;
+    color: #808080;
+    font-size: 13px;
+}
+.mainContent h5{
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #000;
+}
+.status{
+    height: 1.25rem;
+    width: 1.25rem;
+    border-radius: 50%;
+    line-height: 1.25rem;
+    background-color: #e2e2e2;
+    display: grid;
+    place-content: center;
+    color: #FFF;
+    margin-right: 1rem;
+}
+.deliveryMethod{
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    padding: 1rem 0;
+}
+.deliveryMethod > h5{
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+.radioLabelWrapper{
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    gap: 0.75rem;
+    line-height: 1.5rem;
+}
+.radioLabelWrapper input[type=radio]{
+    accent-color: var(--primary);
+}
+.arrivalNotes{
+    color: #808080;
+    padding: 0 1.5rem;
+}
+.methodDetails{
+    margin: 1rem 1.5rem 0;
+    border: 1px solid #f0f0f0;
+    border-radius: 0.25rem;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: self-start;
+}
+.methodDetails span{
+    height: 13px;
+    width: 13px;
+    color: gray;
+    border: 1px solid gray;
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    font-size: 0.5rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    margin-right: 10px;
+}
+.methodDetailsList{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+.methodDetailsBtn{
+    background-color: transparent;
+    border: none;
+    margin: 0.5rem 1.5rem;
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+.methodContainer{
+    border-bottom: 1px solid var(--borderColor);
+    padding: 1rem 0;
+}
+.deliveryTotal{
+    color: var(--primary);
+}
+.shipmentDetailsContainer{
+    border: 1px solid var(--borderColor);
+    border-radius: 0.25rem;
+    color: #808080;
+}
+.shipmentDetailsContainer h4{
+    padding: 10px 1rem;
+    border-bottom: 1px solid var(--borderColor);
+}
+.cartItemsWrapper{
+    padding: 4px 10px 6px;
+    margin: 6px;
+}
+.cartItems{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0.5rem 0 0.75rem;
+    border-bottom: 1px solid var(--borderColor);
+    font-weight: 400;
+}
+.cartItems h5{
+    display: flex;
+    gap: 1rem;
+    color: #808080;
+}
+.cartItems:last-child{
+    border: none;
+}
+.expectedDate{
+    font-weight: bold;
+    color: #000;
+}
