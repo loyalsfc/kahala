@@ -1,0 +1,19 @@
+.checkoutWrapper{
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 10px;
+}
+.orderSummary{
+    width: 265px;
+    flex-shrink: 0;
+    background-color: #FFF;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+}
+.orderSummary h4{
+    font-size: 0.875rem;
+    padding: 10px 0.5rem;
+    border-bottom: 1px solid var(--borderColor);
+    font-style: 500;
+}

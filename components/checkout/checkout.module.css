@@ -115,6 +115,7 @@
     border: 1px solid var(--borderColor);
     border-radius: 0.25rem;
     color: #808080;
+    margin: 10px 0;
 }
 .shipmentDetailsContainer h4{
     padding: 10px 1rem;
@@ -143,4 +144,106 @@
 .expectedDate{
     font-weight: bold;
     color: #000;
+}
+.subTotals{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+}
+.deliveryFee{
+    border-bottom: 1px solid var(--borderColor);
+}
+.priceSum{
+    color: var(--primary);
+    font-weight: bold;
+}
+.totalSum{
+    padding: 10px 0 0;
+    font-weight: bold;
+}
+.totalSum .priceSum{
+    font-size: 17px;
+}
+.deliveryNotes{
+    text-align: center;
+    color: #C5C5C5;
+    font-weight: 400;
+    margin-top: 1rem;
+}
+.proceedBtn{
+    padding: 1rem 0.75rem ;
+    margin-top: 1.25rem;
+    background-color: var(--primary);
+    border: none;
+    width: 100%;
+    color: #FFF;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.proceedBtn:hover{
+    background-color: #e07e1c;
+}
+
+.paymentMethodWrapper{
+    color: #000;
+}
+.paymentMethodWrapper h4{
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+.paymentMethodDetails{
+    margin-top: 0.25rem;
+    padding-left: 1.5rem;
+    color: #808080;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.cardPaymentWrapper{
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--borderColor);
+}
+.payOnDelivery{
+    color: #808080;
+    padding: 1rem 0;
+}
+.payOnDelivery p{
+    padding-left: 1.5rem;
+}
+
+.voucherWrapper h4{
+    color: #000;
+    padding: 10px 0 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+.voucherInputWrapper{
+    display: flex;
+    align-items: stretch;   
+    padding-bottom: 1.25rem;
+}
+.voucherInputWrapper input{
+    border: 1px solid var(--borderColor);
+    background-color: #FFF;
+    padding: 10px;
+    font-size: 0.875rem;
+    flex: 1;
+}
+.voucherInputWrapper button{
+    background-color: var(--primary);
+    border: none;
+    padding: 10px 1.5rem;
+    font-size: 0.875rem;
+    color: #FFF;
+    font-weight: 600;
+}
+.voucherInputWrapper button:hover{
+    background-color: #e07e1c;
 }

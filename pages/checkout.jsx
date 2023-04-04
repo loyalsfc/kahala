@@ -3,13 +3,16 @@ import Layout from '../components/layout'
 import Head from 'next/head'
 import CheckoutComponent from '../components/checkout/checkoutComponent'
 import DeliveryMethod from '../components/checkout/deliveryMethod'
+import PaymentMethod from '../components/checkout/paymentMethod'
+import styles from './styles/checkout.module.css'
+import { useSelector } from 'react-redux'
 
 function Checkout() {
     const userFullName = "Olumide Bambe"
     const userAddress = "Adamolekun Estate, Adebayo, Ado-Ekiti, Ado Ekiti, Ekiti"
     const userPhoneNumber = "+2348104123456"
-
-
+    const {cart} = useSelector(state => state.cart)
+    const {totalProducts, products} = cart;
     return (
         <div>
             <Head>
@@ -17,7 +20,7 @@ function Checkout() {
             </Head>
             <main>
                 <Layout>
-                    <div>
+                    <div className={styles.checkoutWrapper}>
                         <section>
                             <CheckoutComponent 
                                 title="1. Address Details"
@@ -29,8 +32,21 @@ function Checkout() {
                             <CheckoutComponent title="2. Delivery Method">
                                 <DeliveryMethod />
                             </CheckoutComponent>
+                            <CheckoutComponent title="3. Payment Method">
+                                <PaymentMethod />
+                            </CheckoutComponent>
                         </section>
-                        <aside></aside>
+                        <aside className={styles.orderSummary}>
+                            <h4>YOUR ORDER ({totalProducts} items)</h4>
+                            <div>
+                                <ul>
+                                    {
+                                        
+                                    }
+                                </ul>
+                            </div>
+                        </aside>
+
                     </div>
                 </Layout>
             </main>

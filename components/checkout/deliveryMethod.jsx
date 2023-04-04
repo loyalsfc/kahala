@@ -3,10 +3,11 @@ import styles from './checkout.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
+import DeliverySumUp from './deliverySumUp'
 
 function DeliveryMethod() {
     const {cart } = useSelector(state => state.cart)
-    const {products, totalProducts} = cart;
+    const {products, totalProducts, totalPrice} = cart;
     console.log(cart)
 
     return (
@@ -67,7 +68,7 @@ function DeliveryMethod() {
                             products.map((product, index) => {
                                 return(
                                     <li className={styles.cartItems} key={product?.item?.id}>
-                                        <p>Shipment {index + 1} of {totalProducts}</p>
+                                        <p>Shipment {index + 1} of {products.length}</p>
                                         <h5>
                                             <span>{product?.quantity}x</span>
                                             <span>{product?.item?.title}</span>
@@ -80,8 +81,14 @@ function DeliveryMethod() {
                     </ul>
                 </div>
             </article>
+
+            <DeliverySumUp />
+            <p className={styles.deliveryNotes}>You will be able to add a voucher in the next step</p>
+            <button className={styles.proceedBtn}>Proceed to next step</button>
         </div>
     )
 }
+
+
 
 export default DeliveryMethod
