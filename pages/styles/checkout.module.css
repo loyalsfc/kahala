@@ -4,16 +4,60 @@
     gap: 1rem;
     padding: 10px;
 }
+.headerTitle{
+    font-size: 14px;
+    color: #ABABAB;
+    margin: 1.25rem 0 10px;
+
+}
 .orderSummary{
     width: 265px;
     flex-shrink: 0;
+}
+.orderSummary > div{
     background-color: #FFF;
     border-radius: 0.25rem;
-    margin-top: 0.5rem;
 }
 .orderSummary h4{
     font-size: 0.875rem;
     padding: 10px 0.5rem;
     border-bottom: 1px solid var(--borderColor);
     font-style: 500;
+}
+.summaryWrapper{
+    font-size: 13px;
+    color: #000;
+}
+.summaryWrapper li{
+    padding: 6px 0.5rem;
+    border-bottom: 1px solid var(--borderColor);
+    display: flex;
+    gap: 0.5rem;
+}
+.summaryWrapperArticle{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.summaryItemPrice{
+    color: var(--primary);
+}
+.summaryQty{
+    color: #808088;
+}
+.deliverySumWrap{
+    padding: 0 0.5rem;
+    margin-top: 1rem;
+}
+.modifyCartBtn{
+    border: none;
+    width: 100%;
+    margin-top: 10px;
+    border-top: 1px solid var(--borderColor);
+    padding: 1rem;
+    display: block;
+    background-color: transparent;
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: bold;
 }
