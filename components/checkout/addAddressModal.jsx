@@ -3,21 +3,24 @@ import styles from "./checkout.module.css"
 import { faClose, faPen, faPlusCircle } from "@fortawesome/free-solid-svg-icons"
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
 import AddNewAddressModal from "./addNewAddressModal"
+import { useState } from "react"
 
 
-function AddAddressModal() {
+function AddAddressModal({handleClick}) {
+    const [showAddressModal, setShowAddressModal] = useState(false)
+    
     return (
         <div className={styles.modalBg}>
-            <AddNewAddressModal />
+            {showAddressModal && <AddNewAddressModal closeModal={setShowAddressModal} />}
             <div className={styles.modalContainer}>
                 <header className={styles.modalHeader}>
                     <h3>Address Book</h3>
-                    <button className={styles.modalCloseBtn}>
+                    <button onClick={()=>handleClick()} className={styles.modalCloseBtn}>
                         <FontAwesomeIcon icon={faClose} size="xl"/>
                     </button>
                 </header>
                 <div className={styles.modalNewAddressBtnWrapper}>
-                    <button className={styles.modalNewAddressBtn}>
+                    <button onClick={()=>setShowAddressModal(true)} className={styles.modalNewAddressBtn}>
                         <FontAwesomeIcon icon={faPlusCircle} size="xl" />
                         ADD A NEW ADDRESS
                     </button>

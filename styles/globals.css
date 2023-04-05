@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+*::-webkit-scrollbar{
+    display: none;
+}
+
 :root{
     background-color: #f1f1f2;
     font-size: 1rem;

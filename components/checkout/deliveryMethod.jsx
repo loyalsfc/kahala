@@ -8,7 +8,6 @@ import DeliverySumUp from './deliverySumUp'
 function DeliveryMethod() {
     const {cart } = useSelector(state => state.cart)
     const {products, totalProducts, totalPrice} = cart;
-    console.log(cart)
 
     return (
         <div className={styles.deliveryMethod}>
