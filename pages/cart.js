@@ -59,7 +59,7 @@ function Cart({products}) {
                                             <span className={styles.subTotal}>${cart.totalPrice}</span>
                                         </p>
                                         <div className={styles.checkoutBtnWrapper}>
-                                            <Link href="/checkout">
+                                            <Link href="/pagecheckout/address">
                                                 <button className={styles.checkoutBtn}>CHECKOUT (${cart.totalPrice})</button>
                                             </Link>
                                         </div>

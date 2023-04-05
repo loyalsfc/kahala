@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './checkout.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 
 function AddressForm({spacing}) {
     const handleSubmit = (e) =>{
@@ -10,7 +11,7 @@ function AddressForm({spacing}) {
 
     return (
         <form className={styles.newAddressForm} onSubmit={handleSubmit}>
-            <div style={{padding: spacing ? "1.25rem 30px" : ""}} className={styles.formDetailsContainer}>
+            <div style={{padding: spacing ? "1.25rem 30px" : "1rem 3rem"}} className={styles.formDetailsContainer}>
                 <div className={styles.formInputNameWrapper}>
                     <div className={styles.formInputWrapper}>
                         <label className={styles.formInputLabel} htmlFor="first_name">First Name</label>
@@ -70,8 +71,8 @@ function AddressForm({spacing}) {
                 </div>
                 <p className={styles.formnotes}>*Required</p>
             </div>
-            <div style={{padding: spacing ? "1.25rem 30px" : ""}} className={styles.submitBtnContainer}>
-                <button className={styles.submitBtn}>SAVE AND CONTINUE</button>
+            <div style={{padding: spacing ? "1.25rem 30px" : "1rem 3rem"}} className={styles.submitBtnContainer}>
+                <Link href="/pagecheckout/delivery"><button className={styles.submitBtn}>SAVE AND CONTINUE</button></Link>
             </div>
         </form>
     )

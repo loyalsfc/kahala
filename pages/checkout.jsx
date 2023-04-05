@@ -41,7 +41,6 @@ function Checkout() {
                 <title>Checkout Page</title>
             </Head>
             <main>
-                {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
                 <Layout>
                     <div className={styles.checkoutWrapper}>
                         <section>

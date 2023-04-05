@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import Layout from '../components/layout'
+import Layout from '../layout'
 import Head from 'next/head'
-import CheckoutComponent from '../components/checkout/checkoutComponent'
-import DeliveryMethod from '../components/checkout/deliveryMethod'
-import PaymentMethod from '../components/checkout/paymentMethod'
-import styles from './styles/checkout.module.css'
+// import CheckoutComponent from '../checkout/checkoutComponent'
+// import DeliveryMethod from '../checkout/deliveryMethod'
+// import PaymentMethod from '../components/checkout/paymentMethod'
+import styles from './checkoutTemplate.module.css'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
-import DeliverySumUp from '../components/checkout/deliverySumUp'
+import DeliverySumUp from '../checkout/deliverySumUp'
 import Link from 'next/link'
-import AddAddressModal from '../components/checkout/addAddressModal'
-import AddressForm from '../components/checkout/addressForm'
+import AddAddressModal from '../checkout/addAddressModal'
+// import AddressForm from '../components/checkout/addressForm'
 
-function Checkout() {
+function Checkout({children}) {
     const [displayAddressModal, setDisplayAddressModal] = useState(false)
     const address = null;
     const userFullName = "Olumide Bambe"
@@ -44,31 +44,10 @@ function Checkout() {
                 {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
                 <Layout>
                     <div className={styles.checkoutWrapper}>
-                        <section>
+                        <section style={{flex: 1}}>
                             <h3 className={styles.headerTitle}>CHECKOUT</h3>
                             <div>
-                                <CheckoutComponent 
-                                    title="1. Address Details"
-                                    handleClick = {openAddressModal}
-                                    showBtn = {address ? true : false}
-                                >
-                                   {address ? ( 
-                                            <article>
-                                                <h5>{userFullName}</h5>
-                                                <p>{userAddress}</p>
-                                                <p>{userPhoneNumber}</p>
-                                            </article> 
-                                        ):(
-                                            <AddressForm />
-                                        )
-                                    }
-                                </CheckoutComponent>
-                                <CheckoutComponent title="2. Delivery Method">
-                                    <DeliveryMethod />
-                                </CheckoutComponent>
-                                <CheckoutComponent title="3. Payment Method">
-                                    <PaymentMethod />
-                                </CheckoutComponent>
+                                {children}
                             </div>
                         </section>
                         <aside className={styles.orderSummary}>

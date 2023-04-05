@@ -5,10 +5,12 @@ import AddressForm from '../../components/checkout/addressForm'
 import Head from 'next/head'
 import Checkout from '../../components/checkoutpage/checkouttemplate'
 import CheckoutComponent from '../../components/checkout/checkoutComponent'
+import DeliveryMethod from '../../components/checkout/deliveryMethod'
+import AddAddressModal from '../../components/checkout/addAddressModal'
 
 function address() {
     const [displayAddressModal, setDisplayAddressModal] = useState(false)
-    const address = null;
+    const address = 'false';
     const userFullName = "Olumide Bambe"
     const userAddress = "Adamolekun Estate, Adebayo, Ado-Ekiti, Ado Ekiti, Ekiti"
     const userPhoneNumber = "+2348104123456"
@@ -34,7 +36,7 @@ function address() {
     return (
         <div>
             <Head>
-                <title>Address Details | Kahala </title>
+                <title>Delivery Method | Kahala </title>
             </Head>
             <Layout>
                 <Checkout>
@@ -45,7 +47,7 @@ function address() {
                         showBtn = {address ? true : false}
                     >
                     {address ? ( 
-                                <article>
+                                <article style={{padding: "1rem 3rem"}}>
                                     <h5>{userFullName}</h5>
                                     <p>{userAddress}</p>
                                     <p>{userPhoneNumber}</p>
@@ -55,7 +57,9 @@ function address() {
                             )
                         }
                     </CheckoutComponent>
-                    <CheckoutComponent title="2. Delivery Method"/>
+                    <CheckoutComponent title="2. Delivery Method" showBtn = {address ? true : false}>
+                        <DeliveryMethod />
+                    </CheckoutComponent>
                     <CheckoutComponent title="3. Payment Method"/>
                 </Checkout>
             </Layout>
