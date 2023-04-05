@@ -2,10 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import styles from "./checkout.module.css"
 import { faClose, faPen, faPlusCircle } from "@fortawesome/free-solid-svg-icons"
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
+import AddNewAddressModal from "./addNewAddressModal"
+
 
 function AddAddressModal() {
     return (
         <div className={styles.modalBg}>
+            <AddNewAddressModal />
             <div className={styles.modalContainer}>
                 <header className={styles.modalHeader}>
                     <h3>Address Book</h3>
@@ -29,6 +32,9 @@ function AddAddressModal() {
                         />
                     </ul>
                 </div>
+                <div className={styles.selectAddressBtnWrapper}>
+                    <button className={styles.selectAddressBtn}>Use this address</button>
+                </div>
             </div>
         </div>
     )
@@ -37,17 +43,19 @@ function AddAddressModal() {
 function Address({id, name, address, phone}){
     return (
         <li>
-            <h4>DEFAULT ADDRESS</h4>
+            <h4 className={styles.addressTag}>DEFAULT ADDRESS</h4>
             <div className={styles.addressDetails}>
                 <input type="radio" name="selected-address" id={id} />
-                <p>
-                    <span>{name}</span> <br />
-                    <span>{address}</span> <br/>
-                    <span>{phone}</span>
-                </p>
                 <div>
-                    <button>Edit <FontAwesomeIcon icon={faPen} /></button>
-                    <button>Delete <FontAwesomeIcon icon={faTrashAlt} /></button>
+                    <label className={styles.addressName} htmlFor={id}>{name}</label>
+                    <p className={styles.addressContacts}>
+                        <span>{address}</span> <br/>
+                        <span>{phone}</span>
+                    </p>
+                </div>
+                <div className={styles.addressDetailsBtnWrapper}>
+                    <button className={styles.addressDetailsBtn}>Edit <FontAwesomeIcon icon={faPen} /></button>
+                    <button className={styles.addressDetailsBtn}>Delete <FontAwesomeIcon icon={faTrashAlt} /></button>
                 </div>
             </div>
         </li>

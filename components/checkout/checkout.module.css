@@ -18,7 +18,6 @@
 }
 .changeBtn{
     background-color: transparent;
-    border: none;
     cursor: pointer;
     color: var(--primary);
     font-weight: bold;
@@ -27,7 +26,7 @@
 }
 .mainContent{
     padding: 1rem 3rem;
-    color: #808080;
+    color: var(--secondaryText);
     font-size: 13px;
 }
 .mainContent h5{
@@ -68,7 +67,7 @@
     accent-color: var(--primary);
 }
 .arrivalNotes{
-    color: #808080;
+    color: var(--secondaryText);
     padding: 0 1.5rem;
 }
 .methodDetails{
@@ -101,7 +100,6 @@
 }
 .methodDetailsBtn{
     background-color: transparent;
-    border: none;
     margin: 0.5rem 1.5rem;
     color: var(--primary);
     font-size: 0.875rem;
@@ -117,7 +115,7 @@
 .shipmentDetailsContainer{
     border: 1px solid var(--borderColor);
     border-radius: 0.25rem;
-    color: #808080;
+    color: var(--secondaryText);
     margin: 10px 0;
 }
 .shipmentDetailsContainer h4{
@@ -139,7 +137,7 @@
 .cartItems h5{
     display: flex;
     gap: 1rem;
-    color: #808080;
+    color: var(--secondaryText);
 }
 .cartItems:last-child{
     border: none;
@@ -180,7 +178,6 @@
     padding: 1rem 0.75rem ;
     margin-top: 1.25rem;
     background-color: var(--primary);
-    border: none;
     width: 100%;
     color: #FFF;
     font-size: 0.875rem;
@@ -188,7 +185,7 @@
     text-transform: capitalize;
 }
 .proceedBtn:hover{
-    background-color: #e07e1c;
+    background-color: var(--btnHoverBg);
 }
 
 .paymentMethodWrapper{
@@ -201,7 +198,7 @@
 .paymentMethodDetails{
     margin-top: 0.25rem;
     padding-left: 1.5rem;
-    color: #808080;
+    color: var(--secondaryText);
     font-size: 13px;
     font-weight: 500;
     display: flex;
@@ -213,7 +210,7 @@
     border-bottom: 1px solid var(--borderColor);
 }
 .payOnDelivery{
-    color: #808080;
+    color: var(--secondaryText);
     padding: 1rem 0;
 }
 .payOnDelivery p{
@@ -241,14 +238,13 @@
 }
 .voucherInputWrapper button{
     background-color: var(--primary);
-    border: none;
     padding: 10px 1.5rem;
     font-size: 0.875rem;
     color: #FFF;
     font-weight: 600;
 }
 .voucherInputWrapper button:hover{
-    background-color: #e07e1c;
+    background-color: var(--btnHoverBg);
 }
 
 .modalBg{
@@ -280,7 +276,6 @@
 }
 .modalCloseBtn{
     background-color: transparent;
-    border: none;
     position: absolute;
     top: 50%;
     right: 2rem;
@@ -292,7 +287,6 @@
 }
 .modalNewAddressBtn{
     background-color: transparent;
-    border: none;
     font-weight: 600;
     font-size: 0.875rem;
     color: var(--primary);
@@ -302,8 +296,125 @@
 }
 .savedAddressesWrapper{
     padding: 10px 30px;
+    border-bottom: 1px solid var(--borderColor);
 }
 .addressDetails{
     display: flex;
+    align-items: start;
     gap: 10px;
+}
+.addressTag{
+    font-size: 0.875rem;
+    color: var(--secondaryText);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+.addressDetailsBtnWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+    justify-content: center;
+    gap: 0.75rem;
+}
+.addressDetailsBtn{
+    background-color: transparent;
+    color: var(--primary);
+    font-weight: 600;
+}
+.addressName{
+    color: #000;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+    display: block;
+}
+.addressContacts{
+    color: var(--secondaryText);
+    font-size: 13px;
+}
+.selectAddressBtnWrapper{
+    margin: 1.25rem 30px;
+}
+.selectAddressBtn{
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary);
+    color: #FFF;
+    font-weight: 600;
+}
+.addNewAddressModal{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+.newAddressForm{
+    flex: 1;
+    flex-grow: 0;
+}
+.formInputNameWrapper{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+.formInputWrapper{
+    font-size: 0.75rem;
+    color: var(--secondaryText);
+}
+.formInputLabel{
+    display: block;
+    position: relative;
+    margin-bottom: 6px;
+}
+.formInputLabel::after{
+    content: " *";
+}
+.formInput{
+    border: 1px solid #CCC;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #000;
+    background-color: #FFF;
+    padding: 7px 10px;
+    width: 100%;
+    height: auto;
+}
+.formInputNumberWrapper{
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 10px;
+}
+.mainNumber{
+    grid-column: span 9 / span 9;
+}
+.addMoreBtn{
+    margin-left: auto;
+    display: block;
+    background-color: transparent;
+    color: var(--secondaryText);
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    gap: 0.2rem;
+}
+.addMoreBtn:hover{
+    color: var(--primary);
+}
+.formTextArea{
+    min-height: 100px;
+}
+.submitBtnContainer{
+    padding: 1.25rem 30px;
+    border-top: 1px solid var(--borderColor);
+}
+.submitBtn{
+    width: 100%;
+    background-color: var(--primary);
+    padding: 10px;
+    color: #FFF;
+    font-weight: 600;
+}
+.submitBtn:hover{
+    background-color: var(--btnHoverBg);
 }
