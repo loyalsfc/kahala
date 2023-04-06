@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layout from '../layout'
+import Layout from '../Layout/layout'
 import Head from 'next/head'
 // import CheckoutComponent from '../checkout/checkoutComponent'
 // import DeliveryMethod from '../checkout/deliveryMethod'
@@ -10,6 +10,7 @@ import Image from 'next/image'
 import DeliverySumUp from '../checkout/deliverySumUp'
 import Link from 'next/link'
 import AddAddressModal from '../checkout/addAddressModal'
+import CheckoutLayout from '../Layout/checkoutLayout/checkoutLayout'
 // import AddressForm from '../components/checkout/addressForm'
 
 function Checkout({children}) {
@@ -40,54 +41,56 @@ function Checkout({children}) {
             <Head>
                 <title>Checkout Page</title>
             </Head>
-            <main>
-                {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
+            <CheckoutLayout>
                 <Layout>
-                    <div className={styles.checkoutWrapper}>
-                        <section style={{flex: 1}}>
-                            <h3 className={styles.headerTitle}>CHECKOUT</h3>
-                            <div>
-                                {children}
-                            </div>
-                        </section>
-                        <aside className={styles.orderSummary}>
-                            <h3 className={styles.headerTitle}>ORDER SUMMARY</h3>
-                            <div>
-                                <h4>YOUR ORDER ({totalProducts} items)</h4>
+                    {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
+                    <main>
+                        <div className={styles.checkoutWrapper}>
+                            <section style={{flex: 1}}>
+                                <h3 className={styles.headerTitle}>CHECKOUT</h3>
                                 <div>
-                                    <ul className={styles.summaryWrapper}>
-                                        {
-                                            products.map(product => {
-                                                return (
-                                                    <li key={product?.item?.id}>
-                                                        <Image 
-                                                            src={product?.item?.images[0]}
-                                                            height={60}
-                                                            width={58}
-                                                            alt={product?.item?.title}
-                                                        />
-                                                        <article className={styles.summaryWrapperArticle}>
-                                                            <p>{product?.item?.title}</p>
-                                                            <p className={styles.summaryItemPrice}>${product?.item?.price}</p>
-                                                            <p><span className={styles.summaryQty}>Qty: </span>{product?.quantity}</p>
-                                                        </article>
-                                                    </li>
-                                                )
-                                            })
-                                        }
-                                    </ul>
-                                    <div className={styles.deliverySumWrap}>
-                                        <DeliverySumUp />
-                                    </div>
-                                    <button className={styles.modifyCartBtn}>
-                                        <Link href="/cart">Modify Cart</Link>
-                                    </button>
+                                    {children}
                                 </div>
-                            </div>
-                        </aside>
-                    </div>
+                            </section>
+                            <aside className={styles.orderSummary}>
+                                <h3 className={styles.headerTitle}>ORDER SUMMARY</h3>
+                                <div>
+                                    <h4>YOUR ORDER ({totalProducts} items)</h4>
+                                    <div>
+                                        <ul className={styles.summaryWrapper}>
+                                            {
+                                                products.map(product => {
+                                                    return (
+                                                        <li key={product?.item?.id}>
+                                                            <Image 
+                                                                src={product?.item?.images[0]}
+                                                                height={60}
+                                                                width={58}
+                                                                alt={product?.item?.title}
+                                                            />
+                                                            <article className={styles.summaryWrapperArticle}>
+                                                                <p>{product?.item?.title}</p>
+                                                                <p className={styles.summaryItemPrice}>${product?.item?.price}</p>
+                                                                <p><span className={styles.summaryQty}>Qty: </span>{product?.quantity}</p>
+                                                            </article>
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
+                                        <div className={styles.deliverySumWrap}>
+                                            <DeliverySumUp />
+                                        </div>
+                                        <button className={styles.modifyCartBtn}>
+                                            <Link href="/cart">Modify Cart</Link>
+                                        </button>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </main>
                 </Layout>
-            </main>
+            </CheckoutLayout>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout/layout'
 import { useSelector } from 'react-redux'
 import AddressForm from '../../components/checkout/addressForm'
 import Head from 'next/head'
@@ -36,29 +36,27 @@ function address() {
             <Head>
                 <title>Address Details | Kahala </title>
             </Head>
-            <Layout>
-                <Checkout>
-                    {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
-                    <CheckoutComponent 
-                        title="1. Address Details"
-                        handleClick = {openAddressModal}
-                        showBtn = {address ? true : false}
-                    >
-                    {address ? ( 
-                                <article>
-                                    <h5>{userFullName}</h5>
-                                    <p>{userAddress}</p>
-                                    <p>{userPhoneNumber}</p>
-                                </article> 
-                            ):(
-                                <AddressForm />
-                            )
-                        }
-                    </CheckoutComponent>
-                    <CheckoutComponent title="2. Delivery Method"/>
-                    <CheckoutComponent title="3. Payment Method"/>
-                </Checkout>
-            </Layout>
+            <Checkout>
+                {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
+                <CheckoutComponent 
+                    title="1. Address Details"
+                    handleClick = {openAddressModal}
+                    showBtn = {address ? true : false}
+                >
+                {address ? ( 
+                            <article>
+                                <h5>{userFullName}</h5>
+                                <p>{userAddress}</p>
+                                <p>{userPhoneNumber}</p>
+                            </article> 
+                        ):(
+                            <AddressForm />
+                        )
+                    }
+                </CheckoutComponent>
+                <CheckoutComponent title="2. Delivery Method"/>
+                <CheckoutComponent title="3. Payment Method"/>
+            </Checkout>
         </div>
     )
 }

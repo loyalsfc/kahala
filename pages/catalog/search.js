@@ -1,14 +1,13 @@
 import Head from 'next/head';
-import Layout from '../../components/layout';
+import Layout from '../../components/Layout/layout';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import styles from './search.module.css'
 import TopSelling from '../../components/topSelling';
 import AllProducts from '../../components/allProducts';
-import { useState, useMemo } from 'react';
-import ProductsList from '../../components/productsList';
 import Link from 'next/link';
+import HomeLayout from '../../components/Layout/homeLayout';
 
 function Search({products, topSelling}) {
     const {query} = useRouter();
@@ -18,42 +17,44 @@ function Search({products, topSelling}) {
             <Head>
                 <title>Search </title>
             </Head>
-            <Layout>
-                <main className={styles.main}>
-                    <div>
-                        {products.length ? 
-                            (
-                                <div>
-                                    <p className={styles.breadcrumb}>
-                                        <Link href='/'>Home</Link> / <Link href={'/allproduct'}>All Products </Link> / <span>{query.q}</span>
-                                    </p>
-                                    <AllProducts 
-                                        categoryName={"Shop Online in Nigeria"}
-                                        products={products}
-                                        searchFilter={`title=${query.q}`}
-                                    />
-                                </div>
-                            ):(
-                                <article className={styles.emptySearch}>
-                                    <div className={styles.searchIconWrapper}>
-                                        <FontAwesomeIcon icon={faSearch} size='2xl' />
+            <HomeLayout>
+                <Layout>
+                    <main className={styles.main}>
+                        <div>
+                            {products.length ? 
+                                (
+                                    <div>
+                                        <p className={styles.breadcrumb}>
+                                            <Link href='/'>Home</Link> / <Link href={'/allproduct'}>All Products </Link> / <span>{query.q}</span>
+                                        </p>
+                                        <AllProducts 
+                                            categoryName={"Shop Online in Nigeria"}
+                                            products={products}
+                                            searchFilter={`title=${query.q}`}
+                                        />
                                     </div>
-                                    <h4>There is no result for "{query.q}"</h4>
-                                    <ul>
-                                        <li>- Check your spelling for typing errors</li>
-                                        <li>- Try searching with short and simple keywords</li>
-                                        <li>- Try searching more general terms - you can then filter the search results</li>
-                                    </ul>
-                                    <Link href="/">
-                                        <button className={styles.goHomeBtn}>GO TO HOMEPAGE</button>
-                                    </Link>
-                                </article>
-                            )
-                        }
-                    </div>
-                    <TopSelling products={topSelling} />
-                </main>
-            </Layout>
+                                ):(
+                                    <article className={styles.emptySearch}>
+                                        <div className={styles.searchIconWrapper}>
+                                            <FontAwesomeIcon icon={faSearch} size='2xl' />
+                                        </div>
+                                        <h4>There is no result for "{query.q}"</h4>
+                                        <ul>
+                                            <li>- Check your spelling for typing errors</li>
+                                            <li>- Try searching with short and simple keywords</li>
+                                            <li>- Try searching more general terms - you can then filter the search results</li>
+                                        </ul>
+                                        <Link href="/">
+                                            <button className={styles.goHomeBtn}>GO TO HOMEPAGE</button>
+                                        </Link>
+                                    </article>
+                                )
+                            }
+                        </div>
+                        <TopSelling products={topSelling} />
+                    </main>
+                </Layout>
+            </HomeLayout>
         </div>
     )
 }

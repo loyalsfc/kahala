@@ -1,7 +1,7 @@
 import { faAppleAlt, faApple, faMessage, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import AppContainer from './appContainer'
+import AppContainer from '../appContainer'
 import styles from './footer.module.css'
 
 function Footer() {

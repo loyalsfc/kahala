@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import Layout from '../components/layout'
+import Layout from '../components/Layout/layout'
 import Link from 'next/link'
 import styles from './styles/allProducts.module.css'
 import AllProducts from '../components/allProducts'
+import HomeLayout from '../components/Layout/homeLayout'
 
 function Allproduct({products}) {
 
@@ -12,16 +13,18 @@ function Allproduct({products}) {
             <Head>
                 <title>Shop All Products</title>
             </Head>
-            <Layout>
-                <main className={styles.main}>
-                    <p className={styles.breadcrumb}><Link href="/">Home</Link> / <span>All products</span> </p>
-                    <AllProducts 
-                        categoryName = {"Shop Online in Nigeria"}
-                        products={products}
-                        searchFilter=""
-                    />
-                </main>
-            </Layout>
+            <HomeLayout>
+                <Layout>
+                    <main className={styles.main}>
+                        <p className={styles.breadcrumb}><Link href="/">Home</Link> / <span>All products</span> </p>
+                        <AllProducts 
+                            categoryName = {"Shop Online in Nigeria"}
+                            products={products}
+                            searchFilter=""
+                        />
+                    </main>
+                </Layout>
+            </HomeLayout>
         </div>
     )
 }

@@ -4,8 +4,6 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { Provider } from 'react-redux'
 import { store } from '../store/store'
-import Header from '../components/header'
-import Footer from '../components/footer'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -23,9 +21,7 @@ export default function App ({Component, pageProps}){
                 }
             `}</style>
             <Provider store={store}>
-                <Header />
                 <Component {...pageProps} />
-                <Footer />
             </Provider>
         </>
         )

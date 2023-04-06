@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layout from '../components/layout'
+import Layout from '../components/Layout/layout'
 import Head from 'next/head'
 import CheckoutComponent from '../components/checkout/checkoutComponent'
 import DeliveryMethod from '../components/checkout/deliveryMethod'

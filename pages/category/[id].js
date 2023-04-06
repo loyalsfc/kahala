@@ -2,11 +2,12 @@ import React, { useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import styles from '../styles/products.module.css';
 import Link from 'next/link';
-import Layout from '../../components/layout';
+import Layout from '../../components/Layout/layout';
 import ItemsCollection from '../../components/itemsCollection';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateTotal } from '../../store/cartSlice';
 import AllProducts from '../../components/allProducts';
+import HomeLayout from '../../components/Layout/homeLayout';
 
 function Categories({products, param}) {
     const dispatch = useDispatch()
@@ -31,26 +32,28 @@ function Categories({products, param}) {
         <Head>
             <title>Kahala Store</title>
         </Head>
-        <main className={styles.main}>
-            <Layout>
-                <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <Link href={`/category/${param}`}>{categoryName}</Link></p>
-                <h2 className={styles.categoryTitle}>{categoryName}</h2>
+        <HomeLayout>
+            <main className={styles.main}>
+                <Layout>
+                    <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <Link href={`/category/${param}`}>{categoryName}</Link></p>
+                    <h2 className={styles.categoryTitle}>{categoryName}</h2>
 
-                <section className={styles.limitedStocks}>
-                    <h4>Limited Stocks Deals</h4>
-                    <div>
-                        <ul className={styles.limitedStockContainer}>
-                            {limitedStock}
-                        </ul>
-                    </div>
-                </section>
-                <AllProducts 
-                    products={products}
-                    categoryName={categoryName}
-                    searchFilter={`categoryId=${param}`}
-                />
-            </Layout>
-        </main>
+                    <section className={styles.limitedStocks}>
+                        <h4>Limited Stocks Deals</h4>
+                        <div>
+                            <ul className={styles.limitedStockContainer}>
+                                {limitedStock}
+                            </ul>
+                        </div>
+                    </section>
+                    <AllProducts 
+                        products={products}
+                        categoryName={categoryName}
+                        searchFilter={`categoryId=${param}`}
+                    />
+                </Layout>
+            </main>
+        </HomeLayout>
     </div>
   )
 }
