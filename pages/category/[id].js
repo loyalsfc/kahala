@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/products.module.css';
 import Link from 'next/link';
 import Layout from '../../components/Layout/layout';
-import ItemsCollection from '../../components/itemsCollection';
+import ItemsCollection from '../../components/itemscollection/itemsCollection';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateTotal } from '../../store/cartSlice';
 import AllProducts from '../../components/allProducts';

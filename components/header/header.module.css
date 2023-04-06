@@ -1,6 +1,6 @@
 .header{
     background-color: #fff;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     position: sticky;
     top: 0;
     z-index: 20;
@@ -14,7 +14,7 @@
     padding: 0 1rem;
 }
 .title{
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 900;
     flex-shrink: 0;
 }
@@ -24,19 +24,23 @@
 .subscriptionContainer{
     column-span: 2;
 }
+.searchFormWrapperDeakTop{
+    display: none;
+    margin-left: auto;
+    flex: 1;
+    margin-left: 4rem;
+}
 .inputContainer{
     display: flex;
     align-items: stretch;
-    gap: 0.5rem;
-    margin-left: auto;
-    /* width: 100%; */
-    flex: 1;
-    margin-left: 4rem;
-    /* max-width: 600px; */
+    gap: 1rem;
+}
+.searchFormWrapperMobile{
+    margin: 0.25rem 1rem;
 }
 .inputWrapper{
     border: 1px solid #c7c7cd;
-    border-radius: 5px;
+    border-radius: 50px;
     padding: 8px;
     display: flex;
     align-items: center;
@@ -51,6 +55,7 @@
     outline: none;
 }
 .searchButton{
+    display: none;
     font-weight: bold;
     color: #fff;
     background-color: #f68b1e;
@@ -68,6 +73,15 @@
     font-weight: 500;
     cursor: pointer;
 }
+.headerMenuTitle{
+    display: none;
+}
+.help{
+    display: none;
+}
+.userMenu{
+    margin-left: auto;
+}
 .cartItemsCountWrapper{
     position: relative;
 }
@@ -84,4 +98,40 @@
     position: absolute;
     top: -0.5rem;
     right: -0.5rem;
+}
+
+@media (min-width: 640px){
+    .header{
+        padding: 1rem 0;
+    }
+    .inputContainer{
+        display: flex;
+    }
+    .title{
+        font-size: 2rem;
+    }
+    .headerMenu{
+        gap: 0.5rem;
+    }
+    .headerMenuTitle{
+        display: inline;
+    }
+    .help{
+        display: flex;
+    }
+    .userMenu{
+        margin-left: 0;
+    }
+    .searchFormWrapperDeakTop{
+        display: block;
+    }
+    .searchFormWrapperMobile{
+        display: none;
+    }
+    .searchButton{
+        display: block;
+    }
+    .inputWrapper{
+        border-radius: 5px;
+    }
 }

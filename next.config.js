@@ -21,7 +21,8 @@ module.exports = {
     "wikiwikiexample.pythonanywhere.com",
     "imgs.search.brave.com",
     "img.tgdd.vn",
-    "bizweb.dktcdn.net"
+    "bizweb.dktcdn.net",
+    "phantom-marca.unidadeditorial.es"
   ],
   },
 }

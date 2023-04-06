@@ -3,13 +3,16 @@ import Layout from '../layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faRotate, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
 import styles from './checkoutHeader.module.css'
+import Link from 'next/link'
 
 function CheckoutHeader() {
     return (
         <header className={styles.header}>
             <Layout>
                 <div className={styles.headerItemsWrapper}>
-                    <h1 className={styles.logo}>Kahala <span>Store</span></h1>
+                    <Link href="/">
+                        <h1 className={styles.logo}>Kahala <span>Store</span></h1>
+                    </Link>
                     <div className={`${styles.headerInfo} ${styles.mlAuto}`}>
                         <FontAwesomeIcon icon={faPhone} size='sm' />
                         <span>

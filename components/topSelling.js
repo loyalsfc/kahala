@@ -1,5 +1,5 @@
 import styles from '../pages/styles/index.module.css'
-import ItemsCollection from './itemsCollection'
+import ItemsCollection from './itemscollection/itemsCollection'
 
 function TopSelling({products}) {
     

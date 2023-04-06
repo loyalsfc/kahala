@@ -14,13 +14,14 @@ function ItemsCollection({item}) {
         <li className={styles.mainItemsWrap} key={item?.id}>
             <Link href={`/category/product/${item?.id}`}>
                 <span className={styles.percentageSlash}>-{percentageSlash}%</span>
-                <Image
-                    className={styles.topSellingImage}
-                    height={223}
-                    width={223}
-                    src={item?.images[0]}
-                    alt={item?.title}
-                />
+                <div className={styles.imageWrapper}>
+                    <Image
+                        className={styles.topSellingImage}
+                        fill
+                        src={item?.images[0]}
+                        alt={item?.title}
+                    />
+                </div>
                 <article>
                     <h5 className={styles.topSellingTitle}>{item?.title}</h5>
                     <p>${item?.price}</p>

@@ -37,3 +37,16 @@
     text-decoration:line-through;
     line-height: 0.6;
 }
+.imageWrapper{
+    height: 144px;
+    width: 144px;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 640px){
+    .imageWrapper{
+        height: 223px;
+        width: 223px;
+    }
+}

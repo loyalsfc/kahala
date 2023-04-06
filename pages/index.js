@@ -3,10 +3,10 @@ import Header from "../components/header/header"
 import Image from "next/image"
 import styles from "./styles/index.module.css"
 import Layout from "../components/Layout/layout"
-import SwiperContainer from "../components/swiper"
+import SwiperContainer from "../components/swiper/swiper"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
-import ItemsCollection from "../components/itemsCollection"
+import ItemsCollection from "../components/itemscollection/itemsCollection"
 import useSWR from 'swr'
 import Link from "next/link"
 import TopSelling from "../components/topSelling"
@@ -58,15 +58,19 @@ function Index({categories, topSellingProducts, limitedStocks}) {
                                         <li 
                                             key={category?.id}
                                             className={styles.categoriesItem}
-                                        >
+                                        >   
                                             <Link href={`/category/${category?.id}`}>
-                                                <Image
-                                                    src={category.image}
-                                                    width="120"
-                                                    height="120"
-                                                    alt={category?.name}
-                                                />
-                                                {category?.name}
+                                                <div className={styles.categoriesImageWrapper}>
+                                                    <Image
+                                                        src={category.image}
+                                                        fill
+                                                        sizes="(max-width: 640px) 85px,
+                                                        (max-width: 1200px) 150px,
+                                                        33vw"
+                                                        alt={category?.name}
+                                                    />
+                                                </div>
+                                                <span className={styles.categoriesTitle}>{category?.name}</span>
                                             </Link>
                                         </li>
                                     )
@@ -98,13 +102,14 @@ function Index({categories, topSellingProducts, limitedStocks}) {
                                 data.map(item => {
                                     return(
                                         <li key={item?.id}>
-                                            <Image
-                                                className={styles.accessoriesImage}
-                                                height={145}
-                                                width={145}
-                                                src={item?.img}
-                                                alt="Accessries"
-                                            />
+                                            <div className={styles.accessoriesImageWrapper}>
+                                                <Image
+                                                    className={styles.accessoriesImage}
+                                                    fill
+                                                    src={item?.img}
+                                                    alt="Accessries"
+                                                />
+                                            </div>
                                             <p>Below ${item?.price}</p>
                                         </li>
                                     )
