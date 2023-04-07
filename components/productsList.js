@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from "../pages/styles/products.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
-import style from './itemsCollection.module.css'
+import style from './itemsCollection/itemsCollection.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCart, decreaseCartItem, removeCart } from '../store/cartSlice'
 import CartModifyBtn from './cartModifyBtn'
