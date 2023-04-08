@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faCartPlus, faFacebook, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "./lga"
-import DeliveryDetails from '../../../components/deliveryDetails';
+import DeliveryDetails from '../../../components/deliveryDetails/deliveryDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCart, calculateTotal, decreaseCartItem, removeCart } from '../../../store/cartSlice';
 import CartModifyBtn from '../../../components/cartModifyBtn';

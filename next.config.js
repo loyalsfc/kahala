@@ -22,7 +22,8 @@ module.exports = {
     "imgs.search.brave.com",
     "img.tgdd.vn",
     "bizweb.dktcdn.net",
-    "phantom-marca.unidadeditorial.es"
+    "phantom-marca.unidadeditorial.es",
+    "static.javatpoint.com"
   ],
   },
 }
