@@ -74,12 +74,19 @@ function Product({product, param}) {
               <div className={styles.productsContainer}>
                 <div className={styles.productInfo}>
                   <div className={styles.productInfoImages}>
-                    <Image
-                      src={images[imageIndex]}
-                      width={240}
-                      height={240}
-                      alt="Product Image"
-                    />
+                    <div className={styles.imagesWrapper}>  
+                      {
+                        images.map((img, index) => {
+                          return <Image 
+                            key={index}
+                            src={img} 
+                            height={240} 
+                            width={240} 
+                            alt="image item"
+                          />
+                        })
+                      }
+                    </div>
                     <div className={styles.otherImages}>
                       {
                         images.map((img, index) => {
@@ -94,7 +101,7 @@ function Product({product, param}) {
                         })
                       }
                     </div>
-                    <article>
+                    <article className={styles.shareProduct}>
                       <h5>SHARE THIS PRODUCT</h5>
                       <button>
                         {/* <FontAwesomeIcon icon="fa-brands fa-facebook" /> */}

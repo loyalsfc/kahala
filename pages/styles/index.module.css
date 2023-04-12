@@ -30,14 +30,15 @@
 .categoriesContainer{
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.5px;
+    /* gap: 0.25px; */
 }
 .categoriesItem{
     text-align: center;
     font-weight: bold;
     flex-shrink: 0;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem;
     margin: 0.5rem;
+    overflow: hidden;
 }
 .categoriesImageWrapper{
     width: 100%;

@@ -24,20 +24,29 @@
     padding: 1rem;
     border-radius: 5px;
     display: flex;
+    flex-direction: column;
 }
 .productInfoImages{
     width: fit-content;
     flex-shrink: 0;
 }
-.otherImages{
+.imagesWrapper{
     display: flex;
+    gap: 0.5rem;
+    overflow: scroll;
+}
+.otherImages{
+    display: none;
     gap: 0.75rem;
     margin-top: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #EDEDED;
 }
+.shareProduct{
+    display: none;
+}
 .ProductInfoDetails{
-    padding: 0 0.5rem;
+    padding: 1rem 0;
     width: 100%;
 
 }
@@ -168,7 +177,25 @@
     .productInfoWrapper{
         flex-direction: row;
     }
+    .productInfo{
+        flex-direction: row;
+    }
     .aside{
         width: 250px;
+    }
+    .imagesWrapper img{
+        display: none;
+    }
+    .imagesWrapper img:first-child{
+        display: block;
+    }
+    .otherImages{
+        display: flex;
+    }
+    .shareProduct{
+        display: block;
+    }
+    .ProductInfoDetails{
+        padding: 0 0.5rem;
     }
 }

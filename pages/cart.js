@@ -48,6 +48,13 @@ function Cart({products}) {
                                     </div>
                                 ):(
                                     <div className={styles.cartSectionContainer}>
+                                        <div className={styles.cartSummaryMobile}>
+                                            <h4>Cart Summary</h4>
+                                            <div>
+                                                <span>Subtotal</span>
+                                                <span>${cart.totalPrice}</span>
+                                            </div>
+                                        </div>
                                         <div className={styles.cartItemsWrapper}>
                                             <h1>Cart ({cart.totalProducts})</h1>
                                             <ul className={styles.cartsItemsList}>
@@ -66,6 +73,9 @@ function Cart({products}) {
                                                 </Link>
                                             </div>
                                         </aside>
+                                        <div className={styles.mobileCheckoutBtn}>
+                                            <button>CHECKOUT (${cart.totalPrice})</button>
+                                        </div>
                                     </div>
                                 )
                             }

@@ -64,7 +64,6 @@
 }
 .mainProducts{
     flex: 1;
-    background-color: #fff;
     border-radius: 5px;
     padding-bottom: 1rem;
 }
@@ -72,7 +71,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ededed;
     padding: 0.5rem;
 }
 .totalProducts{
@@ -81,12 +79,12 @@
     border-bottom: 1px solid #ededed;
     font-size: 14px;
     font-weight: bold;
+    display: none;
 }
 .mainPageItems{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
-    padding: 1rem;
 }
 .imageWrapper{
     position: relative;
@@ -119,7 +117,6 @@
     padding: 0.5rem;
     font-weight: bold;
     color: #FFF;
-    visibility: hidden;
     cursor: pointer;
 }
 .sortingWrapper{
@@ -220,6 +217,19 @@
     }
     .mainPageItems{
         grid-template-columns: repeat(4, minmax(0, 1fr));
+        padding: 1rem;
+    }
+    .addButton{
+        visibility: hidden;
+    }
+    .totalProducts{
+        display: block;
+    }
+    .mainProducts{
+        background-color: #FFF;
+    }
+    .mainProducts h3{
+        border-bottom: 1px solid #ededed;
 
     }
 }
