@@ -1,0 +1,49 @@
+.wrapper{
+    height: 100vh;
+    width: 100%;
+    background-color: #FFF;
+    display: grid;
+    place-content: center;
+}
+.container{
+    max-width: 432px;
+    text-align: center;
+}
+.googleBtn{
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FFF;
+    width: 100%;
+    padding: 0.75rem;
+    position: relative;
+    background-color: #24A0ED;
+    cursor: pointer;
+}
+.googleBtn svg{
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #FFF;
+}
+.googleBtn path{
+    fill: #FFF;
+}
+.googleBtn:hover{
+    opacity: 0.8;
+}
+.title{
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #000;
+}
+.text{
+    font-size: 1rem;
+    color: #4A4A4A;
+    padding: 0.5rem 0 1rem;
+}
+.shieldLogo{
+    font-size: 4rem;
+    color: var(--primary);
+}
