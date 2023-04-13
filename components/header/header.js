@@ -6,10 +6,13 @@ import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import Layout from '../Layout/layout'
 
 function Header() {
     const {cart}  = useSelector(state => state.cart)
+    const {data: session} = useSession();
+    console.log(session)
     
     return (
         <header className={style.header}>
