@@ -1,7 +1,7 @@
 import { faShieldAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from "./styles/auth.module.css"
-import { providers, signIn } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import Head from 'next/head'
 
 function auth() {
