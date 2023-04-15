@@ -1,15 +1,17 @@
 import style from './header.module.css'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faCartShopping, faHeart, faSearch, faStore, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Layout from '../Layout/layout'
+import { useState } from 'react'
 
 function Header() {
+    const [showDropDown, setShowDropDown] = useState(false)
     const {cart}  = useSelector(state => state.cart)
     const {data: session} = useSession();
     console.log(session)
@@ -23,11 +25,24 @@ function Header() {
                 <div className={style.searchFormWrapperDeakTop}>
                     <SearchForm />
                 </div>
-                <p className={`${style.headerMenu} ${style.userMenu}`}>
+                <div onClick={()=>setShowDropDown(!showDropDown)} className={`${style.headerMenu} ${style.userMenu}`}>
                     <FontAwesomeIcon icon={faUser} size='xl'/>
                     <span className={style.headerMenuTitle}>Account <FontAwesomeIcon icon={faAngleDown} size='xs'/></span>
-                    
-                </p>
+                    {showDropDown &&
+                        <div className={style.userMenuDropDownContainer}>
+                            <div className={style.signBtnWrapper}>
+                                <Link href="/auth">
+                                    <button className={style.signBtn}>Sign in</button>
+                                </Link>
+                            </div>
+                            <ul className={style.dropDownMenu}>
+                                <li><FontAwesomeIcon icon={faUser}/> My Account</li>
+                                <li><FontAwesomeIcon icon={faStore}/> Orders</li>
+                                <li><FontAwesomeIcon icon={faHeart}/> Saved Items</li>
+                            </ul>
+                        </div>
+                    }
+                </div>
                 <p className={`${style.headerMenu} ${style.help}`}>
                     <FontAwesomeIcon icon={faQuestionCircle} size='xl'/>
                     <span className={style.headerMenuTitle}>Help <FontAwesomeIcon icon={faAngleDown} size='xs'/></span>

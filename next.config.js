@@ -23,7 +23,9 @@ module.exports = {
     "img.tgdd.vn",
     "bizweb.dktcdn.net",
     "phantom-marca.unidadeditorial.es",
-    "static.javatpoint.com"
+    "static.javatpoint.com",
+    "images.pexels.com",
+    "cdn.hobbyconsolas.com",
   ],
   },
 }

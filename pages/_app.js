@@ -21,11 +21,12 @@ export default function App ({Component, pageProps: {session, ...pageProps}}){
                     font-family: ${roboto.style.fontFamily};
                 }
             `}</style>
-                <Provider store={store}>
-                    <SessionProvider session={session}>
+                <SessionProvider session={session}>
+                    <Provider store={store}>
                         <Component {...pageProps} />
-                    </SessionProvider>
-                </Provider>
+                    </Provider>
+                </SessionProvider>
+
         </>
         )
 }
