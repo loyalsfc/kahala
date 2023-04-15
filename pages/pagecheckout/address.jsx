@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import Layout from '../../components/Layout/layout'
 import { useSelector } from 'react-redux'
 import AddressForm from '../../components/checkout/addressForm'
 import Head from 'next/head'
 import Checkout from '../../components/checkoutpage/checkouttemplate'
+import AddAddressModal from '../../components/checkout/addAddressModal'
 import CheckoutComponent from '../../components/checkout/checkoutComponent'
 
-function address() {
+function Address() {
     const [displayAddressModal, setDisplayAddressModal] = useState(false)
     const address = null;
     const userFullName = "Olumide Bambe"
@@ -61,4 +61,4 @@ function address() {
     )
 }
 
-export default address
+export default Address

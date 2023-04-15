@@ -38,7 +38,7 @@ function Search({products, topSelling}) {
                                         <div className={styles.searchIconWrapper}>
                                             <FontAwesomeIcon icon={faSearch} size='2xl' />
                                         </div>
-                                        <h4>There is no result for "{query.q}"</h4>
+                                        <h4>There is no result for &quot;{query.q}&quot;</h4>
                                         <ul>
                                             <li>- Check your spelling for typing errors</li>
                                             <li>- Try searching with short and simple keywords</li>

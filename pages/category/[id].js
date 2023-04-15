@@ -19,7 +19,7 @@ function Categories({products, param}) {
         products.map((item, index) => {
             if(index > 10 && index < 20){
                 const randomPercentage = Math.floor(Math.random() * 50)
-                return <ItemsCollection item={item} styles={styles} percentageSlash={randomPercentage} />
+                return <ItemsCollection key={item?.id} item={item} styles={styles} percentageSlash={randomPercentage} />
             }
     }), [products])
 

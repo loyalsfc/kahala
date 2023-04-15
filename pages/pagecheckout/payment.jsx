@@ -9,7 +9,7 @@ import DeliveryMethod from '../../components/checkout/deliveryMethod'
 import AddAddressModal from '../../components/checkout/addAddressModal'
 import PaymentMethod from '../../components/checkout/paymentMethod'
 
-function address() {
+function Payment() {
     const [displayAddressModal, setDisplayAddressModal] = useState(false)
     const address = 'false';
     const userFullName = "Olumide Bambe"
@@ -74,4 +74,4 @@ function address() {
     )
 }
 
-export default address
+export default Payment

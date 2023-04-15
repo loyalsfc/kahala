@@ -33,7 +33,7 @@ function Product({product, param}) {
   useEffect(()=>{
     dispatch(calculateTotal())
     setQuantity(cart.products.find(product => product.item.id == param)?.quantity)
-  }, [cart])
+  }, [cart, param])
   console.log
   const handleClick = () => {
     dispatch(addCart({
