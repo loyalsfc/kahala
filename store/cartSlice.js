@@ -19,7 +19,6 @@ export const cartSlice  = createSlice({
             state.cart.products = state.cart.products.filter((product) => product.item.id !== action.payload)
         },
         increaseCartItem: (state, action) => {
-            console.log(action.payload)
             state.cart.products = state.cart.products.map(item => {
                 if(item.item.id === action.payload){
                     return {...item, quantity: item.quantity + 1}
@@ -27,6 +26,7 @@ export const cartSlice  = createSlice({
                     return item
                 }
             })
+            localStorage.setItem('carts', state)
         },
         decreaseCartItem: (state, action) => {
             state.cart.products = state.cart.products.map(item => {
@@ -36,6 +36,7 @@ export const cartSlice  = createSlice({
                     return item
                 }
             })
+            localStorage.setItem('carts', state)
         },
         calculateTotal: (state) => {
             let total = 0;
