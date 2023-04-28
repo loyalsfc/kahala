@@ -1,0 +1,31 @@
+.header{
+    box-shadow: 0 2px 4px rgba(0,0,0,.16);
+    height: 45px;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #6b6866;
+    background: #fff;
+}
+.logo{
+    font-size: 1.75rem;
+}
+.logo span{
+    color: var(--primary);
+}
+.headerItemsWrapper{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.headerInfo{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;  
+    padding: 0 30px;  
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 0.8rem;
+}
+.mlAuto{
+    margin-left: auto;
+}

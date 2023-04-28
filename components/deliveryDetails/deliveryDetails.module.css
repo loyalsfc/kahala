@@ -1,0 +1,21 @@
+.wrapper{
+    display: flex;
+    font-weight: bold;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    align-items: flex-start;
+    border-bottom: 1px solid #EDEDED;
+}
+.wrapper div{
+    border: 2px solid #EDEDED;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+.wrapper h6{
+    font-size: 0.875rem;
+}
+.wrapper p{
+    font-size: 0.75rem;
+    line-height: 1.2;
+}

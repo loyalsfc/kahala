@@ -1,0 +1,226 @@
+.cartWrapper{
+    /* background-color: #FFF; */
+    margin: 1rem 0;
+}
+.emptyCart{
+    padding: 2rem 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: #FFF;
+    border-radius: 5px;
+}
+.emptyCart article{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.emptyCart h5{
+    font-size: 1rem;
+}
+.iconWrapper{
+    height: 9rem;
+    width: 9rem;
+    border-radius: 50%;
+    background-color: #EAEAEA;
+    display: grid;
+    place-content: center;
+    margin: 0 auto;
+}
+.iconWrapper svg{
+    height: 5rem;
+    color: #f68b1e;
+}
+.emptyCart a{
+    background-color: #f68b1e;
+    color: #FFF;
+    padding: 1rem;
+    text-transform: uppercase;
+    border: 0.25rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2)
+}
+.cartSectionContainer{
+    gap: 1rem;
+    align-items: flex-start;
+    position: relative;
+}
+.cartItemsWrapper{
+    background-color: #FFF;
+    border-radius: 5px;
+    flex: 1;
+}
+.cartItemsWrapper h1{
+    padding: 0.25rem 1rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #EDEDED;
+}
+.cartsItemsList{
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.cartsItemsList li{
+    border-bottom: 1px solid #EDEDED;
+    padding-bottom: 1rem;
+}
+.cartsItemsList li:last-child{
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+.cartItemTitleWrapper{
+    margin-left: 1rem;
+}
+.cartItemTitleWrapper h4{
+    font-size: 1.25rem;
+}
+.cartItemTitleWrapper span{
+    font-size: 0.75rem;
+    color: #75757A;
+    font-weight: bold;
+}
+.cartItemPrice{
+    font-size: 1.25rem;
+}
+.cartItemsDetails{
+    display: flex;
+}
+.cartItemPriceWrapper{
+    min-width: 30%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+    gap: 0.25rem;
+}
+.slashedPrice{
+    color: #75757A;
+    text-decoration: line-through;
+    font-weight: 600;
+}
+.discountedPercentage{
+    margin-left: 0.5rem;
+    background-color: #fef3e9;
+    color: #f68b1e;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 2px 4px;
+}
+.cartItemModify{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+}
+.cartItemRemoveBtn{
+    background-color: transparent;
+    border: none;
+    color: #f68b1e;
+    font-weight: bold;
+    font-size: 0.875rem;
+    gap: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+.cartItemNumber{
+    font-weight: 500;
+    text-align: center;
+    font-size: 0.975rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.cartItemBtn{
+    padding: 0.25rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #f68b1e;
+    border: none;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 0.25rem;
+}
+.cartItemBtn:disabled{
+    box-shadow: none;
+    opacity: .5;
+}
+.aside{
+    width: 221px;
+    background-color: #FFF;
+    border-radius: 5px;
+    position: sticky;
+    top: 96px;
+    display: none;
+}
+.aside h4{
+    font-size: 14px;
+    padding: 0.5rem;
+    border-bottom: 1px solid #EDEDED;
+    text-transform: uppercase;
+}
+.aside p{
+    font-size: 14px;
+    padding: 0.5rem;
+    border-bottom: 1px solid #EDEDED;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.subTotal{
+    font-size: 1.25rem;
+}
+.checkoutBtnWrapper{
+    padding: 0.5rem;
+}
+.checkoutBtn{
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: #f68b1e;
+    color: #fff;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+    cursor: pointer
+}
+.checkoutBtn:hover{
+    background-color: #ca7219;
+}
+.cartSummaryMobile{
+    padding: 0.5rem 0;
+}
+.cartSummaryMobile h4{
+    font-size: 0.75rem;
+    color: #75757A;
+    padding: 0 1rem 0.5rem;
+}
+.cartSummaryMobile > div{
+    display: flex;
+    background-color: #FFF;
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    color: #313133;
+    font-weight: 600;
+}
+@media (min-width: 640px){
+    .aside{
+        display: block;
+    }
+    .cartSectionContainer{
+        display: flex;
+    }
+    .cartSummaryMobile, .mobileCheckoutBtn{
+        display: none;
+    }
+}
