@@ -18,15 +18,16 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
     "@reduxjs/toolkit": "^1.9.3",
+    "@sanity/image-url": "^1.0.2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
     "next-auth": "^4.22.0",
+    "next-sanity": "^4.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-paginate": "^8.1.5",
     "react-redux": "^8.0.5",
-    "sanity": "^3.9.1",
     "swiper": "^9.1.1",
     "swr": "^2.1.1"
   }

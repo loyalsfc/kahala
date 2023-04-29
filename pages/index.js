@@ -11,11 +11,21 @@ import useSWR from 'swr'
 import Link from "next/link"
 import TopSelling from "../components/topSelling"
 import HomeLayout from "../components/Layout/homeLayout"
+import { createClient } from "next-sanity"
+import imageUrlBuilder from '@sanity/image-url'
 
-function Index({categories, topSellingProducts, limitedStocks}) {
+
+function Index({categories, topSellingProducts, limitedStocks, categoryItems}) {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading} = useSWR('/api/phone_accessories', fetcher)
-    
+
+    const builder = imageUrlBuilder(client);
+
+    function urlFor(source) {
+        return builder.image(source)
+    }
+
+    console.log(categoryItems);
     return (
         <div>
             <Head>
@@ -53,16 +63,17 @@ function Index({categories, topSellingProducts, limitedStocks}) {
                         </button>
                         <ul className={styles.categoriesContainer}>
                             {
-                                categories.map(category => {
+                                categoryItems.map(category => {
+                                    console.log(urlFor(category?.poster?.asset?._ref).url())
                                     return(
                                         <li 
-                                            key={category?.id}
+                                            key={category?._id}
                                             className={styles.categoriesItem}
                                         >   
                                             <Link href={`/category/${category?.id}`}>
                                                 <div className={styles.categoriesImageWrapper}>
                                                     <Image
-                                                        src={category.image}
+                                                        src={builder.image(category?.poster?.asset?._ref).url()}
                                                         fill
                                                         sizes="(max-width: 640px) 85px,
                                                         (max-width: 1200px) 150px,
@@ -123,6 +134,13 @@ function Index({categories, topSellingProducts, limitedStocks}) {
     )
 }
 
+const client = createClient({
+    projectId: "cho2ggqw",
+    dataset: "production",
+    apiVersion: "2023-04-28",
+    useCdn: false
+})
+
 export async function getStaticProps(){
     const res = await fetch('https://api.escuelajs.co/api/v1/categories')
     const categories = await res.json()
@@ -133,11 +151,14 @@ export async function getStaticProps(){
     const productsResponse = await fetch('https://api.escuelajs.co/api/v1/products?offset=30&limit=10')
     const limitedStocks = await productsResponse.json()
 
+    const categoryItems = await client.fetch(`*[_type == "category"]`);
+
     return{
         props: {
             categories,
             topSellingProducts,
-            limitedStocks        
+            limitedStocks,
+            categoryItems        
         }
     }
 }

@@ -26,6 +26,7 @@ const nextConfig = {
       "cdn.hobbyconsolas.com",
       "image.jpg",
       "mivestidorazul.es",
+      "cdn.sanity.io"
     ],
   },
 }
