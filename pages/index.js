@@ -1,5 +1,4 @@
 import Head from "next/head"
-import Header from "../components/header/header"
 import Image from "next/image"
 import styles from "./styles/index.module.css"
 import Layout from "../components/Layout/layout"
@@ -11,21 +10,20 @@ import useSWR from 'swr'
 import Link from "next/link"
 import TopSelling from "../components/topSelling"
 import HomeLayout from "../components/Layout/homeLayout"
-import { createClient } from "next-sanity"
-import imageUrlBuilder from '@sanity/image-url'
+import { client, urlFor } from "../utils/utils"
 
 
-function Index({categories, topSellingProducts, limitedStocks, categoryItems}) {
+function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsSlug}) {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading} = useSWR('/api/phone_accessories', fetcher)
+    // console.log(categoryItemsSlug[0].slug.current)
 
-    const builder = imageUrlBuilder(client);
+    const paths = categoryItemsSlug.map(item => ({
+        params: {id: item.slug.current}
+    }))
 
-    function urlFor(source) {
-        return builder.image(source)
-    }
+    console.log(paths)
 
-    console.log(categoryItems);
     return (
         <div>
             <Head>
@@ -63,8 +61,7 @@ function Index({categories, topSellingProducts, limitedStocks, categoryItems}) {
                         </button>
                         <ul className={styles.categoriesContainer}>
                             {
-                                categoryItems.map(category => {
-                                    console.log(urlFor(category?.poster?.asset?._ref).url())
+                                categoryItems?.map(category => {
                                     return(
                                         <li 
                                             key={category?._id}
@@ -73,7 +70,7 @@ function Index({categories, topSellingProducts, limitedStocks, categoryItems}) {
                                             <Link href={`/category/${category?.id}`}>
                                                 <div className={styles.categoriesImageWrapper}>
                                                     <Image
-                                                        src={builder.image(category?.poster?.asset?._ref).url()}
+                                                        src={urlFor(category?.poster?.asset?._ref).url()}
                                                         fill
                                                         sizes="(max-width: 640px) 85px,
                                                         (max-width: 1200px) 150px,
@@ -98,8 +95,7 @@ function Index({categories, topSellingProducts, limitedStocks, categoryItems}) {
                             <ul className={styles.topSellingContainer}>
                                 {
                                     limitedStocks.map(item =>{
-                                        const randomPercentage = Math.floor(Math.random() * 50)
-                                        return <ItemsCollection key={item?.id} item={item} styles={styles} percentageSlash={randomPercentage} />
+                                        return <ItemsCollection key={item?._id} item={item}/>
                                     })
                                 }
                             </ul>
@@ -134,31 +130,26 @@ function Index({categories, topSellingProducts, limitedStocks, categoryItems}) {
     )
 }
 
-const client = createClient({
-    projectId: "cho2ggqw",
-    dataset: "production",
-    apiVersion: "2023-04-28",
-    useCdn: false
-})
-
 export async function getStaticProps(){
-    const res = await fetch('https://api.escuelajs.co/api/v1/categories')
-    const categories = await res.json()
-
     const productRes = await fetch('https://api.escuelajs.co/api/v1/products?offset=10&limit=10');
     const topSellingProducts = await productRes.json()
 
     const productsResponse = await fetch('https://api.escuelajs.co/api/v1/products?offset=30&limit=10')
-    const limitedStocks = await productsResponse.json()
+    // const limitedStocks = await productsResponse.json()
 
     const categoryItems = await client.fetch(`*[_type == "category"]`);
 
+    const limitedStocks = await client.fetch(`*[_type == "products"]`);
+
+    const categoryItemsSlug = await client.fetch(`*[_type == "products"]{slug}`);
+
+
     return{
         props: {
-            categories,
             topSellingProducts,
             limitedStocks,
-            categoryItems        
+            categoryItems,
+            categoryItemsSlug        
         }
     }
 }

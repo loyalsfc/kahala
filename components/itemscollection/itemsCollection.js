@@ -1,31 +1,26 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
 import styles from "./itemsCollection.module.css"
+import { calculateDiscountedAmount, priceConverion, urlFor } from "../../utils/utils"
 
 function ItemsCollection({item}) {
-    const [percentageSlash, setPercentageSlash] = useState()
-
-    useEffect(()=>{
-        setPercentageSlash(Math.floor(Math.random() * 50));
-    }, [])
-
+    // console.log(item)
     return (
-        <li className={styles.mainItemsWrap} key={item?.id}>
-            <Link href={`/category/product/${item?.id}`}>
-                <span className={styles.percentageSlash}>-{percentageSlash}%</span>
+        <li className={styles.mainItemsWrap}>
+            <Link href={`/category/product/${item?.slug?.current}`}>
+                <span className={styles.percentageSlash}>-{item?.discount}%</span>
                 <div className={styles.imageWrapper}>
                     <Image
                         className={styles.topSellingImage}
                         fill
-                        src={item?.images[0]}
+                        src={item.images[0]?.asset?._ref && urlFor(item.images[0]?.asset?._ref)?.url()}
                         alt={item?.title}
                     />
                 </div>
                 <article>
                     <h5 className={styles.topSellingTitle}>{item?.title}</h5>
-                    <p>${item?.price}</p>
-                    <p className={styles.slashedPrice}>${((item?.price * percentageSlash) / 100 + item?.price).toFixed(0)}</p>
+                    <p>${priceConverion(item?.amount)}</p>
+                    <p className={styles.slashedPrice}>${calculateDiscountedAmount(item?.amount, item?.discount)}</p>
                 </article>
             </Link>
         </li>

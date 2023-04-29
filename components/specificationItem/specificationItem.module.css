@@ -1,0 +1,20 @@
+.wrapper{
+    padding: 0.5rem;   
+}
+.container{
+    border: 1px solid #d4d4d6;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+.title{
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 1rem;
+    border-bottom: 1px solid #d4d4d6;
+}
+.markup{
+    color: #313133;
+    padding: 1rem;
+    font-weight: 600;
+}

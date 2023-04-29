@@ -5,8 +5,8 @@ import Layout from '../../../components/Layout/layout';
 import styles from './productsPage.module.css';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faCartPlus, faFacebook, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt, faHeart, faMessage } from '@fortawesome/free-regular-svg-icons';
+import { faCartPlus, faFacebook, faFile, faList, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "../../../utils/lga"
 import DeliveryDetails from '../../../components/deliveryDetails/deliveryDetails';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,11 +14,12 @@ import { addCart, calculateTotal, decreaseCartItem, removeCart } from '../../../
 import CartModifyBtn from '../../../components/cartModifyBtn';
 import Toast from '../../../components/toast/toast';
 import HomeLayout from '../../../components/Layout/homeLayout';
+import { calculateDiscountedAmount, client, priceConverion, urlFor } from '../../../utils/utils';
+import SpecificationItem from '../../../components/specificationItem/specificationItem';
 
 function Product({product, param}) {
-  const { category, title, images, price, description } = product;
-  const [productDiscount, setProductDiscount] = useState(0)
-  useEffect(()=>setProductDiscount(Math.floor(Math.random() * 50)),[product]);
+  console.log(product)
+  const { category, title, images, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product[0];
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
@@ -56,7 +57,7 @@ function Product({product, param}) {
   return (
     <div>
       <Head>
-        <title>{product.title} || Kahala</title>
+        <title>{title} || Kahala</title>
       </Head>
       <HomeLayout>
         <main className={styles.main}>
@@ -70,16 +71,16 @@ function Product({product, param}) {
               <span>{title}</span>
             </p>
 
-            <section className={styles.productInfoWrapper}>
-              <div className={styles.productsContainer}>
+            <section className={`${styles.productInfoWrapper} ${styles.flexStretch}`}>
+              <div className={`${styles.productsContainer} ${styles.bgWhite}`}>
                 <div className={styles.productInfo}>
                   <div className={styles.productInfoImages}>
                     <div className={styles.imagesWrapper}>  
                       {
-                        images.map((img, index) => {
+                        images?.map((img, index) => {
                           return <Image 
-                            key={index}
-                            src={img} 
+                            key={img._key}
+                            src={urlFor(img.asset._ref).url()} 
                             height={240} 
                             width={240} 
                             alt="image item"
@@ -89,10 +90,10 @@ function Product({product, param}) {
                     </div>
                     <div className={styles.otherImages}>
                       {
-                        images.map((img, index) => {
+                        images?.map((img, index) => {
                           return <Image 
-                            key={index}
-                            src={img} 
+                            key={img._key}
+                            src={urlFor(img.asset._ref).url()} 
                             height={38} 
                             width={38} 
                             alt="image item"
@@ -120,13 +121,13 @@ function Product({product, param}) {
                         <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
                         <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
                         <FontAwesomeIcon icon={faStar} style={{color: "#ecc297",}} />
-                        <span>(107 verified ratings)</span>
+                        <span>({rating.count} verified ratings)</span>
                       </div>
                     </div>
                     <div>
-                      <h2 className={styles.price}>$ {price}</h2>
+                      <h2 className={styles.price}>$ {priceConverion(amount)}</h2>
                       {productDiscount !== 0 &&  <p>
-                        <span className={styles.originalAmount}>$ {(price * (productDiscount / 100) + price).toFixed(0)}</span>
+                        <span className={styles.originalAmount}>$ {calculateDiscountedAmount(amount, productDiscount)}</span>
                         <span className={styles.discountedPercentage}>-{productDiscount}%</span>
                       </p>}
                       <span className={styles.inStockTag}>In stock</span>
@@ -142,10 +143,7 @@ function Product({product, param}) {
                     </div>
                   </article>
                 </div>
-                <article className={styles.productDetails}>
-                  <h4>Product details</h4>
-                  <p>{description}</p>
-                </article>
+                <span className={styles.report}>Report incorrect product information</span>
               </div>
               <aside className={styles.aside}>
                 <h4>Delivery</h4>
@@ -212,6 +210,44 @@ function Product({product, param}) {
                 </div>
               </aside>
             </section>
+            <section className={`${styles.productInfoWrapper} ${styles['mt-8']}`}>
+              <div className={styles.productsContainer}>
+                <article className={styles.productDetails}>
+                  <h4>Product details</h4>
+                  <p>{description}</p>
+                </article>
+                <article className={styles.productDetails}>
+                  <h4>Specifications</h4>
+                  <div className={styles.specificationWrapper}>
+                    <SpecificationItem title="KEY FEATURES">
+                      <ul>
+                        {
+                          feature.map((item, index) => {
+                            return <li key={index}>{item}</li>
+                          })
+                        }
+                      </ul>
+                    </SpecificationItem>
+                    <SpecificationItem title="SPECIFICATIONS">
+                      <ul>
+                        {
+                          specifications.map((item, index) => {
+                            return <li key={index}>{item}</li>
+                          })
+                        }
+                      </ul>
+                    </SpecificationItem>
+                  </div>
+                </article>
+              </div>
+              <aside className={`${styles.aside} ${styles.sticky}`}>
+                <ul>
+                  <li className={`${styles.sideNav} ${styles.active}`}><FontAwesomeIcon icon={faFileAlt}/> Product Details</li>
+                  <li className={styles.sideNav}><FontAwesomeIcon icon={faList} />  Specification</li>
+                  <li className={styles.sideNav}><FontAwesomeIcon icon={faMessage} />  Verified Customer Feedback</li>
+                </ul>
+              </aside>
+            </section>
           </Layout>
         </main>
       </HomeLayout>
@@ -220,11 +256,10 @@ function Product({product, param}) {
 }
 
 export async function getStaticPaths(){
-    const res = await fetch('https://api.escuelajs.co/api/v1/products')
-    const data = await res.json();
+    const data = await client.fetch(`*[_type == "products"]{slug}`);
     
     const paths = data.map(item => ({
-        params: {id: item.id.toString()}
+        params: {id: item.slug.current}
     }))
 
     return {
@@ -235,9 +270,9 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps({params}){
-  const res = await fetch(`https://api.escuelajs.co/api/v1/products/${params.id}`)
-  const product = await res.json()
-
+  // const res = await fetch(`https://api.escuelajs.co/api/v1/products/${params.id}`)
+  // const product = await res.json()
+  const product = await client.fetch(`*[_type == "products" && slug.current == "lenovo-flex-5-x360-convertible-core-i3-11th-gen--8gb-ram-256gb-ssd--fp-reader-touchscreen-windows-11"]`)
   return {
     props: {product, param: params.id}, 
   }
