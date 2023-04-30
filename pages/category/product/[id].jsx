@@ -42,8 +42,7 @@ function Product({product, param}) {
         quantity: 1
     }))
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
-    
-}
+  }
 
   const decreaseQty = () => {
     if(quantity > 1) {
@@ -52,6 +51,14 @@ function Product({product, param}) {
       dispatch(removeCart(parseInt(param)))
       setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
     } 
+  }
+
+  const switchNav = (e) => {
+    document.querySelectorAll('.sideNavWrap').forEach(item => {
+      console.log(item)
+      item.classList.remove('sideNavActive');
+    })
+    e.currentTarget.classList.add('sideNavActive');
   }
 
   return (
@@ -212,38 +219,46 @@ function Product({product, param}) {
             </section>
             <section className={`${styles.productInfoWrapper} ${styles['mt-8']}`}>
               <div className={styles.productsContainer}>
-                <article className={styles.productDetails}>
-                  <h4>Product details</h4>
-                  <p>{description}</p>
-                </article>
-                <article className={styles.productDetails}>
-                  <h4>Specifications</h4>
-                  <div className={styles.specificationWrapper}>
-                    <SpecificationItem title="KEY FEATURES">
-                      <ul>
-                        {
-                          feature.map((item, index) => {
-                            return <li key={index}>{item}</li>
-                          })
-                        }
-                      </ul>
-                    </SpecificationItem>
-                    <SpecificationItem title="SPECIFICATIONS">
-                      <ul>
-                        {
-                          specifications.map((item, index) => {
-                            return <li key={index}>{item}</li>
-                          })
-                        }
-                      </ul>
-                    </SpecificationItem>
-                  </div>
-                </article>
+                <div id="details">
+                  <article className={styles.productDetails}>
+                    <h4>Product details</h4>
+                    <p>{description}</p>
+                  </article>
+                </div>
+                <div id="specification">
+                  <article className={styles.productDetails} >
+                    <h4>Specifications</h4>
+                    <div className={styles.specificationWrapper}>
+                      <SpecificationItem title="KEY FEATURES">
+                        <ul>
+                          {
+                            feature.map((item, index) => {
+                              return <li key={index}>{item}</li>
+                            })
+                          }
+                        </ul>
+                      </SpecificationItem>
+                      <SpecificationItem title="SPECIFICATIONS">
+                        <ul>
+                          {
+                            specifications.map((item, index) => {
+                              return <li key={index}>{item}</li>
+                            })
+                          }
+                        </ul>
+                      </SpecificationItem>
+                    </div>
+                  </article>
+                </div>
               </div>
               <aside className={`${styles.aside} ${styles.sticky}`}>
                 <ul>
-                  <li className={`${styles.sideNav} ${styles.active}`}><FontAwesomeIcon icon={faFileAlt}/> Product Details</li>
-                  <li className={styles.sideNav}><FontAwesomeIcon icon={faList} />  Specification</li>
+                  <li onClick={switchNav} className={`${styles.sideNavWrap} sideNavWrap sideNavActive `}>
+                    <a className={`${styles.sideNav}`} href="#details"><FontAwesomeIcon icon={faFileAlt}/> Product Details</a>
+                  </li>
+                  <li onClick={switchNav} className={`${styles.sideNavWrap} sideNavWrap`}>
+                    <a className={`${styles.sideNav}`} href="#specification"><FontAwesomeIcon icon={faList} />  Specification</a>
+                  </li>
                   <li className={styles.sideNav}><FontAwesomeIcon icon={faMessage} />  Verified Customer Feedback</li>
                 </ul>
               </aside>

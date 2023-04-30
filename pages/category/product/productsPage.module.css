@@ -160,6 +160,7 @@
     border-bottom: 1px solid #EDEDED;
 }
 .sticky{
+    display: none;
     position: sticky;
     top: 6rem;
 }
@@ -191,7 +192,10 @@
 .specificationWrapper{
     display: grid;
     padding: 0.5rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.sideNavWrap{
+    border-bottom: 1px solid #d4d4d6;
 }
 .sideNav{
     font-weight: 500;
@@ -199,15 +203,12 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    border-bottom: 1px solid #d4d4d6;
 }
-.sideNav:last-child{
+.sideNavWrap:last-child{
     border-bottom: none;
 }
-.active{
-    background-color: #D4D4D6;
-}
 .report{
+    display: none;
     position: absolute;
     bottom: 0.5rem;
     left: 1rem;
@@ -243,5 +244,14 @@
     }
     .ProductInfoDetails{
         padding: 0 0.5rem;
+    }
+    .specificationWrapper{  
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .sticky{
+        display: block;
+    }
+    .report{
+        display: block;
     }
 }

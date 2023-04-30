@@ -17,7 +17,9 @@
     --primary: #f68b1e;
     --borderColor: #EDEDED;
     --secondaryText: #808080;
-    --btnHoverBg: #e07e1c
+    --btnHoverBg: #e07e1c;
+
+    scroll-behavior: smooth;
 }
 
 .swiper {
@@ -63,4 +65,7 @@ ul{
 }
 button{
     border: none;
+}
+.sideNavActive{
+    background-color: #D4D4D6;
 }
