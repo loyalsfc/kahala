@@ -62,10 +62,23 @@
 
 }
 .ProductInfoDetails h1{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-between;
+    gap: 1.5rem;
+}
+.brand{
+    padding: 0.5rem 0 0;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor:pointer;
+}
+.brand span{
+    color: #264996;
+}
+.brand span:hover{
+    text-decoration: underline;
 }
 .ratingContainer{
     color: #264996;

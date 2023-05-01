@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { calculateTotal, decreaseCartItem, removeCart, increaseCartItem } from '../store/cartSlice'
 import CartModifyBtn from './cartModifyBtn'
 import Toast from './toast/toast'
+import { priceConverion, calculateDiscountedAmount, urlFor } from '../utils/utils'
 
 function CartProducts({items}) {
-    const {item: product, quantity} = items
-    const {id, title, images, price} = product;
-    const [randomDiscount, setRandomDiscount] = useState(0);
+    const {item: product, quantity} = items;
+    const {_id, title, images, amount, discount, slug} = product;
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
     const [toastCount, setToastCount] = useState(0)
@@ -21,12 +21,9 @@ function CartProducts({items}) {
         dispatch(calculateTotal())
     },[cart, dispatch])
 
-    useEffect(()=>{
-        setRandomDiscount(Math.floor(Math.random() * 50))
-    }, [])
 
     const deleteItem = () => {
-        dispatch(removeCart(id));
+        dispatch(removeCart(_id));
         setToastCount(toastCount + 1);
     }
 
@@ -35,11 +32,11 @@ function CartProducts({items}) {
             {[...Array(toastCount)].map((_, index) => (
                 <Toast key={index} message="Cart Item Removed" duration={5000} />
             ))}
-            <Link className={styles.cartItemsDetails} href={`/category/product/${id}`}>
+            <Link className={styles.cartItemsDetails} href={`/category/product/${slug.current}`}>
                 <Image 
                     width={72}
                     height={72}
-                    src={images[0]}
+                    src={urlFor(images[0]?.asset?._ref).url()}
                     alt={title}
                 />
                 <article className={styles.cartItemTitleWrapper}>
@@ -47,11 +44,11 @@ function CartProducts({items}) {
                     <span>In stock </span>
                 </article>
                 <article className={styles.cartItemPriceWrapper}>
-                    <h4 className={styles.cartItemPrice}>${price}</h4>
-                    {randomDiscount !== 0 &&
+                    <h4 className={styles.cartItemPrice}>₦{priceConverion(amount)}</h4>
+                    {discount !== 0 &&
                         <p>
-                            <span className={styles.slashedPrice}>${((randomDiscount / 100 * price) + price).toFixed()}</span>
-                            <span className={styles.discountedPercentage}>-{randomDiscount}%</span>
+                            <span className={styles.slashedPrice}>₦{calculateDiscountedAmount(amount, discount)}</span>
+                            <span className={styles.discountedPercentage}>-{discount}%</span>
                         </p>
                     }
                 </article>
@@ -61,7 +58,7 @@ function CartProducts({items}) {
                     <FontAwesomeIcon icon={faTrashAlt} />
                     <span>Delete</span>
                 </button>
-                <CartModifyBtn quantity={quantity} id={id} handleClick={()=>dispatch(decreaseCartItem(id))} qtyLimit={1}/>
+                <CartModifyBtn quantity={quantity} id={_id} handleClick={()=>dispatch(decreaseCartItem(_id))} qtyLimit={1}/>
             </div>
         </li>
     )

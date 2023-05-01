@@ -14,15 +14,10 @@ import { client, urlFor } from "../utils/utils"
 
 
 function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsSlug}) {
+    console.log(categoryItems, limitedStocks);
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading} = useSWR('/api/phone_accessories', fetcher)
     // console.log(categoryItemsSlug[0].slug.current)
-
-    const paths = categoryItemsSlug.map(item => ({
-        params: {id: item.slug.current}
-    }))
-
-    console.log(paths)
 
     return (
         <div>
@@ -67,7 +62,7 @@ function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsS
                                             key={category?._id}
                                             className={styles.categoriesItem}
                                         >   
-                                            <Link href={`/category/${category?.id}`}>
+                                            <Link href={`/category/${category?.slug?.current}`}>
                                                 <div className={styles.categoriesImageWrapper}>
                                                     <Image
                                                         src={urlFor(category?.poster?.asset?._ref).url()}

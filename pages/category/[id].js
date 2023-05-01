@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { calculateTotal } from '../../store/cartSlice';
 import AllProducts from '../../components/allProducts';
 import HomeLayout from '../../components/Layout/homeLayout';
+import { client } from '../../utils/utils';
 
-function Categories({products, param}) {
+function Categories({products, param, productCategory}) {
     const dispatch = useDispatch()
     const {cart} = useSelector((state) => state.cart)
-
-    const categoryName = products?.[0]?.category?.name; 
+    const categoryName = productCategory?.name; 
 
     const limitedStock = useMemo(()=>
         products.map((item, index) => {
@@ -30,12 +30,12 @@ function Categories({products, param}) {
     return (
     <div>
         <Head>
-            <title>Kahala Store</title>
+            <title>{categoryName} || Kahala Store</title>
         </Head>
         <HomeLayout>
             <main className={styles.main}>
                 <Layout>
-                    <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <Link href={`/category/${param}`}>{categoryName}</Link></p>
+                    <p className={styles.breadCrumb}> <Link href='/'>Home</Link> / <span>{categoryName}</span></p>
                     <h2 className={styles.categoryTitle}>{categoryName}</h2>
 
                     <section className={styles.limitedStocks}>
@@ -50,6 +50,7 @@ function Categories({products, param}) {
                         products={products}
                         categoryName={categoryName}
                         searchFilter={`categoryId=${param}`}
+                        category={productCategory?._id}
                     />
                 </Layout>
             </main>
@@ -59,23 +60,22 @@ function Categories({products, param}) {
 }
 
 export async function getStaticPaths(){
-    const res = await fetch('https://api.escuelajs.co/api/v1/categories')
-    const categories = await res.json()
+    // const res = await fetch('https://api.escuelajs.co/api/v1/categories')
+    const categories = await client.fetch(`*[_type == "category"]{slug}`)
 
     const paths = categories.map((category) => ({
-        params: {id: category.id.toString()}
+        params: {id: category.slug.current}
     }))
 
     return {paths, fallback: false}
 }
 
 export async function getStaticProps({ params }){
-    const res = await fetch(`https://api.escuelajs.co/api/v1/products/?categoryId=${params.id}`)
-    const products = await res.json()
-
+    const productCategory = await client.fetch(`*[_type == "category" && slug.current == "${params.id}"]`)
+    const products = await client.fetch(`*[_type == "products" && category._ref == "${productCategory[0]._id}"]`)
     return {
         props: {
-            products, param: params.id
+            products, param: params.id, productCategory: productCategory[0]
         }
     }
 }

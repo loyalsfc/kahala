@@ -19,11 +19,11 @@ export const cartSlice  = createSlice({
             state.cart.products = [...state.cart.products, action.payload]
         },
         removeCart: (state, action) => {
-            state.cart.products = state.cart.products.filter((product) => product.item.id !== action.payload)
+            state.cart.products = state.cart.products.filter((product) => product.item._id !== action.payload)
         },
         increaseCartItem: (state, action) => {
             state.cart.products = state.cart.products.map(item => {
-                if(item.item.id === action.payload){
+                if(item.item._id === action.payload){
                     return {...item, quantity: item.quantity + 1}
                 } else {
                     return item
@@ -32,7 +32,7 @@ export const cartSlice  = createSlice({
         },
         decreaseCartItem: (state, action) => {
             state.cart.products = state.cart.products.map(item => {
-                if(item.item.id === action.payload){
+                if(item.item._id === action.payload){
                     return {...item, quantity: item.quantity - 1}
                 } else {
                     return item
@@ -44,7 +44,7 @@ export const cartSlice  = createSlice({
             let amount = 0;
             state.cart.products.forEach(item => {
                 total += item.quantity;
-                amount += item.quantity * item.item.price;
+                amount += item.quantity * item.item.amount;
             })
             state.cart.totalProducts = total;
             state.cart.totalPrice = amount;

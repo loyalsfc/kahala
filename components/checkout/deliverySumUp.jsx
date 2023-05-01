@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './checkout.module.css'
 import { useSelector } from 'react-redux'
+import { priceConverion } from '../../utils/utils'
 
 function DeliverySumUp({deliveryFee}) {
     const {cart} = useSelector(state => state.cart)
@@ -8,7 +9,7 @@ function DeliverySumUp({deliveryFee}) {
         <div>
             <p className={styles.subTotals}>
                 <span>Subtotal</span>
-                <span>${cart.totalPrice}</span>
+                <span>₦{priceConverion(cart.totalPrice)}</span>
             </p>
             <p className={`${styles.subTotals} ${styles.deliveryFee}`}>
                 <span>deliveryFee</span>

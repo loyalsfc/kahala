@@ -10,6 +10,7 @@ import CheckoutLayout from '../Layout/checkoutLayout/checkoutLayout'
 import styles from './checkoutTemplate.module.css'
 import { useRouter } from 'next/router'
 import { getSession, useSession } from 'next-auth/react'
+import { priceConverion, urlFor } from '../../utils/utils'
 
 function Checkout({children}) {
     const {data: session, status} = useSession()
@@ -68,17 +69,18 @@ function Checkout({children}) {
                                         <ul className={styles.summaryWrapper}>
                                             {
                                                 products.map(product => {
+                                                    console.log()
                                                     return (
-                                                        <li key={product?.item?.id}>
+                                                        <li key={product?.item?._id}>
                                                             <Image 
-                                                                src={product?.item?.images[0]}
+                                                                src={urlFor(product?.item?.images[0]?.asset?._ref).url()}
                                                                 height={60}
                                                                 width={58}
                                                                 alt={product?.item?.title}
                                                             />
                                                             <article className={styles.summaryWrapperArticle}>
                                                                 <p>{product?.item?.title}</p>
-                                                                <p className={styles.summaryItemPrice}>${product?.item?.price}</p>
+                                                                <p className={styles.summaryItemPrice}>₦{priceConverion(product?.item?.amount)}</p>
                                                                 <p><span className={styles.summaryQty}>Qty: </span>{product?.quantity}</p>
                                                             </article>
                                                         </li>

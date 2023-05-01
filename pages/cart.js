@@ -11,6 +11,7 @@ import TopSelling from '../components/topSelling';
 import { calculateTotal } from '../store/cartSlice';
 import styles from './styles/cart.module.css'
 import HomeLayout from '../components/Layout/homeLayout';
+import { priceConverion } from '../utils/utils';
 
 function Cart({products}) {
     const {user} = useSelector(state => state.user)
@@ -53,7 +54,7 @@ function Cart({products}) {
                                             <h4>Cart Summary</h4>
                                             <div>
                                                 <span>Subtotal</span>
-                                                <span>${cart.totalPrice}</span>
+                                                <span>₦{priceConverion(cart.totalPrice)}</span>
                                             </div>
                                         </div>
                                         <div className={styles.cartItemsWrapper}>
@@ -66,11 +67,11 @@ function Cart({products}) {
                                             <h4>Cart Summary</h4>
                                             <p>
                                                 <span>Subtotal</span>
-                                                <span className={styles.subTotal}>${cart.totalPrice}</span>
+                                                <span className={styles.subTotal}>₦{priceConverion(cart.totalPrice)}</span>
                                             </p>
                                             <div className={styles.checkoutBtnWrapper}>
                                                 <Link href={user ? "/pagecheckout/address" : "/auth"}>
-                                                    <button className={styles.checkoutBtn}>CHECKOUT (${cart.totalPrice})</button>
+                                                    <button className={styles.checkoutBtn}>CHECKOUT (₦{priceConverion(cart.totalPrice)})</button>
                                                 </Link>
                                             </div>
                                         </aside>

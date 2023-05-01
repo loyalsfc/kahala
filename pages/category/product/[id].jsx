@@ -17,9 +17,9 @@ import HomeLayout from '../../../components/Layout/homeLayout';
 import { calculateDiscountedAmount, client, priceConverion, urlFor } from '../../../utils/utils';
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
 
-function Product({product, param}) {
-  console.log(product)
-  const { category, title, images, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product[0];
+function Product({product, param, category}) {
+  console.log(category)
+  const {title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product[0];
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
@@ -38,7 +38,7 @@ function Product({product, param}) {
 
   const handleClick = () => {
     dispatch(addCart({
-        item: product,
+        item: product[0],
         quantity: 1
     }))
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
@@ -61,6 +61,18 @@ function Product({product, param}) {
     e.currentTarget.classList.add('sideNavActive');
   }
 
+  function getStockText(){
+    if(unit < 20){
+      return "Few stocks left"
+    } else if(unit < 10){
+      return`${unit} item(s) left`
+    } else if (unit == 0){
+      return "out of stock"
+    } else {
+      return "In stock"
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -74,7 +86,7 @@ function Product({product, param}) {
           <Layout>
             <p className={styles.breadCrumb}>
               <Link href="/">Home</Link> / 
-              <Link href={`/category/${category?.id}`}> {category?.name}</Link> / 
+              <Link href={`/category/${category?.slug?.current}`}> {category?.name}</Link> / 
               <span>{title}</span>
             </p>
 
@@ -120,25 +132,35 @@ function Product({product, param}) {
                     <div>
                       <h1>
                         <span>{title}</span>
-                        <FontAwesomeIcon icon={faHeart} />
+                        <FontAwesomeIcon icon={faHeart} style={{color: "#f68b1e"}}/>
                       </h1>
+                      <p className={styles.brand}>Brand: <span>{brand} | similar products from {brand}</span></p>
                       <div className={styles.ratingContainer}>
-                        <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
-                        <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
-                        <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
-                        <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
-                        <FontAwesomeIcon icon={faStar} style={{color: "#ecc297",}} />
+                        {rating.count == 0 ? <>
+                            <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
+                            <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
+                            <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
+                            <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
+                            <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
+                          </>:<>
+                            <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
+                            <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
+                            <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
+                            <FontAwesomeIcon icon={faStar} style={{color: "#F68B1E"}}/>
+                            <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
+                        </>
+                        }
                         <span>({rating.count} verified ratings)</span>
                       </div>
                     </div>
                     <div>
-                      <h2 className={styles.price}>$ {priceConverion(amount)}</h2>
+                      <h2 className={styles.price}>₦{priceConverion(amount)}</h2>
                       {productDiscount !== 0 &&  <p>
-                        <span className={styles.originalAmount}>$ {calculateDiscountedAmount(amount, productDiscount)}</span>
+                        <span className={styles.originalAmount}>₦{calculateDiscountedAmount(amount, productDiscount)}</span>
                         <span className={styles.discountedPercentage}>-{productDiscount}%</span>
                       </p>}
-                      <span className={styles.inStockTag}>In stock</span>
-                      <p className={styles.shippingSFee}>+ shipping from $10 to {selectedLg}</p>
+                      <span className={styles.inStockTag}>{getStockText()}</span>
+                      <p className={styles.shippingSFee}>+ shipping from ₦699 to {selectedLg}</p>
                       { !cart.products.some(product => product.item.id == param) ?
                         <button onClick={handleClick} className={styles.addCartBtn}>
                           <FontAwesomeIcon icon={faCartPlus} />
@@ -285,11 +307,10 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps({params}){
-  // const res = await fetch(`https://api.escuelajs.co/api/v1/products/${params.id}`)
-  // const product = await res.json()
-  const product = await client.fetch(`*[_type == "products" && slug.current == "lenovo-flex-5-x360-convertible-core-i3-11th-gen--8gb-ram-256gb-ssd--fp-reader-touchscreen-windows-11"]`)
+  const product = await client.fetch(`*[_type == "products" && slug.current == "${params.id}"]`);
+  const category = await client.fetch(`*[_type == "category" && _id == "${product[0].category._ref}"]`)
   return {
-    props: {product, param: params.id}, 
+    props: {product, param: params.id, category: category[0]}, 
   }
 }
 
