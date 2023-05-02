@@ -5,6 +5,7 @@ import Link from 'next/link'
 import styles from './styles/allProducts.module.css'
 import AllProducts from '../components/allProducts'
 import HomeLayout from '../components/Layout/homeLayout'
+import { client } from '../utils/utils'
 
 function Allproduct({products}) {
 
@@ -30,8 +31,7 @@ function Allproduct({products}) {
 }
 
 export async function getStaticProps(){
-    const res = await fetch('https://api.escuelajs.co/api/v1/products')
-    const products = await res.json()
+    const products = await client.fetch(`*[_type == "products"]`)
     
     return {
         props: {products}

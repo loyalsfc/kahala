@@ -8,6 +8,7 @@ import TopSelling from '../../components/topSelling';
 import AllProducts from '../../components/allProducts';
 import Link from 'next/link';
 import HomeLayout from '../../components/Layout/homeLayout';
+import { client } from '../../utils/utils';
 
 function Search({products, topSelling}) {
     const {query} = useRouter();
@@ -60,8 +61,7 @@ function Search({products, topSelling}) {
 }
 
 export async function getServerSideProps({query}){
-    const res = await fetch(`https://api.escuelajs.co/api/v1/products/?title=${query.q}`);
-    const products = await res.json();
+    const products = await client.fetch(`*[title match "${query.q}*" && description match "${query.q}*"]`);
 
     const topSellingRes = await fetch("https://api.escuelajs.co/api/v1/products/?offset=10&limit=10")
     const topSelling = await topSellingRes.json()

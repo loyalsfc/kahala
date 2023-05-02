@@ -26,15 +26,19 @@ function AllProducts({categoryName, products, searchFilter, category}) {
 
     //Fetch least and highest product price
     useEffect(()=>{
+        //set products
+        setFetchedProducts(products)
+        //Get the lowest value
         const low = fetchedProducts.reduce((prev, current) => {
             return (prev.amount < current.amount) ? prev : current 
         });
+        //Get the highest value
         const high = fetchedProducts.reduce((prev, current) => {
             return (prev.amount > current.amount) ? prev : current 
         });
         setValue([low.amount,high.amount]);
         setPriceRange({min: low.amount, max: high.amount})
-    },[])
+    },[products])
 
     // page change
     const handlePageChange = ({selected}) => {
