@@ -14,10 +14,8 @@ import { client, urlFor } from "../utils/utils"
 
 
 function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsSlug}) {
-    console.log(categoryItems, limitedStocks);
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading} = useSWR('/api/phone_accessories', fetcher)
-    // console.log(categoryItemsSlug[0].slug.current)
 
     return (
         <div>

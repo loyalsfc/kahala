@@ -2,9 +2,11 @@ import '../styles/globals.css'
 import {Roboto} from 'next/font/google'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { Provider } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import { store } from '../store/store'
-import {SessionProvider} from 'next-auth/react'
+import {SessionProvider, useSession} from 'next-auth/react'
+import { useEffect } from 'react'
+import { fetchCart } from '../lib/fetchCart'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -23,10 +25,27 @@ export default function App ({Component, pageProps: {session, ...pageProps}}){
             `}</style>
                 <SessionProvider session={session}>
                     <Provider store={store}>
-                        <Component {...pageProps} />
+                        <StateWrapper>
+                            <Component {...pageProps} />
+                        </StateWrapper>
                     </Provider>
                 </SessionProvider>
 
         </>
         )
+}
+
+function StateWrapper({children}){
+    const dispatch = useDispatch();
+    const {data} = useSession()
+    useEffect(()=>{
+        console.log(data)
+        dispatch(fetchCart())
+    },[])
+
+    return(
+        <>
+            {children}
+        </>
+    )
 }

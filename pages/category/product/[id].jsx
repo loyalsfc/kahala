@@ -16,31 +16,34 @@ import Toast from '../../../components/toast/toast';
 import HomeLayout from '../../../components/Layout/homeLayout';
 import { calculateDiscountedAmount, client, priceConverion, urlFor } from '../../../utils/utils';
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
+import { supabase } from '../../../lib/supabaseClient';
 
 function Product({product, param, category}) {
-  console.log(category)
-  const {title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product[0];
+  const {title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product;
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
   const { cart } = useSelector(state => state.cart);
+  const {user} = useSelector(state => state.user);
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch();
   const [toastCount, setToastCount] = useState({
     count: 0,
     cartMessage: ""
   });
+
+  console.log(cart, product)
   
   useEffect(()=>{
     dispatch(calculateTotal())
-    setQuantity(cart.products.find(product => product.item.id == param)?.quantity)
+    setQuantity(cart.products.find(product => product.item.slug.current == param)?.quantity)
   }, [cart, param, dispatch])
 
-  const handleClick = () => {
-    dispatch(addCart({
-        item: product[0],
-        quantity: 1
-    }))
+  const handleClick = async () => {
+    const {data} = await supabase.from('cart')
+      .insert({item: product, quantity: 1, user_id: user?.email})
+      .select();
+    dispatch(addCart(data[0]))
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
   }
 
@@ -55,7 +58,6 @@ function Product({product, param, category}) {
 
   const switchNav = (e) => {
     document.querySelectorAll('.sideNavWrap').forEach(item => {
-      console.log(item)
       item.classList.remove('sideNavActive');
     })
     e.currentTarget.classList.add('sideNavActive');
@@ -161,7 +163,7 @@ function Product({product, param, category}) {
                       </p>}
                       <span className={styles.inStockTag}>{getStockText()}</span>
                       <p className={styles.shippingSFee}>+ shipping from ₦699 to {selectedLg}</p>
-                      { !cart.products.some(product => product.item.id == param) ?
+                      { !cart.products.some(product => product.item.slug.current == param) ?
                         <button onClick={handleClick} className={styles.addCartBtn}>
                           <FontAwesomeIcon icon={faCartPlus} />
                           <span>Add to Cart</span>
@@ -310,7 +312,7 @@ export async function getStaticProps({params}){
   const product = await client.fetch(`*[_type == "products" && slug.current == "${params.id}"]`);
   const category = await client.fetch(`*[_type == "category" && _id == "${product[0].category._ref}"]`)
   return {
-    props: {product, param: params.id, category: category[0]}, 
+    props: {product: product[0], param: params.id, category: category[0]}, 
   }
 }
 

@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchCart } from "../lib/fetchCart";
 
 const initialState = {
     cart: {
         totalPrice: 0,
         totalProducts: 0,
         products: []
-    }
+    },
+    status: "idle"
 }
 
 export const cartSlice  = createSlice({
@@ -40,18 +42,36 @@ export const cartSlice  = createSlice({
             })
         },
         calculateTotal: (state) => {
-            let total = 0;
-            let amount = 0;
-            state.cart.products.forEach(item => {
-                total += item.quantity;
-                amount += item.quantity * item.item.amount;
-            })
-            state.cart.totalProducts = total;
-            state.cart.totalPrice = amount;
-            localStorage.carts = JSON.stringify(state.cart);
+            calculateCartTotals(state)
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchCart.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchCart.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.cart.products = action.payload;
+                calculateCartTotals(state);
+            })
+            .addCase(fetchCart.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
+            });
     }
 })
+
+function calculateCartTotals(state){
+    let total = 0;
+    let amount = 0;
+    state.cart.products.forEach(item => {
+        total += item.quantity;
+        amount += item.quantity * item.item.amount;
+    })
+    state.cart.totalProducts = total;
+    state.cart.totalPrice = amount;
+}
 
 export const {initCart, addCart, removeCart, increaseCartItem, decreaseCartItem, calculateTotal} = cartSlice.actions
 export default cartSlice.reducer

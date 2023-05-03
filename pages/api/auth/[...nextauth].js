@@ -13,7 +13,23 @@ export const authOptions = {
             clientSecret: process.env.GITHUB_CLIENT_SECRET
         })
     ],
-    secret: process.env.JWT_SECRET
+    callbacks: {
+        async jwt({ token, account, profile }) {
+            // Persist the OAuth access_token and or the user id to the token right after signin
+            if (account) {
+              token.accessToken = account.access_token
+              token.id = profile.id
+            }
+            return token
+        },
+        async session({ session, token, user }) {
+          // Send properties to the client, like an access_token and user id from a provider.
+            session.accessToken = token.accessToken
+            session.user.id = token.id
+            return session
+        }
+      },
+    secret: process.env.JWT_SECRET,
 }
 
 export default NextAuth(authOptions)

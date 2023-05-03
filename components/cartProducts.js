@@ -26,7 +26,7 @@ function CartProducts({items}) {
         dispatch(removeCart(_id));
         setToastCount(toastCount + 1);
     }
-
+    console.log(product)
     return (
         <li>
             {[...Array(toastCount)].map((_, index) => (

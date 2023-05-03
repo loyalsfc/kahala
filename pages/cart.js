@@ -16,7 +16,9 @@ import { priceConverion } from '../utils/utils';
 function Cart({products}) {
     const {user} = useSelector(state => state.user)
     const {cart} = useSelector(state => state.cart)
+    const stateStat = useSelector(state => state.cart)
     const dispatch = useDispatch()
+    console.log(cart)
 
     const cartsItems = useMemo(()=>
         cart.products.map(item => {
