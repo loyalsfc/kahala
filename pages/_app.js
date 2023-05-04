@@ -41,11 +41,15 @@ function StateWrapper({children}){
     const {data, status} = useSession();
 
     useEffect(()=>{
-        console.log(status)
+        //Check if user is authenticated
         if(status === "authenticated"){
+            //If yes, fetch cart from DB
             dispatch(fetchCart(data?.user?.email))
         }else if(status === "unauthenticated"){
-            dispatch(initCart(JSON.parse(localStorage.carts)))
+            //Otherwise fetch cart from localStorage
+            if(localStorage.carts){
+                dispatch(initCart(JSON.parse(localStorage.carts)));   
+            }
         }
     },[data])
 
