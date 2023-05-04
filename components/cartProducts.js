@@ -8,25 +8,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { calculateTotal, decreaseCartItem, removeCart, increaseCartItem } from '../store/cartSlice'
 import CartModifyBtn from './cartModifyBtn'
 import Toast from './toast/toast'
-import { priceConverion, calculateDiscountedAmount, urlFor } from '../utils/utils'
+import { priceConverion, calculateDiscountedAmount, urlFor, removeCartFromDb, decreaseCartQtyFromDb } from '../utils/utils'
 
 function CartProducts({items}) {
-    const {item: product, quantity} = items;
+    const {item: product, quantity, id} = items;
     const {_id, title, images, amount, discount, slug} = product;
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
     const [toastCount, setToastCount] = useState(0)
-    
-    useEffect(()=>{
-        dispatch(calculateTotal())
-    },[cart, dispatch])
-
 
     const deleteItem = () => {
-        dispatch(removeCart(_id));
+        removeCartFromDb(dispatch, id, _id);
         setToastCount(toastCount + 1);
     }
-    console.log(product)
+    
     return (
         <li>
             {[...Array(toastCount)].map((_, index) => (
@@ -58,7 +53,13 @@ function CartProducts({items}) {
                     <FontAwesomeIcon icon={faTrashAlt} />
                     <span>Delete</span>
                 </button>
-                <CartModifyBtn quantity={quantity} id={_id} handleClick={()=>dispatch(decreaseCartItem(_id))} qtyLimit={1}/>
+                <CartModifyBtn 
+                    quantity={quantity} 
+                    productId={_id} 
+                    handleClick={()=>decreaseCartQtyFromDb(dispatch,id, _id, quantity)} 
+                    qtyLimit={1}
+                    dbId={id}
+                />
             </div>
         </li>
     )

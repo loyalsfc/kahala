@@ -14,44 +14,44 @@ import { addCart, calculateTotal, decreaseCartItem, removeCart } from '../../../
 import CartModifyBtn from '../../../components/cartModifyBtn';
 import Toast from '../../../components/toast/toast';
 import HomeLayout from '../../../components/Layout/homeLayout';
-import { calculateDiscountedAmount, client, priceConverion, urlFor } from '../../../utils/utils';
+import { calculateDiscountedAmount, client, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, urlFor } from '../../../utils/utils';
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
 import { supabase } from '../../../lib/supabaseClient';
 
 function Product({product, param, category}) {
-  const {title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product;
+  const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product;
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
   const { cart } = useSelector(state => state.cart);
   const {user} = useSelector(state => state.user);
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
+  const [dbId, setDbId] = useState(null);
   const dispatch = useDispatch();
   const [toastCount, setToastCount] = useState({
     count: 0,
     cartMessage: ""
   });
-
-  console.log(cart, product)
   
   useEffect(()=>{
     dispatch(calculateTotal())
-    setQuantity(cart.products.find(product => product.item.slug.current == param)?.quantity)
-  }, [cart, param, dispatch])
+    const item = cart.products.find(product => product.item.slug.current == param) 
+    setQuantity(item?.quantity)
+    setDbId(item?.id)
+  }, [cart, param])
 
   const handleClick = async () => {
-    const {data} = await supabase.from('cart')
-      .insert({item: product, quantity: 1, user_id: user?.email})
-      .select();
-    dispatch(addCart(data[0]))
+    if(user){
+      saveCartToDb(dispatch, product, user)
+    }
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
   }
 
   const decreaseQty = () => {
     if(quantity > 1) {
-      dispatch(decreaseCartItem(parseInt(param)))
+      decreaseCartQtyFromDb(dispatch, dbId, _id, quantity);
     }else{
-      dispatch(removeCart(parseInt(param)))
+      removeCartFromDb(dispatch, dbId, _id);
       setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
     } 
   }
@@ -169,7 +169,12 @@ function Product({product, param, category}) {
                           <span>Add to Cart</span>
                           <span />
                         </button> : 
-                        <CartModifyBtn id={parseInt(param)} quantity={quantity} handleClick={decreaseQty}/>
+                        <CartModifyBtn 
+                          productId={_id} 
+                          quantity={quantity} 
+                          handleClick={decreaseQty}
+                          dbId={dbId}
+                        />
                       }
                     </div>
                   </article>

@@ -6,33 +6,35 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addCart, decreaseCartItem, removeCart } from '../../store/cartSlice'
 import CartModifyBtn from '../cartModifyBtn'
 import Toast from '../toast/toast'
-import { calculateDiscountedAmount, priceConverion, urlFor } from '../../utils/utils'
+import { calculateDiscountedAmount, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, urlFor } from '../../utils/utils'
 
 function ProductsList({item}) {
     const {_id, images, amount, title, discount, slug } = item;
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.cart)
-    //Find the quantity of the id if the item exist in the cart
-    const quantity = cart.products.find(product => product.item._id == _id)?.quantity
+    const {user} = useSelector(state => state.user)
+    //Find the id if the item exist in the cart
+    const cartItem = cart.products.find(product => product.item._id == _id);
+    //fetch the quantity and the id
+    const quantity = cartItem?.quantity
+    const dbId = cartItem?.id
+
     const [toastCount, setToastCount] = useState({
         count: 0,
         cartMessage: ""
     })
 
     const handleClick = () => {
-        dispatch(addCart({
-            item: item,
-            quantity: 1
-        }))
+        saveCartToDb(dispatch, item, user);
         setToastCount({count: toastCount.count + 1, cartMessage: "Item Added to Cart Successfully"});
     }
 
-    const decreaseQty = (id) => {
+    const decreaseQty = () => {
         if(quantity > 1) {
-          dispatch(decreaseCartItem(id))
+            decreaseCartQtyFromDb(dispatch, dbId, _id, quantity)
         }else{
-          dispatch(removeCart(id))
-          setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
+            removeCartFromDb(dispatch, dbId, _id)
+            setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
         } 
     }
     return(
@@ -65,7 +67,7 @@ function ProductsList({item}) {
                             <CartModifyBtn 
                                 quantity={quantity} 
                                 id={_id} 
-                                handleClick={()=>decreaseQty(_id)}
+                                handleClick={()=>decreaseQty()}
                             />
                         ):(
                             <button 

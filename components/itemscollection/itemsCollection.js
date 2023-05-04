@@ -4,23 +4,24 @@ import styles from "./itemsCollection.module.css"
 import { calculateDiscountedAmount, priceConverion, urlFor } from "../../utils/utils"
 
 function ItemsCollection({item}) {
+    const {slug, discount, images, title, amount} = item;
     // console.log(item)
     return (
         <li className={styles.mainItemsWrap}>
-            <Link href={`/category/product/${item?.slug?.current}`}>
-                <span className={styles.percentageSlash}>-{item?.discount}%</span>
+            <Link href={`/category/product/${slug?.current}`}>
+                {discount !==0 && <span className={styles.percentageSlash}>-{discount}%</span>}
                 <div className={styles.imageWrapper}>
                     <Image
                         className={styles.topSellingImage}
                         fill
-                        src={item.images[0]?.asset?._ref && urlFor(item.images[0]?.asset?._ref)?.url()}
-                        alt={item?.title}
+                        src={images[0]?.asset?._ref && urlFor(images[0]?.asset?._ref)?.url()}
+                        alt={title}
                     />
                 </div>
                 <article>
-                    <h5 className={styles.topSellingTitle}>{item?.title}</h5>
-                    <p>${priceConverion(item?.amount)}</p>
-                    <p className={styles.slashedPrice}>${calculateDiscountedAmount(item?.amount, item?.discount)}</p>
+                    <h5 className={styles.topSellingTitle}>{title}</h5>
+                    <p>₦{priceConverion(amount)}</p>
+                    {discount !==0 && <p className={styles.slashedPrice}>₦{calculateDiscountedAmount(amount, discount)}</p>}
                 </article>
             </Link>
         </li>

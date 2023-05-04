@@ -5,19 +5,27 @@ import { useDispatch } from 'react-redux'
 import styles from "../pages/styles/cart.module.css"
 import { increaseCartItem, decreaseCartItem } from '../store/cartSlice'
 import Toast from './toast/toast'
+import { supabase } from '../lib/supabaseClient'
 
-function CartModifyBtn({quantity, id, handleClick, qtyLimit}) {
+function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
     const dispatch = useDispatch()
     const [toastCount, setToastCount] = useState(0)
     const [toastMessage, setToastMessage] = useState("")
     
-    const addToCart = ()=> {
+    const handleCartIncrease = async() => {
+        //Update data in the DB
+        const {data, error} = await supabase
+            .from('cart')
+            .update({quantity: quantity + 1})
+            .eq('id', dbId)
+        //Show toast
         setToastCount(toastCount + 1)
         setToastMessage("Cart Quantity Increased")
-        dispatch(increaseCartItem(id))
+        // update state
+        dispatch(increaseCartItem(productId))
     }
 
-    const removeFromCart = () => {
+    const handleCartQtyDecrease = () => {
         handleClick()
         setToastCount(toastCount + 1)
         setToastMessage("Cart Quantity Decreased")
@@ -30,14 +38,14 @@ function CartModifyBtn({quantity, id, handleClick, qtyLimit}) {
             ))}
 
             <button
-                onClick={removeFromCart} 
+                onClick={handleCartQtyDecrease} 
                 disabled={quantity == qtyLimit ? true : false} 
                 className={styles.cartItemBtn}
             >
                 <FontAwesomeIcon icon={faMinus} />
             </button>
             <span>{quantity}</span>
-            <button onClick={addToCart} className={styles.cartItemBtn}>
+            <button onClick={handleCartIncrease} className={styles.cartItemBtn}>
                 <FontAwesomeIcon icon={faPlus} />
             </button>
         </div>

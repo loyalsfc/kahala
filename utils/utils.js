@@ -1,6 +1,8 @@
 import imageUrlBuilder from '@sanity/image-url'
 
 import { createClient } from "next-sanity"
+import { supabase } from '../lib/supabaseClient';
+import { addCart, decreaseCartItem, removeCart } from '../store/cartSlice';
 
 export const client = createClient({
     projectId: "cho2ggqw",
@@ -24,4 +26,26 @@ export function calculateDiscountedAmount(price, discount){
 export function priceConverion(amount){
     if(!amount) return;
     return amount.toLocaleString();
+}
+
+export async function saveCartToDb(callback, product, user){
+    const {data, error} = await supabase.from('cart')
+        .insert({item: product, quantity: 1, user_id: user?.email})
+        .select();
+    callback(addCart(data[0]))
+}
+
+export async function removeCartFromDb(callback, dbId, productId){
+    const {error} = await supabase.from('cart')
+        .delete()
+        .eq('id', dbId);
+    callback(removeCart(productId))
+}
+
+export async function decreaseCartQtyFromDb(callback, dbId, productId, qty){
+    const {error} = await supabase
+        .from('cart')
+        .update({quantity: qty - 1})
+        .eq('id', dbId);
+    callback(decreaseCartItem(productId))
 }
