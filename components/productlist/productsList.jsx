@@ -18,7 +18,7 @@ function ProductsList({item}) {
     //fetch the quantity and the id
     const quantity = cartItem?.quantity
     const dbId = cartItem?.id
-
+    
     const [toastCount, setToastCount] = useState({
         count: 0,
         cartMessage: ""
@@ -68,6 +68,7 @@ function ProductsList({item}) {
                                 quantity={quantity} 
                                 id={_id} 
                                 handleClick={()=>decreaseQty()}
+                                dbId={dbId}
                             />
                         ):(
                             <button 

@@ -41,9 +41,9 @@ function Product({product, param, category}) {
   }, [cart, param])
 
   const handleClick = async () => {
-    if(user){
+    // if(user){
       saveCartToDb(dispatch, product, user)
-    }
+    // }
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
   }
 

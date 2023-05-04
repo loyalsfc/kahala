@@ -7,6 +7,7 @@ import { store } from '../store/store'
 import {SessionProvider, useSession} from 'next-auth/react'
 import { useEffect } from 'react'
 import { fetchCart } from '../lib/fetchCart'
+import { initCart } from '../store/cartSlice'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -37,11 +38,16 @@ export default function App ({Component, pageProps: {session, ...pageProps}}){
 
 function StateWrapper({children}){
     const dispatch = useDispatch();
-    const {data} = useSession()
+    const {data, status} = useSession();
+
     useEffect(()=>{
-        console.log(data)
-        dispatch(fetchCart())
-    },[])
+        console.log(status)
+        if(status === "authenticated"){
+            dispatch(fetchCart(data?.user?.email))
+        }else if(status === "unauthenticated"){
+            dispatch(initCart(JSON.parse(localStorage.carts)))
+        }
+    },[data])
 
     return(
         <>

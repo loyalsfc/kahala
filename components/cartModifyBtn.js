@@ -1,23 +1,27 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styles from "../pages/styles/cart.module.css"
 import { increaseCartItem, decreaseCartItem } from '../store/cartSlice'
 import Toast from './toast/toast'
 import { supabase } from '../lib/supabaseClient'
 
 function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
+    const {user} = useSelector(state => state.user)
     const dispatch = useDispatch()
     const [toastCount, setToastCount] = useState(0)
     const [toastMessage, setToastMessage] = useState("")
     
     const handleCartIncrease = async() => {
-        //Update data in the DB
-        const {data, error} = await supabase
-            .from('cart')
-            .update({quantity: quantity + 1})
-            .eq('id', dbId)
+        if(user){
+            //Update data in the DB
+            const {data, error} = await supabase
+                .from('cart')
+                .update({quantity: quantity + 1})
+                .eq('id', dbId)
+            console.log(data, error)
+        }
         //Show toast
         setToastCount(toastCount + 1)
         setToastMessage("Cart Quantity Increased")

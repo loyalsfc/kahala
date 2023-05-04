@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import style from "./layout.module.css"
 import { addCart, initCart } from "../../store/cartSlice"
 import { useEffect, useState } from "react";
@@ -7,9 +7,15 @@ import { signIn } from "../../store/userSlice";
 import { supabase } from "../../lib/supabaseClient";
 
 export default function Layout({children}){
-    const [fetchedCart, setFetchedCart] = useState([])
-    const {data} = useSession()
+    const {cart} = useSelector(state => state.cart)
+    const {data, status} = useSession()
     const dispatch = useDispatch();
+    
+    useEffect(()=>{
+        if(status === "unauthenticated"){
+            localStorage.carts = JSON.stringify(cart.products);
+        }
+    },[cart])
 
     useEffect(()=>{
         // if(localStorage.carts){
@@ -25,13 +31,6 @@ export default function Layout({children}){
         //     setFetchedCart(data)
         // }
     },[data])
-
-    // useEffect(()=>{
-    //     console.log(fetchedCart);
-    //     fetchedCart.forEach(element => {
-    //         dispatch(addCart(element))
-    //     });
-    // },[fetchedCart])
 
     return <div className={style.container}>{children}</div>
 }

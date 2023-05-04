@@ -29,23 +29,33 @@ export function priceConverion(amount){
 }
 
 export async function saveCartToDb(callback, product, user){
-    const {data, error} = await supabase.from('cart')
-        .insert({item: product, quantity: 1, user_id: user?.email})
-        .select();
-    callback(addCart(data[0]))
+    console.log(user)
+    if(user){
+        const {data, error} = await supabase.from('cart')
+            .insert({item: product, quantity: 1, user_id: user?.email})
+            .select();
+        callback(addCart(data[0]))
+    }else{
+        console.log('yeah')
+        callback(addCart({item: product, quantity: 1}))
+    }
 }
 
 export async function removeCartFromDb(callback, dbId, productId){
-    const {error} = await supabase.from('cart')
-        .delete()
-        .eq('id', dbId);
+    if(dbId){
+        const {error} = await supabase.from('cart')
+            .delete()
+            .eq('id', dbId);
+    }
     callback(removeCart(productId))
 }
 
 export async function decreaseCartQtyFromDb(callback, dbId, productId, qty){
-    const {error} = await supabase
-        .from('cart')
-        .update({quantity: qty - 1})
-        .eq('id', dbId);
+    if(dbId){
+        const {error} = await supabase
+            .from('cart')
+            .update({quantity: qty - 1})
+            .eq('id', dbId);
+    }
     callback(decreaseCartItem(productId))
 }
