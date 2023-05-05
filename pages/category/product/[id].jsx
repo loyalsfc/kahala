@@ -6,20 +6,19 @@ import styles from './productsPage.module.css';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faHeart, faMessage } from '@fortawesome/free-regular-svg-icons';
-import { faCartPlus, faFacebook, faFile, faList, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faList, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "../../../utils/lga"
 import DeliveryDetails from '../../../components/deliveryDetails/deliveryDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCart, calculateTotal, decreaseCartItem, removeCart } from '../../../store/cartSlice';
 import CartModifyBtn from '../../../components/cartModifyBtn';
 import Toast from '../../../components/toast/toast';
 import HomeLayout from '../../../components/Layout/homeLayout';
 import { calculateDiscountedAmount, client, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, urlFor } from '../../../utils/utils';
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
-import { supabase } from '../../../lib/supabaseClient';
+import ProductSection from '../../../components/productSection/productSection';
 
-function Product({product, param, category}) {
-  const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit } = product;
+function Product({product, param, category, relatedProducts}) {
+  const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit, itemsInBox, productType } = product;
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
@@ -32,9 +31,8 @@ function Product({product, param, category}) {
     count: 0,
     cartMessage: ""
   });
-  
+
   useEffect(()=>{
-    dispatch(calculateTotal())
     const item = cart.products.find(product => product.item.slug.current == param) 
     setQuantity(item?.quantity)
     setDbId(item?.id)
@@ -42,8 +40,7 @@ function Product({product, param, category}) {
 
   const handleClick = async () => {
     // if(user){
-      saveCartToDb(dispatch, product, user)
-    // }
+    saveCartToDb(dispatch, product, user)
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
   }
 
@@ -126,7 +123,6 @@ function Product({product, param, category}) {
                     <article className={styles.shareProduct}>
                       <h5>SHARE THIS PRODUCT</h5>
                       <button>
-                        {/* <FontAwesomeIcon icon="fa-brands fa-facebook" /> */}
                       </button>
                     </article>
                   </div>
@@ -136,7 +132,7 @@ function Product({product, param, category}) {
                         <span>{title}</span>
                         <FontAwesomeIcon icon={faHeart} style={{color: "#f68b1e"}}/>
                       </h1>
-                      <p className={styles.brand}>Brand: <span>{brand} | similar products from {brand}</span></p>
+                      {brand && <p className={styles.brand}>Brand: <span>{brand} | similar products from {brand}</span></p>}
                       <div className={styles.ratingContainer}>
                         {rating.count == 0 ? <>
                             <FontAwesomeIcon icon={faStar} style={{color: "#ccc",}} />
@@ -248,7 +244,7 @@ function Product({product, param, category}) {
             </section>
             <section className={`${styles.productInfoWrapper} ${styles['mt-8']}`}>
               <div className={styles.productsContainer}>
-                <div id="details">
+                <div id="details" className={styles.descriptionWrap}>
                   <article className={styles.productDetails}>
                     <h4>Product details</h4>
                     <p>{description}</p>
@@ -262,6 +258,15 @@ function Product({product, param, category}) {
                         <ul>
                           {
                             feature.map((item, index) => {
+                              return <li key={index}>{item}</li>
+                            })
+                          }
+                        </ul>
+                      </SpecificationItem>
+                      <SpecificationItem title="WHAT'S IN THE BOX">
+                        <ul>
+                          {
+                            itemsInBox.map((item, index) => {
                               return <li key={index}>{item}</li>
                             })
                           }
@@ -292,6 +297,12 @@ function Product({product, param, category}) {
                 </ul>
               </aside>
             </section>
+
+            {relatedProducts.length !== 0 && <ProductSection
+              title="Customers who viewed this also viewed"
+              itemList={relatedProducts}
+            />}
+
           </Layout>
         </main>
       </HomeLayout>
@@ -314,10 +325,11 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps({params}){
-  const product = await client.fetch(`*[_type == "products" && slug.current == "${params.id}"]`);
-  const category = await client.fetch(`*[_type == "category" && _id == "${product[0].category._ref}"]`)
+  const [product] = await client.fetch(`*[_type == "products" && slug.current == "${params.id}"]`);
+  const [category] = await client.fetch(`*[_type == "category" && _id == "${product.category._ref}"]`)
+  const relatedProducts = await client.fetch(`*[_type == "products" && productType._ref == "${product.productType._ref}" && slug.current != "${params.id}" ]`)
   return {
-    props: {product: product[0], param: params.id, category: category[0]}, 
+    props: {product, param: params.id, category, relatedProducts}, 
   }
 }
 

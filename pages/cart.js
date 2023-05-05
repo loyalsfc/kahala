@@ -7,17 +7,16 @@ import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CartProducts from '../components/cartProducts';
 import Layout from '../components/Layout/layout';
-import TopSelling from '../components/topSelling';
 import { calculateTotal } from '../store/cartSlice';
 import styles from './styles/cart.module.css'
 import HomeLayout from '../components/Layout/homeLayout';
-import { priceConverion } from '../utils/utils';
+import { client, priceConverion } from '../utils/utils';
+import ProductSection from '../components/productSection/productSection';
 
-function Cart({products}) {
+function Cart({newArrivals}) {
     const {user} = useSelector(state => state.user)
     const {cart} = useSelector(state => state.cart)
     const dispatch = useDispatch()
-    console.log(cart)
 
     const cartsItems = useMemo(()=>
         cart.products.map(item => {
@@ -83,7 +82,13 @@ function Cart({products}) {
                                 )
                             }
                         </div>
-                        <TopSelling products={products}/>
+                        
+                        <ProductSection
+                            itemList={newArrivals}
+                            title="New Arrival"
+                            bgColor=""
+                        />
+
                     </main>
                 </Layout>
             </HomeLayout>
@@ -92,12 +97,11 @@ function Cart({products}) {
 }
 
 export async function getStaticProps(){
-    const res = await fetch('https://api.escuelajs.co/api/v1/products?offset=10&limit=10')
-    const products = await res.json()
+    const newArrivals = await client.fetch(`*[_type == "products"] | order(_createdAt desc)[0..9]`)
 
     return {
         props: {
-            products
+            newArrivals
         }
     }
 }

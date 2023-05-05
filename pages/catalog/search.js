@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import styles from './search.module.css'
-import TopSelling from '../../components/topSelling';
 import AllProducts from '../../components/allProducts';
 import Link from 'next/link';
 import HomeLayout from '../../components/Layout/homeLayout';
 import { client } from '../../utils/utils';
+import ProductSection from '../../components/productSection/productSection';
 
 function Search({products, topSelling}) {
     const {query} = useRouter();
@@ -52,7 +52,7 @@ function Search({products, topSelling}) {
                                 )
                             }
                         </div>
-                        <TopSelling products={topSelling} />
+                        <ProductSection title="Top Selling Products" itemList={topSelling} />
                     </main>
                 </Layout>
             </HomeLayout>
@@ -62,9 +62,8 @@ function Search({products, topSelling}) {
 
 export async function getServerSideProps({query}){
     const products = await client.fetch(`*[title match "${query.q}*" && description match "${query.q}*"]`);
+    const topSelling = await client.fetch(`*[_type == "products"][0...10]`);
 
-    const topSellingRes = await fetch("https://api.escuelajs.co/api/v1/products/?offset=10&limit=10")
-    const topSelling = await topSellingRes.json()
     return {
         props: {
             products,

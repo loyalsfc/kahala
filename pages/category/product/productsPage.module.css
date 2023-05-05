@@ -146,10 +146,12 @@
 .addCartBtn:hover{
     background-color: #ce7319;
 }
+.descriptionWrap{
+    margin-bottom: 1rem;
+}
 .productDetails{
     background-color: #FFF;
     border-radius: 5px;
-    margin-bottom: 1rem;
 }
 .productDetails h4{
     padding: 1rem;
