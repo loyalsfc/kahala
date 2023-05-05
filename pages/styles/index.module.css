@@ -15,10 +15,6 @@
     overflow: hidden;
     border-radius: 5px;
 }
-
-.categoriesContainer::-webkit-scrollbar, .topSellingContainer::-webkit-scrollbar{
-    display: none;
-}
 .categoriesWrapper{
     padding: 0.25rem 0.5rem;
     background-color: white;
@@ -97,64 +93,6 @@
     font-weight: bold;
     padding: 0.5rem 0 ;
 }
-.topSellingContainer{
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    gap: 0.5rem;
-    font-weight: 500;
-}
-.topSellingContainer li{
-    flex-shrink: 0;
-    position: relative;
-}
-.limitedstockWrapper{
-    background-color: #fff;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-.limitedstockTitle{
-    font-size: 1.5rem;
-    font-weight: bold;
-    background-color: #FEE2CC;
-    padding: 5px 10px;
-}
-.limitedStocksWrapper{
-    padding: 10px;
-}
-.accessoriesWrapper{
-    margin: 1rem 0;
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-}
-.accessoriesContainer{
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    text-align: center;
-    font-weight: 700;
-    padding: 10px 10px 1rem;
-}
-.accessoriesTitle{
-    background-color: #EDE5F3;
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px;
-}
-.accessoriesImageWrapper{
-    position: relative;
-    height: 116px;
-    width: 116px;
-    overflow: hidden;
-}
-.accessoriesImage{
-    border-radius: 5px;
-    margin-bottom: 0.25rem;
-}
-
 @media (min-width: 640px){
     .heroImages{
         display: flex;
@@ -178,14 +116,5 @@
         width: 120px;
         height: 120px;
         aspect-ratio: unset;
-    }
-    .accessoriesContainer{
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 10px 1rem;
-    }
-    .accessoriesImageWrapper{
-        width: 145px;
-        height: 145px;
     }
 }

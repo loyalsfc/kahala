@@ -8,6 +8,7 @@ import {SessionProvider, useSession} from 'next-auth/react'
 import { useEffect } from 'react'
 import { fetchCart } from '../lib/fetchCart'
 import { initCart } from '../store/cartSlice'
+import { supabase } from '../lib/supabaseClient'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -43,8 +44,18 @@ function StateWrapper({children}){
     useEffect(()=>{
         //Check if user is authenticated
         if(status === "authenticated"){
-            //If yes, fetch cart from DB
-            dispatch(fetchCart(data?.user?.email))
+            const email = data?.user?.email
+            //Check if there are some carts in localStorage
+            if(localStorage.carts){
+                let storageCarts = JSON.parse(localStorage.carts);
+                storageCarts.forEach(cart => {
+                    addToCart(cart, email)
+                });
+                //Remove items from cart
+                localStorage.removeItem('carts');
+            }
+            //Fetch carts from DB
+            dispatch(fetchCart(email))
         }else if(status === "unauthenticated"){
             //Otherwise fetch cart from localStorage
             if(localStorage.carts){
@@ -52,6 +63,12 @@ function StateWrapper({children}){
             }
         }
     },[data])
+
+    async function addToCart(cart, email){
+        const {data, error} = await supabase.from('cart')
+            .insert({item: cart.item, quantity: cart.quantity, user_id: email})
+        console.log(data, error);
+    }
 
     return(
         <>

@@ -15,7 +15,6 @@ export const cartSlice  = createSlice({
     initialState,
     reducers: {
         initCart: (state, action) => {
-            console.log(action)
             state.cart.products = action.payload;
             calculateCartTotals(state);
         },

@@ -1,0 +1,29 @@
+.limitedstockWrapper{
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+.limitedstockTitle{
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #FEE2CC;
+    padding: 5px 10px;
+}
+.limitedStocksWrapper{
+    padding: 10px;
+}
+.topSellingContainer{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+.topSellingContainer li{
+    flex-shrink: 0;
+    position: relative;
+}
+.categoriesContainer::-webkit-scrollbar, .topSellingContainer::-webkit-scrollbar{
+    display: none;
+}

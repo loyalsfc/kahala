@@ -36,7 +36,6 @@ export async function saveCartToDb(callback, product, user){
             .select();
         callback(addCart(data[0]))
     }else{
-        console.log('yeah')
         callback(addCart({item: product, quantity: 1}))
     }
 }

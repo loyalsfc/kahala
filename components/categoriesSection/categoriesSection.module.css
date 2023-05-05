@@ -1,0 +1,42 @@
+.accessoriesWrapper{
+    margin: 1rem 0;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.accessoriesTitle{
+    background-color: #EDE5F3;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+.accessoriesContainer{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    text-align: center;
+    font-weight: 700;
+    padding: 10px 10px 1rem;
+}
+.accessoriesImageWrapper{
+    position: relative;
+    height: 116px;
+    width: 116px;
+    overflow: hidden;
+}
+.accessoriesImage{
+    border-radius: 5px;
+    margin-bottom: 0.25rem;
+}
+@media (min-width: 640px){
+    .accessoriesContainer{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 10px 1rem;
+    }
+    .accessoriesImageWrapper{
+        width: 145px;
+        height: 145px;
+    }
+}

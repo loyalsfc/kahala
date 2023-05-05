@@ -5,6 +5,7 @@
     width: 25%;
     flex-shrink: 0;
     background-color: #FFF;
+    margin: 0.1rem;
 }
 .mainItemsWrap a{
     display: block;

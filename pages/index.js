@@ -5,18 +5,26 @@ import Layout from "../components/Layout/layout"
 import SwiperContainer from "../components/swiper/swiper"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
-import ItemsCollection from "../components/itemscollection/itemsCollection"
-import useSWR from 'swr'
 import Link from "next/link"
-import TopSelling from "../components/topSelling"
 import HomeLayout from "../components/Layout/homeLayout"
 import { client, urlFor } from "../utils/utils"
+import ProductSection from "../components/productSection/productSection"
+import useFetchApi from "../utils/useFetchApi"
+import CategoriesSection from "../components/categoriesSection/categoriesSection"
 
 
-function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsSlug}) {
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const { data, error, isLoading} = useSWR('/api/phone_accessories', fetcher)
-
+function Index({
+        topSellingProducts, 
+        limitedStocks, 
+        categoryItems,
+        mobilePhones,
+        bestPrices,
+        oraimoProducts,
+        hpProducts
+    }){
+    const {data: accessories, isError: accesfError} = useFetchApi('phone_accessories')
+    const {data: stores, isError} = useFetchApi('official_stores')
+        
     return (
         <div>
             <Head>
@@ -80,43 +88,51 @@ function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsS
                         </ul>
                     </div>
 
-                    <TopSelling products={topSellingProducts}/>
+                    <ProductSection 
+                        title="Top Selling Items" 
+                        itemList={topSellingProducts}
+                        bgColor="#FFF"
+                    />
 
-                    <section className={styles.limitedstockWrapper}>
-                        <h4 className={styles.limitedstockTitle}>Limited Stocks Deals</h4>
-                        <div className={styles.limitedStocksWrapper}>
-                            <ul className={styles.topSellingContainer}>
-                                {
-                                    limitedStocks.map(item =>{
-                                        return <ItemsCollection key={item?._id} item={item}/>
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    </section>
+                    <ProductSection 
+                        title="Limited Stocks Deals" 
+                        itemList={limitedStocks}
+                    />
 
-                    <section className={styles.accessoriesWrapper}>
-                        <h4 className={styles.accessoriesTitle}>Phone & Accessories</h4>
-                        <ul className={styles.accessoriesContainer}>
-                            {data &&
-                                data.map(item => {
-                                    return(
-                                        <li key={item?.id}>
-                                            <div className={styles.accessoriesImageWrapper}>
-                                                <Image
-                                                    className={styles.accessoriesImage}
-                                                    fill
-                                                    src={item?.img}
-                                                    alt="Accessries"
-                                                />
-                                            </div>
-                                            <p>Below ${item?.price}</p>
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
-                    </section>
+                    <CategoriesSection 
+                        title="Phone & Accessories" 
+                        data={accessories}
+                    />
+
+                    <ProductSection 
+                        title="Mobile Phones" 
+                        itemList={mobilePhones}
+                        bgColor="#b378dc"
+                    />
+
+                    <ProductSection 
+                        title="Best Price | Up to 50% Off" 
+                        itemList={bestPrices}
+                        bgColor="#DEF1FD"
+                    />
+
+                    <CategoriesSection 
+                        title="Official Stores" 
+                        data={stores}
+                    />
+
+                    <ProductSection 
+                        title="Oraimo Official Store" 
+                        itemList={oraimoProducts}
+                        bgColor="#B5DE93"
+                    />
+
+                    <ProductSection 
+                        title="HP Official Store" 
+                        itemList={hpProducts}
+                        bgColor="#65B4D3"
+                    />
+
                 </Layout>
             </HomeLayout>
         </div>
@@ -124,25 +140,29 @@ function Index({topSellingProducts, limitedStocks, categoryItems, categoryItemsS
 }
 
 export async function getStaticProps(){
-    const productRes = await fetch('https://api.escuelajs.co/api/v1/products?offset=10&limit=10');
-    const topSellingProducts = await productRes.json()
-
-    const productsResponse = await fetch('https://api.escuelajs.co/api/v1/products?offset=30&limit=10')
-    // const limitedStocks = await productsResponse.json()
-
     const categoryItems = await client.fetch(`*[_type == "category"]`);
 
-    const limitedStocks = await client.fetch(`*[_type == "products"]`);
+    const topSellingProducts = await client.fetch(`*[_type == "products"][0...10]`);
 
-    const categoryItemsSlug = await client.fetch(`*[_type == "products"]{slug}`);
+    const limitedStocks = await client.fetch(`*[_type == "products" && unit < 21]`);
 
+    const mobilePhones = await client.fetch(`*[_type == "products" && category._ref == "7d2d2218-b418-46d4-9896-9bd57e68c251"][0...10]`)
+
+    const bestPrices = await client.fetch(`*[_type == "products" && discount > 30][0...10]`)
+
+    const oraimoProducts = await client.fetch(`*[_type == "products" && brand == "oraimo"][0...10]`)
+
+    const hpProducts = await client.fetch(`*[_type == "products" && brand == "hp"][0...10]`)
 
     return{
         props: {
-            topSellingProducts,
+            topSellingProducts, 
             limitedStocks,
             categoryItems,
-            categoryItemsSlug        
+            mobilePhones,
+            bestPrices,
+            oraimoProducts,
+            hpProducts
         }
     }
 }
