@@ -3,41 +3,27 @@
     align-items: flex-start;
     gap: 1rem;
     padding: 10px;
-}
-.headerTitle{
-    font-size: 14px;
-    color: #ABABAB;
-    margin: 1.25rem 0 10px;
-
+    padding-top: 1rem;
 }
 .orderSummary{
-    width: 265px;
+    width: 280px;
     flex-shrink: 0;
 }
 .orderSummary > div{
     background-color: #FFF;
     border-radius: 0.25rem;
 }
-.orderSummary h4{
+.totalProduct{
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.orderSummary h4, .orderSummary p{
     font-size: 0.875rem;
     padding: 10px 0.5rem;
     border-bottom: 1px solid var(--borderColor);
-    font-style: 500;
-}
-.summaryWrapper{
-    font-size: 13px;
-    color: #000;
-}
-.summaryWrapper li{
-    padding: 6px 0.5rem;
-    border-bottom: 1px solid var(--borderColor);
-    display: flex;
-    gap: 0.5rem;
-}
-.summaryWrapperArticle{
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    font-weight: 600;
 }
 .summaryItemPrice{
     color: var(--primary);
@@ -45,19 +31,37 @@
 .summaryQty{
     color: #808088;
 }
-.deliverySumWrap{
-    padding: 0 0.5rem;
-    margin-top: 1rem;
+.addCoupon{
+    font-size: 0.75rem !important;
+    line-height: 1rem;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
 }
-.modifyCartBtn{
+.confirmOrderBtnBtnWrap{
+    padding: 0.5rem;
+}
+.confirmOrderBtn{
     border: none;
     width: 100%;
-    margin-top: 10px;
     border-top: 1px solid var(--borderColor);
-    padding: 1rem;
     display: block;
-    background-color: transparent;
+    background-color: var(--primary);
+    padding: 1rem;
     font-size: 14px;
-    color: var(--primary);
+    color: #FFF;
     font-weight: bold;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 4px;
+}
+.confirmOrderBtnBtnWrap span{
+    font-size: 10px;
+    text-align: center;
+    color: #75757A;
+    font-weight: 600;
+    display: block;
+}
+.confirmOrderBtn:disabled{
+    background-color: #a3a3a6;
 }

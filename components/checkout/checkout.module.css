@@ -154,6 +154,9 @@
     font-weight: 400;
     padding-bottom: 0.5rem;
 }
+.subTotals span{
+    font-size: 1.25rem;
+}
 .deliveryFee{
     border-bottom: 1px solid var(--borderColor);
 }
@@ -300,41 +303,11 @@
     padding: 10px 30px;
     border-bottom: 1px solid var(--borderColor);
 }
-.addressDetails{
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
 .addressTag{
     font-size: 0.875rem;
     color: var(--secondaryText);
     margin-bottom: 1rem;
     font-weight: 500;
-}
-.addressDetailsBtnWrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-left: auto;
-    justify-content: center;
-    gap: 0.75rem;
-}
-.addressDetailsBtn{
-    background-color: transparent;
-    color: var(--primary);
-    font-weight: 600;
-}
-.addressName{
-    color: #000;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.875rem;
-    line-height: 0.875rem;
-    display: block;
-}
-.addressContacts{
-    color: var(--secondaryText);
-    font-size: 13px;
 }
 .selectAddressBtnWrapper{
     margin: 1.25rem 30px;

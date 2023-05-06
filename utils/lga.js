@@ -281,7 +281,7 @@ export const lga =
       "Esan South-East"
     ],
     "Ekiti": [
-      "Ado",
+      "Ado-Ekiti",
       "Ekiti-East",
       "Ekiti-West",
       "Emure/Ise/Orun",

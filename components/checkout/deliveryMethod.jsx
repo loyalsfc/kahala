@@ -66,7 +66,7 @@ function DeliveryMethod() {
                         {
                             products.map((product, index) => {
                                 return(
-                                    <li className={styles.cartItems} key={product?.item?.id}>
+                                    <li className={styles.cartItems} key={product?.id}>
                                         <p>Shipment {index + 1} of {products.length}</p>
                                         <h5>
                                             <span>{product?.quantity}x</span>

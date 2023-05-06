@@ -8,17 +8,21 @@ function DeliverySumUp({deliveryFee}) {
     return (
         <div>
             <p className={styles.subTotals}>
-                <span>Subtotal</span>
+                Total
                 <span>₦{priceConverion(cart.totalPrice)}</span>
             </p>
-            <p className={`${styles.subTotals} ${styles.deliveryFee}`}>
-                <span>deliveryFee</span>
-                <span className={styles.priceSum}>{deliveryFee ? deliveryFee : "N.A"}</span>
-            </p>
-            <p className={`${styles.subTotals} ${styles.totalSum}`}>
-                <span>Total</span>
-                <span className={styles.priceSum}>{deliveryFee ? (deliveryFee + cart.totalPrice) : "N.A"}</span>
-            </p>
+            {deliveryFee && 
+                <>
+                    <p className={`${styles.subTotals} ${styles.deliveryFee}`}>
+                        <span>deliveryFee</span>
+                        <span className={styles.priceSum}>{deliveryFee ? deliveryFee : "N.A"}</span>
+                    </p>
+                    <p className={`${styles.subTotals} ${styles.totalSum}`}>
+                        <span>Total</span>
+                        <span className={styles.priceSum}>{deliveryFee ? (deliveryFee + cart.totalPrice) : "N.A"}</span>
+                    </p>
+                </>
+            }
         </div>
     )
 }

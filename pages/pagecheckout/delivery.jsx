@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Layout from '../../components/Layout/layout'
 import { useSelector } from 'react-redux'
 import AddressForm from '../../components/checkout/addressForm'
@@ -7,16 +7,13 @@ import Checkout from '../../components/checkoutpage/checkouttemplate'
 import CheckoutComponent from '../../components/checkout/checkoutComponent'
 import DeliveryMethod from '../../components/checkout/deliveryMethod'
 import AddAddressModal from '../../components/checkout/addAddressModal'
+import { getSession } from 'next-auth/react'
+import { supabase } from '../../lib/supabaseClient'
 
-function Delivery() {
+function Delivery({user, address}) {
     const [displayAddressModal, setDisplayAddressModal] = useState(false)
-    const address = 'false';
-    const userFullName = "Olumide Bambe"
-    const userAddress = "Adamolekun Estate, Adebayo, Ado-Ekiti, Ado Ekiti, Ekiti"
-    const userPhoneNumber = "+2348104123456"
-    const {cart} = useSelector(state => state.cart)
-    const {totalProducts, products} = cart;
-
+    
+    console.log(user, address)
     function openAddressModal(){
         //show address modal
         setDisplayAddressModal(true)
@@ -31,7 +28,14 @@ function Delivery() {
         document.body.style.overflow = "unset"
     }
 
+    // useEffect(()=>{
+    //     getAddress()
+    // },[])
 
+    async function getAddress(){
+        const address = await supabase.from('user').select();
+        console.log(address)
+    }
 
     return (
         <div>
@@ -45,16 +49,11 @@ function Delivery() {
                     handleClick = {openAddressModal}
                     showBtn = {address ? true : false}
                 >
-                {address ? ( 
-                            <article style={{padding: "1rem 3rem"}}>
-                                <h5>{userFullName}</h5>
-                                <p>{userAddress}</p>
-                                <p>{userPhoneNumber}</p>
-                            </article> 
-                        ):(
-                            <AddressForm />
-                        )
-                    }
+                    <article style={{padding: "1rem 3rem"}}>
+                        {`<h5>{userFullName}</h5>
+                        <p>{userAddress}</p>
+                        <p>{userPhoneNumber}</p>`}
+                    </article> 
                 </CheckoutComponent>
                 <CheckoutComponent title="2. Delivery Method" showBtn = {address ? true : false}>
                     <DeliveryMethod />
@@ -63,6 +62,34 @@ function Delivery() {
             </Checkout>
         </div>
     )
+}
+
+export async function getServerSideProps(context){
+    const session = await getSession(context)
+    const {data: address} = await supabase.from('user').select().eq('user_id', session?.user?.email)
+
+    if(!session){
+        return{
+            redirect: {
+                destination: '/auth',
+                parmanent: false
+            }
+        }
+    }
+
+    if(!address.length){
+        return{
+            redirect: {
+                destination: '/pagecheckout/address',
+                parmanent: false,
+            }
+        }
+    }
+
+
+    return {
+        props: {user: session, address}
+    }
 }
 
 export default Delivery
