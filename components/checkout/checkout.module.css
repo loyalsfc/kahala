@@ -109,6 +109,9 @@
     border-bottom: 1px solid var(--borderColor);
     padding: 1rem 0;
 }
+.methodContainer:first-child{
+    padding-top: 0;
+}
 .deliveryTotal{
     color: var(--primary);
 }

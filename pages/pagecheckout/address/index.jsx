@@ -18,9 +18,10 @@ function Index({address}) {
         setDefaultIndex(index);
     }
 
+    console.log(addressLists)
+
     const handleClick = async() => {
         const newAddress = addressLists.map((address, index) => {
-            console.log(defaultIndex, index)
             return {...address, isDefault: defaultIndex == index ? true : false}
         })
         const {error} = await supabase

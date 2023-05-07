@@ -1,23 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './checkout.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import DeliverySumUp from './deliverySumUp'
+import { supabase } from '../../lib/supabaseClient'
+import useSWR from 'swr'
 
 function DeliveryMethod() {
-    const {cart } = useSelector(state => state.cart)
+    const {user} = useSelector(state => state.user); 
+    const {data: deliveryMethod} = useSWR('deliveryMetod', async()=> await supabase
+        .from('user')
+        .select('delivery_method')
+        .eq('user_id', user?.email))
+    const {cart } = useSelector(state => state.cart);
     const {products, totalProducts, totalPrice} = cart;
+    const [updatedMethod, setUpdatedMethod] = useState(null)
+    const currentDate = new Date();
+    const expectedDeliveryDateStart = new Date(currentDate.setDate(currentDate.getDate() + 5))
+    const expectedDeliveryDateEnd = new Date(currentDate.setDate(currentDate.getDate() + 2))
+    console.log(deliveryMethod?.data[0]?.delivery_method)
+    
+    function dateLocale(date){
+        return `${date.toLocaleDateString("en", {weekday: 'long'})}  ${date.toLocaleDateString("en", {day: 'numeric', month: "short"})}`
+    }
+    
+    async function setDeliveryMethod(){
+        const {error} = await supabase.from('user').update({delivery_method: updatedMethod}).eq("user_id", user?.email)
+        console.log(error)
+    }
+
+    const handleChange = (method) => {
+        setUpdatedMethod(method)
+    }
 
     return (
         <div className={styles.deliveryMethod}>
-            <h5>How do you want your order delivered?</h5>
             <div className={styles.methodContainer}>
                 <div className={styles.radioLabelWrapper}>
-                    <input type='radio' name="delivery-method" id='pickup-station' />
+                    <input 
+                        defaultChecked={deliveryMethod?.data[0]?.delivery_method == 'pickup' ? true : false} 
+                        type='radio' 
+                        name="delivery-method" 
+                        id='pickup-station' 
+                        onChange={()=>handleChange('pickup')}
+                    />
                     <label className={styles.radioLabel} htmlFor='pickup-station'>Pickup Station (Cheaper Shipping Fees than Door Delivery)</label>
                 </div>
-                <p className={styles.arrivalNotes}>Arriving at pickup station between Wednesday 12 Apr to Wednesday 19 Apr with cheaper shipping fees</p>
+                <p className={styles.arrivalNotes}>Arriving at pickup station between {dateLocale(expectedDeliveryDateStart)} to {dateLocale(expectedDeliveryDateEnd)} with cheaper shipping fees</p>
                 <div className={styles.methodDetails}>
                     <span>
                         <FontAwesomeIcon icon={faInfo} />
@@ -38,10 +68,16 @@ function DeliveryMethod() {
 
             <div style={{border: "none"}} className={styles.methodContainer}>
                 <div className={styles.radioLabelWrapper}>
-                    <input type='radio' name="delivery-method" id='door-delivery'/>
+                    <input
+                        defaultChecked = {deliveryMethod?.data[0]?.delivery_method == 'door' ? true : false}
+                        type='radio' 
+                        name="delivery-method" 
+                        id='door-delivery'
+                        onChange={()=>handleChange('door')}
+                    />
                     <label className={styles.radioLabel} htmlFor='door-delivery'>Door Delivery</label>
                 </div>
-                <p className={styles.arrivalNotes}>Delivered between Wednesday 12 Apr and Wednesday 19 Apr for <span className={styles.deliveryTotal}>₦ 3,000</span></p>
+                <p className={styles.arrivalNotes}>Delivered between {dateLocale(expectedDeliveryDateStart)} and {dateLocale(expectedDeliveryDateEnd)} <span className={styles.deliveryTotal}>₦ 3,000</span></p>
                 <div className={styles.methodDetails}>
                     <span>
                         <FontAwesomeIcon icon={faInfo} />
@@ -72,7 +108,7 @@ function DeliveryMethod() {
                                             <span>{product?.quantity}x</span>
                                             <span>{product?.item?.title}</span>
                                         </h5>
-                                        <p>Delivered between Monday <span className={styles.expectedDate}>17 Apr</span> and Wednesday <span className={styles.expectedDate}>19 Apr</span></p>
+                                        <p>Delivered between <span className={styles.expectedDate}>{dateLocale(expectedDeliveryDateStart)}</span> and <span className={styles.expectedDate}>{dateLocale(expectedDeliveryDateEnd)}</span></p>
                                     </li>
                                 )
                             })
@@ -83,7 +119,7 @@ function DeliveryMethod() {
 
             <DeliverySumUp />
             <p className={styles.deliveryNotes}>You will be able to add a voucher in the next step</p>
-            <button className={styles.proceedBtn}>Proceed to next step</button>
+            <button onClick={setDeliveryMethod} className={styles.proceedBtn}>Proceed to next step</button>
         </div>
     )
 }
