@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React from 'react'
 import styles from './checkout.module.css'
-import DeliverySumUp from './deliverySumUp'
 
 function PaymentMethod() {
     return (
@@ -49,7 +48,6 @@ function PaymentMethod() {
                         <button>Add Voucher</button>
                     </div>
                 </div>
-                <DeliverySumUp />
                 <button className={styles.proceedBtn}>CONFIRM ORDER</button>
             </div>
         </div>
