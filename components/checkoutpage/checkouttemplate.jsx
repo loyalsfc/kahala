@@ -40,7 +40,7 @@ function Checkout({children, deliveryMethod}) {
                                     <h4 className='borderBottom'>Order Summary</h4>
                                     <article className='borderBottom'>
                                         <p className={styles.totalProduct}>
-                                            Item's total ({totalProducts}) 
+                                            Item&apos;s total ({totalProducts}) 
                                             <span>₦{priceConverion(totalPrice)}</span>
                                         </p>
                                         {deliveryMethod && <p className={styles.totalProduct}>
