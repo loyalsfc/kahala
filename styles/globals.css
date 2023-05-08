@@ -69,3 +69,7 @@ button{
 .sideNavActive{
     background-color: #D4D4D6;
 }
+
+.borderBottom{
+    border-bottom: 1px solid var(--borderColor);
+}

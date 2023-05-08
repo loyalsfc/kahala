@@ -4,16 +4,25 @@ import CheckoutComponent from '../../components/checkout/checkoutComponent'
 import DeliveryMethod from '../../components/checkout/deliveryMethod'
 import { getSession } from 'next-auth/react'
 import { supabase } from '../../lib/supabaseClient'
+import { useState } from 'react'
 
-function Delivery({user, address}) {
-    const {country_code, phone_number, first_name, last_name, delivery_address, delivery_lga, delivery_state} = address.find(item => item.isDefault == true)
-
+function Delivery({user, savedAddress}) {
+    const {address, delivery_method} = savedAddress
+    const {country_code, 
+        phone_number, 
+        first_name, 
+        last_name,
+        delivery_address,
+        delivery_lga, 
+        delivery_state} = address.find(item => item.isDefault == true)
+    const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(delivery_method)
+    
     return (
         <div>
             <Head>
                 <title>Delivery Method | Kahala </title>
             </Head>
-            <Checkout>
+            <Checkout deliveryMethod={selectedDeliveryMethod}>
                 <CheckoutComponent 
                     title="1. Address Details"
                     linkTo="/pagecheckout/address"
@@ -25,7 +34,10 @@ function Delivery({user, address}) {
                     </article> 
                 </CheckoutComponent>
                 <CheckoutComponent title="2. Delivery Method" showBtn = {false}>
-                    <DeliveryMethod />
+                    <DeliveryMethod 
+                        deliveryMethod={selectedDeliveryMethod}
+                        updateDeliveryMethod={setSelectedDeliveryMethod}
+                    />
                 </CheckoutComponent>
                 <CheckoutComponent title="3. Payment Method"/>
             </Checkout>
@@ -45,7 +57,8 @@ export async function getServerSideProps(context){
         }
     }
 
-    const {data: userAddress} = await supabase.from('user').select().eq('user_id', session?.user?.email)
+    const email = session?.user?.email
+    const {data: userAddress} = await supabase.from('user').select().eq('user_id', email)
 
     if(!userAddress.length){
         return{
@@ -56,9 +69,8 @@ export async function getServerSideProps(context){
         }
     }
 
-
     return {
-        props: {user: session, address: userAddress[0].address}
+        props: {user: session, savedAddress: userAddress[0]}
     }
 }
 

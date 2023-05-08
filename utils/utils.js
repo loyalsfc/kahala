@@ -58,3 +58,6 @@ export async function decreaseCartQtyFromDb(callback, dbId, productId, qty){
     }
     callback(decreaseCartItem(productId))
 }
+
+const doorDeliveryPerItem = 1200;
+const pickupDeliveryPerItem = 420;

@@ -10,7 +10,7 @@ import useSWR from 'swr'
 
 function AddressForm({spacing, callback}) {
     const {user} = useSelector(state => state.user) 
-    const {data: fetchAddress, error, isLoading} = useSWR('address', async()=> supabase.from('user')
+    const {data: fetchAddress, error, isLoading} = useSWR('address', async()=> await supabase.from('user')
             .select()
             .eq('user_id', user?.email))
     const [formData, setFormData] = useState({

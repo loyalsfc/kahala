@@ -149,37 +149,6 @@
     font-weight: bold;
     color: #000;
 }
-.subTotals{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.875rem;
-    font-weight: 400;
-    padding-bottom: 0.5rem;
-}
-.subTotals span{
-    font-size: 1.25rem;
-}
-.deliveryFee{
-    border-bottom: 1px solid var(--borderColor);
-}
-.priceSum{
-    color: var(--primary);
-    font-weight: bold;
-}
-.totalSum{
-    padding: 10px 0 0;
-    font-weight: bold;
-}
-.totalSum .priceSum{
-    font-size: 17px;
-}
-.deliveryNotes{
-    text-align: center;
-    color: #C5C5C5;
-    font-weight: 400;
-    margin-top: 1rem;
-}
 .proceedBtn{
     padding: 1rem 0.75rem ;
     margin-top: 1.25rem;

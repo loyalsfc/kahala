@@ -22,7 +22,6 @@
 .orderSummary h4, .orderSummary p{
     font-size: 0.875rem;
     padding: 10px 0.5rem;
-    border-bottom: 1px solid var(--borderColor);
     font-weight: 600;
 }
 .summaryItemPrice{
@@ -64,4 +63,22 @@
 }
 .confirmOrderBtn:disabled{
     background-color: #a3a3a6;
+}
+.subTotals{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+}
+.subTotals span{
+    font-size: 1.25rem;
+}
+.totalSum{
+    padding: 10px 0 0;
+    font-weight: bold;
+}
+.totalSum{
+    font-size: 17px;
 }

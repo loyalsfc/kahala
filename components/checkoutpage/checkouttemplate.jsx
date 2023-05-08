@@ -2,35 +2,25 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../Layout/layout'
 import Head from 'next/head'
 import { useSelector } from 'react-redux'
-import Image from 'next/image'
-import DeliverySumUp from '../checkout/deliverySumUp'
-import Link from 'next/link'
-import AddAddressModal from '../checkout/addAddressModal'
 import CheckoutLayout from '../Layout/checkoutLayout/checkoutLayout'
 import styles from './checkoutTemplate.module.css'
-import { priceConverion, urlFor } from '../../utils/utils'
+import { priceConverion } from '../../utils/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVrCardboard } from '@fortawesome/free-solid-svg-icons'
 
-function Checkout({children}) {
-    const [displayAddressModal, setDisplayAddressModal] = useState(false)
+function Checkout({children, deliveryMethod}) {
     const {cart} = useSelector(state => state.cart)
-    const {totalProducts, products, totalPrice} = cart;
+    const {totalProducts, totalPrice} = cart;
+    const doorDeliveryPerItem = 1200;
+    const pickupDeliveryPerItem = 420;
 
-    function openAddressModal(){
-        //show address modal
-        setDisplayAddressModal(true)
-        //disable background scrolling
-        document.body.style.overflow = "hidden"
-    }   
-
-    function closeModal(){
-        //hide the modal
-        setDisplayAddressModal(false)
-        //remove the overflow hidden property on modal close
-        document.body.style.overflow = "unset"
+    const calculateDeliveryFee = () =>{
+        if(deliveryMethod === 'door'){
+            return doorDeliveryPerItem * totalProducts;
+        }
+        return pickupDeliveryPerItem * totalProducts;
     }
-
+    
     return (
         <div>
             <Head>
@@ -38,7 +28,6 @@ function Checkout({children}) {
             </Head>
             <CheckoutLayout>
                 <Layout>
-                    {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
                     <main>
                         <div className={styles.checkoutWrapper}>
                             <section style={{flex: 1}}>
@@ -48,10 +37,23 @@ function Checkout({children}) {
                             </section>
                             <aside className={styles.orderSummary}>
                                 <div>
-                                    <h4>Order Summary</h4>
-                                    <p className={styles.totalProduct}>Item's total ({totalProducts}) <span>₦{priceConverion(totalPrice)}</span></p>
+                                    <h4 className='borderBottom'>Order Summary</h4>
+                                    <article className='borderBottom'>
+                                        <p className={styles.totalProduct}>
+                                            Item's total ({totalProducts}) 
+                                            <span>₦{priceConverion(totalPrice)}</span>
+                                        </p>
+                                        {deliveryMethod && <p className={styles.totalProduct}>
+                                            <span>Delivery fees</span>
+                                            <span className={styles.priceSum}>₦{priceConverion(calculateDeliveryFee())}</span>
+                                        </p>}
+                                    </article>
                                     <div className={styles.deliverySumWrap}>
-                                        <DeliverySumUp />
+                                        <p className={styles.subTotals}>
+                                            Total
+                                            <span>₦{priceConverion(deliveryMethod ? (totalPrice + calculateDeliveryFee()) : totalPrice)}</span>
+                                        </p>
+                                        
                                     </div> 
                                     <p className={styles.addCoupon}>
                                         <FontAwesomeIcon icon={faVrCardboard} color='#f68b1e' />
