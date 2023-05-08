@@ -16,7 +16,7 @@ function Delivery({user, savedAddress}) {
         delivery_lga, 
         delivery_state} = address.find(item => item.isDefault == true)
     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(delivery_method)
-    
+
     return (
         <div>
             <Head>
@@ -26,7 +26,7 @@ function Delivery({user, savedAddress}) {
                 <CheckoutComponent 
                     title="1. Address Details"
                     linkTo="/pagecheckout/address"
-                    showBtn = {address ? true : false}
+                    showBtn = {true}
                 >
                     <article style={{padding: "1rem 3rem"}}>
                         <h5>{first_name} {last_name}</h5>

@@ -5,7 +5,6 @@ import AddressForm from '../../components/checkout/addressForm'
 import Head from 'next/head'
 import Checkout from '../../components/checkoutpage/checkouttemplate'
 import CheckoutComponent from '../../components/checkout/checkoutComponent'
-import DeliveryMethod from '../../components/checkout/deliveryMethod'
 import AddAddressModal from '../../components/checkout/addAddressModal'
 import PaymentMethod from '../../components/checkout/paymentMethod'
 
@@ -44,8 +43,8 @@ function Payment() {
                     {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
                     <CheckoutComponent 
                         title="1. Address Details"
-                        handleClick = {openAddressModal}
-                        showBtn = {address ? true : false}
+                        linkTo="/pagecheckout/address"
+                        showBtn = {true}
                     >
                     {address ? ( 
                                 <article style={{padding: "1rem 3rem"}}>
@@ -58,7 +57,11 @@ function Payment() {
                             )
                         }
                     </CheckoutComponent>
-                    <CheckoutComponent title="2. Delivery Method">
+                    <CheckoutComponent 
+                        title="2. Delivery Method"
+                        linkTo="/pagecheckout/delivery"
+                        showBtn={true}
+                    >
                         <article style={{padding: "1rem 3rem"}}>
                             <h5>Door Delivery</h5>
                             <p>Delivered between Thursday 13 Apr and Thursday 20 Apr for ₦ 3,000</p>

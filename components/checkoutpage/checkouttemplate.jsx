@@ -48,14 +48,14 @@ function Checkout({children, deliveryMethod}) {
                                             <span className={styles.priceSum}>₦{priceConverion(calculateDeliveryFee())}</span>
                                         </p>}
                                     </article>
-                                    <div className={styles.deliverySumWrap}>
+                                    <div className={`${styles.deliverySumWrap} borderBottom`}>
                                         <p className={styles.subTotals}>
                                             Total
                                             <span>₦{priceConverion(deliveryMethod ? (totalPrice + calculateDeliveryFee()) : totalPrice)}</span>
                                         </p>
                                         
                                     </div> 
-                                    <p className={styles.addCoupon}>
+                                    <p className={`${styles.addCoupon} borderBottom`}>
                                         <FontAwesomeIcon icon={faVrCardboard} color='#f68b1e' />
                                         <span>You will be able to add a voucher when selecting your payment method.</span> 
                                     </p>
