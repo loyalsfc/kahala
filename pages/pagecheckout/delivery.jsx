@@ -5,6 +5,7 @@ import DeliveryMethod from '../../components/checkout/deliveryMethod'
 import { getSession } from 'next-auth/react'
 import { supabase } from '../../lib/supabaseClient'
 import { useState } from 'react'
+import AddressPreview from '../../components/addressPreview/addressPreview'
 
 function Delivery({user, savedAddress}) {
     const {address, delivery_method} = savedAddress
@@ -28,10 +29,7 @@ function Delivery({user, savedAddress}) {
                     linkTo="/pagecheckout/address"
                     showBtn = {true}
                 >
-                    <article style={{padding: "1rem 3rem"}}>
-                        <h5>{first_name} {last_name}</h5>
-                        <p>{delivery_address} | {delivery_lga} {delivery_state} | {country_code + phone_number} </p>
-                    </article> 
+                    <AddressPreview address={address} />
                 </CheckoutComponent>
                 <CheckoutComponent title="2. Delivery Method" showBtn = {false}>
                     <DeliveryMethod 

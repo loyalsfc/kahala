@@ -82,3 +82,48 @@
 .totalSum{
     font-size: 17px;
 }
+.form{
+    display: flex;
+    padding: 0.5rem;
+}
+.couponBtn{
+    background-color: transparent;
+    padding: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    border-radius: 0.25rem;
+}
+.couponBtn:hover{
+    background-color: rgba(246, 139, 30, 0.3);
+}
+.couponBtn:disabled{
+    color: #a3a3a6;
+    pointer-events: none;
+}
+/* .couponBtn:disabled:hover{} */
+.formWrapper{
+    position: relative;
+    flex: 1;
+}
+.formWrapper span{
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    color: #a3a3a6;
+}
+.couponInput{
+    padding: 14px 1rem 14px 48px;
+    border: 1px solid var(--borderColor);
+    color: var(--primary);
+    border-radius: 0.25rem;
+    width: 100%;
+    font-weight: 600;
+    font-size: 1rem;
+}
+.couponInput:focus{
+    outline-color: var(--primary);
+}
+.couponInput:focus ~ span{
+    color: var(--primary);
+}

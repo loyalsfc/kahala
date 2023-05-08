@@ -20,7 +20,7 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
     const expectedDeliveryDateEnd = new Date(currentDate.setDate(currentDate.getDate() + 2))
     
     function dateLocale(date){
-        return `${date.toLocaleDateString("en", {weekday: 'long'})}  ${date.toLocaleDateString("en", {day: 'numeric', month: "short"})}`
+        return `${date.toLocaleDateString("en", {weekday: 'long', day: 'numeric', month: "short"})}`
     }
     
     async function setDeliveryMethod(updatedMethod){

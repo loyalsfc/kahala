@@ -8,7 +8,8 @@ import { priceConverion } from '../../utils/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVrCardboard } from '@fortawesome/free-solid-svg-icons'
 
-function Checkout({children, deliveryMethod}) {
+function Checkout({children, deliveryMethod, isPaymentPage}) {
+    const [coupon, setCoupon] = useState('')
     const {cart} = useSelector(state => state.cart)
     const {totalProducts, totalPrice} = cart;
     const doorDeliveryPerItem = 1200;
@@ -20,12 +21,13 @@ function Checkout({children, deliveryMethod}) {
         }
         return pickupDeliveryPerItem * totalProducts;
     }
+
+    const handleChange = (e) => {
+        setCoupon(e.target.value)
+    }
     
     return (
         <div>
-            <Head>
-                <title>Checkout Page</title>
-            </Head>
             <CheckoutLayout>
                 <Layout>
                     <main>
@@ -55,10 +57,24 @@ function Checkout({children, deliveryMethod}) {
                                         </p>
                                         
                                     </div> 
-                                    <p className={`${styles.addCoupon} borderBottom`}>
+                                    {!isPaymentPage ? (<p className={`${styles.addCoupon} borderBottom`}>
                                         <FontAwesomeIcon icon={faVrCardboard} color='#f68b1e' />
                                         <span>You will be able to add a voucher when selecting your payment method.</span> 
-                                    </p>
+                                    </p>):(
+                                        <form className={styles.form}>
+                                            <div className={styles.formWrapper}>
+                                                <input 
+                                                    onChange={handleChange}
+                                                    className={styles.couponInput} 
+                                                    value={coupon}
+                                                    type="text" 
+                                                    placeholder='Enter Code Here'
+                                                />
+                                                <span><FontAwesomeIcon icon={faVrCardboard} /></span>
+                                            </div>
+                                            <button disabled={coupon == "" ? true : false} className={styles.couponBtn}>Apply</button>
+                                        </form>
+                                    )}
                                     <div className={styles.confirmOrderBtnBtnWrap}>
                                         <button disabled={true} className={styles.confirmOrderBtn}>
                                             Confirm Order

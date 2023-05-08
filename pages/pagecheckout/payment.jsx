@@ -1,80 +1,81 @@
 import React, {useState} from 'react'
 import Layout from '../../components/Layout/layout'
-import { useSelector } from 'react-redux'
-import AddressForm from '../../components/checkout/addressForm'
 import Head from 'next/head'
 import Checkout from '../../components/checkoutpage/checkouttemplate'
 import CheckoutComponent from '../../components/checkout/checkoutComponent'
-import AddAddressModal from '../../components/checkout/addAddressModal'
 import PaymentMethod from '../../components/checkout/paymentMethod'
+import { supabase } from '../../lib/supabaseClient'
+import { getSession } from 'next-auth/react'
+import AddressPreview from '../../components/addressPreview/addressPreview'
+import DeliveryPreview from '../../components/deliveryPreview/deliveryPreview'
 
-function Payment() {
-    const [displayAddressModal, setDisplayAddressModal] = useState(false)
-    const address = 'false';
-    const userFullName = "Olumide Bambe"
-    const userAddress = "Adamolekun Estate, Adebayo, Ado-Ekiti, Ado Ekiti, Ekiti"
-    const userPhoneNumber = "+2348104123456"
-    const {cart} = useSelector(state => state.cart)
-    const {totalProducts, products} = cart;
-
-    function openAddressModal(){
-        //show address modal
-        setDisplayAddressModal(true)
-        //disable background scrolling
-        document.body.style.overflow = "hidden"
-    }   
-
-    function closeModal(){
-        //hide the modal
-        setDisplayAddressModal(false)
-        //remove the overflow hidden property on modal close
-        document.body.style.overflow = "unset"
-    }
-
-
+function Payment({user, savedAddress}) {
+    const {address, delivery_method, payment_method} = savedAddress;
 
     return (
         <div>
             <Head>
-                <title>Delivery Method | Kahala </title>
+                <title>Payment</title>
             </Head>
-            <Layout>
-                <Checkout>
-                    {displayAddressModal && <AddAddressModal handleClick={closeModal} />}
-                    <CheckoutComponent 
-                        title="1. Address Details"
-                        linkTo="/pagecheckout/address"
-                        showBtn = {true}
-                    >
-                    {address ? ( 
-                                <article style={{padding: "1rem 3rem"}}>
-                                    <h5>{userFullName}</h5>
-                                    <p>{userAddress}</p>
-                                    <p>{userPhoneNumber}</p>
-                                </article> 
-                            ):(
-                                <AddressForm />
-                            )
-                        }
-                    </CheckoutComponent>
-                    <CheckoutComponent 
-                        title="2. Delivery Method"
-                        linkTo="/pagecheckout/delivery"
-                        showBtn={true}
-                    >
-                        <article style={{padding: "1rem 3rem"}}>
-                            <h5>Door Delivery</h5>
-                            <p>Delivered between Thursday 13 Apr and Thursday 20 Apr for ₦ 3,000</p>
-                            <p>{userPhoneNumber}</p>
-                        </article> 
-                    </CheckoutComponent>
-                    <CheckoutComponent title="3. Payment Method">
-                        <PaymentMethod />
-                    </CheckoutComponent>
-                </Checkout>
-            </Layout>
+            <Checkout deliveryMethod={delivery_method} isPaymentPage={true}>
+                <CheckoutComponent 
+                    title="1. Address Details"
+                    linkTo="/pagecheckout/address"
+                    showBtn = {true}
+                >
+                    <AddressPreview address={address}/>
+                </CheckoutComponent>
+                <CheckoutComponent 
+                    title="2. Delivery Method"
+                    linkTo="/pagecheckout/delivery"
+                    showBtn={true}
+                >
+                    <DeliveryPreview deliveryMethod={delivery_method} />
+                </CheckoutComponent>
+                <CheckoutComponent title="3. Payment Method">
+                    <PaymentMethod paymentMethod={payment_method} />
+                </CheckoutComponent>
+            </Checkout>
         </div>
     )
+}
+
+export async function getServerSideProps(context){
+    const session = await getSession(context)
+
+    if(!session){
+        return{
+            redirect: {
+                destination: '/auth',
+                parmanent: false
+            }
+        }
+    }
+
+    const email = session?.user?.email
+    const {data: userAddress} = await supabase.from('user').select().eq('user_id', email)
+
+    if(!userAddress.length){
+        return{
+            redirect: {
+                destination: '/pagecheckout/address',
+                parmanent: false,
+            }
+        }
+    }
+
+    if(!userAddress[0].delivery_method){
+        return{
+            redirect: {
+                destination: '/pagecheckout/delivery',
+                parmanent: false,
+            }
+        }
+    }
+
+    return {
+        props: {user: session, savedAddress: userAddress[0]}
+    }
 }
 
 export default Payment
