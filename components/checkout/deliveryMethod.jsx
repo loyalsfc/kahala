@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { supabase } from '../../lib/supabaseClient'
 import { priceConverion } from '../../utils/utils'
 import { useRouter } from 'next/router'
+import ShipmentDetails from '../shipmentDetails/shipmentDetails'
 
 function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
     const router = useRouter()
@@ -100,27 +101,7 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
                 </div>
             </div>
             
-            <article className={styles.shipmentDetailsContainer}>
-                <h4>SHIPMENT DETAILS</h4>
-                <div className={styles.cartItemsWrapper}>
-                    <ul>
-                        {
-                            products.map((product, index) => {
-                                return(
-                                    <li className={styles.cartItems} key={product?.id}>
-                                        <p>Shipment {index + 1} of {products.length}</p>
-                                        <h5>
-                                            <span>{product?.quantity}x</span>
-                                            <span>{product?.item?.title}</span>
-                                        </h5>
-                                        <p>Delivered between <span className={styles.expectedDate}>{dateLocale(expectedDeliveryDateStart)}</span> and <span className={styles.expectedDate}>{dateLocale(expectedDeliveryDateEnd)}</span></p>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                </div>
-            </article>
+            <ShipmentDetails/>
 
             <button onClick={proceedToNextStep} className={styles.proceedBtn}>Proceed to next step</button>
         </div>

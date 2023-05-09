@@ -6,9 +6,10 @@ import CheckoutLayout from '../Layout/checkoutLayout/checkoutLayout'
 import styles from './checkoutTemplate.module.css'
 import { priceConverion } from '../../utils/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVrCardboard } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faVrCardboard } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 
-function Checkout({children, deliveryMethod, isPaymentPage}) {
+function Checkout({children, deliveryMethod, isPaymentPage, isSummaryPage}) {
     const [coupon, setCoupon] = useState('')
     const {cart} = useSelector(state => state.cart)
     const {totalProducts, totalPrice} = cart;
@@ -27,7 +28,6 @@ function Checkout({children, deliveryMethod, isPaymentPage}) {
     }
     
     return (
-        <div>
             <CheckoutLayout>
                 <Layout>
                     <main>
@@ -36,6 +36,9 @@ function Checkout({children, deliveryMethod, isPaymentPage}) {
                                 <div>
                                     {children}
                                 </div>
+                                <Link className={styles.continueLink} href="/">
+                                    <FontAwesomeIcon icon={faAngleLeft} /> Go back & continue shopping
+                                </Link>
                             </section>
                             <aside className={styles.orderSummary}>
                                 <div>
@@ -76,7 +79,7 @@ function Checkout({children, deliveryMethod, isPaymentPage}) {
                                         </form>
                                     )}
                                     <div className={styles.confirmOrderBtnBtnWrap}>
-                                        <button disabled={true} className={styles.confirmOrderBtn}>
+                                        <button disabled={isSummaryPage ? false : true} className={styles.confirmOrderBtn}>
                                             Confirm Order
                                         </button>
                                         <span>(Complete the steps in order to proceed)</span>
@@ -87,7 +90,6 @@ function Checkout({children, deliveryMethod, isPaymentPage}) {
                     </main>
                 </Layout>
             </CheckoutLayout>
-        </div>
     )
 }
 

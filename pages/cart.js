@@ -70,7 +70,7 @@ function Cart({newArrivals}) {
                                                 <span className={styles.subTotal}>₦{priceConverion(cart.totalPrice)}</span>
                                             </p>
                                             <div className={styles.checkoutBtnWrapper}>
-                                                <Link href={user ? "/pagecheckout/address" : "/auth"}>
+                                                <Link href={user ? "/pagecheckout/summary" : "/auth"}>
                                                     <button className={styles.checkoutBtn}>CHECKOUT (₦{priceConverion(cart.totalPrice)})</button>
                                                 </Link>
                                             </div>

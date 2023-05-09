@@ -116,36 +116,6 @@
 .deliveryTotal{
     color: var(--primary);
 }
-.shipmentDetailsContainer{
-    border: 1px solid var(--borderColor);
-    border-radius: 0.25rem;
-    color: var(--secondaryText);
-    margin: 10px 0;
-}
-.shipmentDetailsContainer h4{
-    padding: 10px 1rem;
-    border-bottom: 1px solid var(--borderColor);
-}
-.cartItemsWrapper{
-    padding: 4px 10px 6px;
-    margin: 6px;
-}
-.cartItems{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0.5rem 0 0.75rem;
-    border-bottom: 1px solid var(--borderColor);
-    font-weight: 400;
-}
-.cartItems h5{
-    display: flex;
-    gap: 1rem;
-    color: var(--secondaryText);
-}
-.cartItems:last-child{
-    border: none;
-}
 .expectedDate{
     font-weight: bold;
     color: #000;

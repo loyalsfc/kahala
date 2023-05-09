@@ -100,7 +100,6 @@
     color: #a3a3a6;
     pointer-events: none;
 }
-/* .couponBtn:disabled:hover{} */
 .formWrapper{
     position: relative;
     flex: 1;
@@ -126,4 +125,11 @@
 }
 .couponInput:focus ~ span{
     color: var(--primary);
+}
+.continueLink{
+    color: #264996;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: block;
+    margin: 1rem 0;
 }

@@ -1,0 +1,23 @@
+.shipmentDetailsContainer{
+    margin: 10px 0;
+}
+.title{
+    color: #313133;
+}
+.cartItemsWrapper{
+    margin-top: 0.25rem;
+    border: 1px solid var(--borderColor);
+    border-radius: 0.25rem;
+}
+.cartItems{
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-weight: 400;
+}
+.cartItems h5{
+    font-size: 0.75rem;
+}
+.cartItems span{
+    color: var(--secondaryText);
+}
