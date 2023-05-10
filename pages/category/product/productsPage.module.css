@@ -11,6 +11,10 @@
 .breadCrumb span{
     color: #75757A;
 }
+.mainProductWrap{
+    position: relative;
+    margin-bottom: 1rem;
+}
 .productInfoWrapper{
     display: flex;
     flex-direction: column;
@@ -234,6 +238,21 @@
 .report:hover{
     text-decoration: underline;
 }
+.desktopBtn{
+    display: none;
+}
+.mobileBtn{
+    padding: 0.5rem;
+    background-color: #FFF;
+    margin: 1rem 0;
+    position: sticky;
+    bottom: 0;
+    right: 0;
+}
+.mobileBtn button{
+    height: 3rem;
+    width: 3rem;
+}
 @media (min-width: 640px){
     .productInfoWrapper{
         flex-direction: row;
@@ -268,5 +287,11 @@
     }
     .report{
         display: block;
+    }
+    .desktopBtn{
+        display: block;
+    }
+    .mobileBtn{
+        display: none;
     }
 }

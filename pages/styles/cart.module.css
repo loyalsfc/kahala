@@ -75,7 +75,7 @@
     margin-left: 1rem;
 }
 .cartItemTitleWrapper h4{
-    font-size: 1.25rem;
+    font-size: 0.75rem;
 }
 .cartItemTitleWrapper span{
     font-size: 0.75rem;
@@ -83,24 +83,22 @@
     font-weight: bold;
 }
 .cartItemPrice{
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 .cartItemsDetails{
     display: flex;
 }
 .cartItemPriceWrapper{
-    min-width: 30%;
-    width: 30%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-left: auto;
     gap: 0.25rem;
+    padding-left: 1rem;
+    align-items: center;
 }
 .slashedPrice{
     color: #75757A;
     text-decoration: line-through;
     font-weight: 600;
+    font-size: 0.75rem;
 }
 .discountedPercentage{
     margin-left: 0.5rem;
@@ -213,6 +211,12 @@
     color: #313133;
     font-weight: 600;
 }
+.discountWrapperDesktop{
+    display: none;
+}
+.cartItemMain{
+    width: 100%;
+}
 @media (min-width: 640px){
     .aside{
         display: block;
@@ -222,5 +226,29 @@
     }
     .cartSummaryMobile, .mobileCheckoutBtn{
         display: none;
+    }
+    .cartItemTitleWrapper h4{
+        font-size: 1rem;
+    }  
+    .cartItemPriceWrapper{
+        min-width: 30%;
+        width: 30%;
+        margin-left: 10rem;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-left: 0;
+    }
+    .cartItemPrice{
+        font-size: 1.25rem;
+    }
+    .slashedPrice{
+        font-size: 1rem;
+    }
+    .discountWrapperDesktop{
+        display: inline;
+    }
+    .cartItemMain{
+        display: flex;
+        justify-content: space-between;
     }
 }

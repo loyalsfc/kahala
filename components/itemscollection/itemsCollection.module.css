@@ -2,12 +2,12 @@
     position: relative;
     padding: 0.5rem;
     font-weight: 500;
-    width: 25%;
+    width: 40%;
     flex-shrink: 0;
     background-color: #FFF;
     margin: 0.1rem;
 }
-.mainItemsWrap a{
+.linkWrapper{
     display: block;
     padding: 0.25rem;
 }
@@ -38,7 +38,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 100%;
+    width: 100%;
 }
 .slashedPrice{
     font-size: 12px;
@@ -47,20 +47,12 @@
     line-height: 0.6;
 }
 .imageWrapper{
-    height: 144px;
-    width: 144px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     position: relative;
     overflow: hidden;
 }
-.mainItemsWrap article{
-    width: 150px;
-}
 @media (min-width: 640px){
-    .imageWrapper{
-        height: unset;
-        width: 100%;
-        aspect-ratio: 1 / 1;
-    }
     .mainItemsWrap{
         width: 16.67%;
     }

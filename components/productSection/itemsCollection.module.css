@@ -5,7 +5,7 @@
     margin-bottom: 1rem;
 }
 .limitedstockTitle{
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     background-color: #FEE2CC;
     padding: 5px 10px;
@@ -26,4 +26,9 @@
 }
 .categoriesContainer::-webkit-scrollbar, .topSellingContainer::-webkit-scrollbar{
     display: none;
+}
+@media (min-width: 640px){
+    .limitedstockTitle{
+        font-size: 1.5rem;
+    }
 }

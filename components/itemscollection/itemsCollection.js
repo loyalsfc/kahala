@@ -5,10 +5,10 @@ import { calculateDiscountedAmount, priceConverion, urlFor } from "../../utils/u
 
 function ItemsCollection({item}) {
     const {slug, discount, images, title, amount} = item;
-    // console.log(item)
+    
     return (
         <li className={styles.mainItemsWrap}>
-            <Link href={`/category/product/${slug?.current}`}>
+            <Link className={styles.linkWrapper} href={`/category/product/${slug?.current}`}>
                 {discount !==0 && <span className={styles.percentageSlash}>-{discount}%</span>}
                 <div className={styles.imageWrapper}>
                     <Image
@@ -18,7 +18,7 @@ function ItemsCollection({item}) {
                         alt={title}
                     />
                 </div>
-                <article>
+                <article className={styles.titleWrapper}>
                     <h5 className={styles.topSellingTitle}>{title}</h5>
                     <p>₦{priceConverion(amount)}</p>
                     {discount !==0 && <p className={styles.slashedPrice}>₦{calculateDiscountedAmount(amount, discount)}</p>}

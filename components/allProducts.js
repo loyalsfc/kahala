@@ -96,73 +96,90 @@ function AllProducts({categoryName, products, searchFilter, category}) {
 
     return (
     <section className={styles.mainProductSection}>
-        <aside className={styles.aside}>
-            <div className={styles.priceFiltering}>
-                <h4 className={styles.priceFilteringHeader}>
-                    <span>PRICE (₦)</span>
-                    <button onClick={priceFiltering}>APPLY</button>
-                </h4>
-                <Slider
-                    getAriaLabel={() => 'Price Range'}
-                    value={value}
-                    onChange={handleChange}
-                    valueLabelDisplay="auto"
-                    className={styles.sliderColor}
-                    min={priceRange.min}
-                    max={priceRange.max}
-                />
-                <div className={styles.priceFilterInputs}>
-                    <input
-                        type='number'
-                        value={value[0]}
-                        onChange={(e)=>setValue([e.target.value, value[1]])}
+        <div className={styles.productWrapper}>
+            <aside className={styles.aside}>
+                <div className={styles.priceFiltering}>
+                    <h4 className={styles.priceFilteringHeader}>
+                        <span>PRICE (₦)</span>
+                        <button onClick={priceFiltering}>APPLY</button>
+                    </h4>
+                    <Slider
+                        getAriaLabel={() => 'Price Range'}
+                        value={value}
+                        onChange={handleChange}
+                        valueLabelDisplay="auto"
+                        className={styles.sliderColor}
+                        min={priceRange.min}
+                        max={priceRange.max}
                     />
-                    <input
-                        type='number'
-                        value={value[1]}
-                        onChange={(e)=>setValue([value[0], e.target.value])}
-                    />
+                    <div className={styles.priceFilterInputs}>
+                        <input
+                            type='number'
+                            value={value[0]}
+                            onChange={(e)=>setValue([e.target.value, value[1]])}
+                        />
+                        <input
+                            type='number'
+                            value={value[1]}
+                            onChange={(e)=>setValue([value[0], e.target.value])}
+                        />
+                    </div>
                 </div>
+            </aside>
+            <div className={styles.mainProducts}>
+                <h3>
+                    <span>{categoryName}</span>
+                    <div className={styles.sortingWrapper}>
+                        <p style={{backgroundColor: showSort ? '#EDEDED' : null}} onClick={()=>setShowSort(!showSort)}>Sort By: {sortText}</p>
+                        {showSort && <ul className={styles.sortContainer}>
+                            <li onClick={(event)=>changeSortParam(event, 'default')}>Popularity</li>
+                            <li onClick={(event)=>changeSortParam(event, 'descending')}>Price: Low to High</li>
+                            <li onClick={(event)=>changeSortParam(event, 'ascending')}>Price: High to Low</li>
+                            <li onClick={(event)=>changeSortParam(event, 'rating')}>Rating</li>
+                        </ul>}
+                    </div>
+                </h3>
+                <p className={styles.totalProducts}>{fetchedProducts.length} products found</p>
+                <ul className={styles.mainPageItems}>
+                    {productsItem}
+                </ul>
+                {pageCount.length > 1 &&
+                    <div>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel=">"
+                            onPageChange={handlePageChange}
+                            onClick={pageChange}
+                            pageRangeDisplayed={5}
+                            pageCount={pageCount}
+                            previousLabel="<"
+                            className={styles.paginationContainer}
+                            previousClassName={styles.nextClass}
+                            nextClassName={styles.nextClass}
+                            pageClassName={styles.pagesLi}
+                            breakClassName="page-item"
+                            breakLinkClassName="page-link"
+                            activeClassName={styles.active}
+                            renderOnZeroPageCount={null}
+                        />
+                    </div>
+                }
             </div>
-        </aside>
-        <div className={styles.mainProducts}>
-            <h3>
-                <span>{categoryName}</span>
-                <div className={styles.sortingWrapper}>
-                    <p style={{backgroundColor: showSort ? '#EDEDED' : null}} onClick={()=>setShowSort(!showSort)}>Sort By: {sortText}</p>
-                    {showSort && <ul className={styles.sortContainer}>
-                        <li onClick={(event)=>changeSortParam(event, 'default')}>Popularity</li>
-                        <li onClick={(event)=>changeSortParam(event, 'descending')}>Price: Low to High</li>
-                        <li onClick={(event)=>changeSortParam(event, 'ascending')}>Price: High to Low</li>
-                        <li onClick={(event)=>changeSortParam(event, 'rating')}>Price: Rating</li>
-                    </ul>}
+        </div>
+        <div className={styles.mobileSortingWrapper}>
+            <div className={styles.mobileSorting}>
+                <div className={styles.selectWrap}>
+                    <select value={sortParam} onChange={(e)=>setSortParam(e.target.value)} >
+                        <option value="default">Popularity</option>
+                        <option value="descending">Price: Low to High</option>
+                        <option value="ascending">Price: High to Low</option>
+                        <option value="rating">Rating</option>
+                    </select>
                 </div>
-            </h3>
-            <p className={styles.totalProducts}>{fetchedProducts.length} products found</p>
-            <ul className={styles.mainPageItems}>
-                {productsItem}
-            </ul>
-            {pageCount.length > 1 &&
-                <div>
-                    <ReactPaginate
-                        breakLabel="..."
-                        nextLabel=">"
-                        onPageChange={handlePageChange}
-                        onClick={pageChange}
-                        pageRangeDisplayed={5}
-                        pageCount={pageCount}
-                        previousLabel="<"
-                        className={styles.paginationContainer}
-                        previousClassName={styles.nextClass}
-                        nextClassName={styles.nextClass}
-                        pageClassName={styles.pagesLi}
-                        breakClassName="page-item"
-                        breakLinkClassName="page-link"
-                        activeClassName={styles.active}
-                        renderOnZeroPageCount={null}
-                    />
-                </div>
-            }
+                <button className={styles.filterBtn}>
+                    FILTER
+                </button>
+            </div>
         </div>
     </section>
     )

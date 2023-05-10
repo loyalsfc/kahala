@@ -25,7 +25,8 @@
 }
 .categoriesContainer{
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    font-size: 0.75rem;
     /* gap: 0.25px; */
 }
 .categoriesItem{
@@ -92,6 +93,16 @@
     font-size: 1.25rem;
     font-weight: bold;
     padding: 0.5rem 0 ;
+}
+.scrollTop{
+    position: absolute;
+    right: 8px;
+    z-index: 30;
+    pointer-events: none;
+    padding-top: 100vh;
+    bottom: -48px;
+    top: 0;
+    display: none;
 }
 @media (min-width: 640px){
     .heroImages{

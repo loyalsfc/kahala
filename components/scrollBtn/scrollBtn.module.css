@@ -1,0 +1,16 @@
+.btn{
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--primary);
+    background-color: #FFF;
+    display: grid;
+    place-content: center;
+    position: sticky;
+    position: -webkit-sticky; 
+    top: calc(100% - 32px);
+    transform: translateY(-56px);
+    pointer-events: all;
+    margin-right: 8px;
+    box-shadow: 0 0 0 1px #f68b1e;
+}

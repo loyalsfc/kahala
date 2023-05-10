@@ -11,6 +11,7 @@ import { client, urlFor } from "../utils/utils"
 import ProductSection from "../components/productSection/productSection"
 import useFetchApi from "../utils/useFetchApi"
 import CategoriesSection from "../components/categoriesSection/categoriesSection"
+import ScrollBtn from "../components/scrollBtn/scrollBtn"
 
 
 function Index({
@@ -54,12 +55,6 @@ function Index({
                         </div>
                     </section>
                     <div className={styles.categoriesWrapper}>
-                        <button className={`${styles.categoriesScroll} ${styles.categoriesScrollLeft}`}>
-                            <FontAwesomeIcon icon={faAngleLeft} />
-                        </button>
-                        <button className={`${styles.categoriesScroll} ${styles.categoriesScrollRight}`}>
-                            <FontAwesomeIcon icon={faAngleRight} />
-                        </button>
                         <ul className={styles.categoriesContainer}>
                             {
                                 categoryItems?.map(category => {
@@ -132,7 +127,9 @@ function Index({
                         itemList={hpProducts}
                         bgColor="#65B4D3"
                     />
-
+                    <div className={styles.scrollTop}>
+                        <ScrollBtn />
+                    </div>
                 </Layout>
             </HomeLayout>
         </div>

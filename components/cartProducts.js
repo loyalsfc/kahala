@@ -34,19 +34,23 @@ function CartProducts({items}) {
                     src={urlFor(images[0]?.asset?._ref).url()}
                     alt={title}
                 />
-                <article className={styles.cartItemTitleWrapper}>
-                    <h4>{title}</h4>
-                    <span>In stock </span>
-                </article>
-                <article className={styles.cartItemPriceWrapper}>
-                    <h4 className={styles.cartItemPrice}>₦{priceConverion(amount)}</h4>
-                    {discount !== 0 &&
-                        <p>
-                            <span className={styles.slashedPrice}>₦{calculateDiscountedAmount(amount, discount)}</span>
-                            <span className={styles.discountedPercentage}>-{discount}%</span>
-                        </p>
-                    }
-                </article>
+                <div className={styles.cartItemMain}>
+                    <article className={styles.cartItemTitleWrapper}>
+                        <h4>{title}</h4>
+                        <span>In stock </span>
+                    </article>
+                    <article className={styles.cartItemPriceWrapper}>
+                        <h4 className={styles.cartItemPrice}>₦{priceConverion(amount)}</h4>
+                        {discount !== 0 &&
+                            <p>
+                                <span className={styles.slashedPrice}>₦{calculateDiscountedAmount(amount, discount)}</span>
+                                <span className={styles.discountWrapperDesktop}>
+                                    <span className={styles.discountedPercentage}>-{discount}%</span>
+                                </span>
+                            </p>
+                        }
+                    </article>
+                </div>
             </Link>
             <div className={styles.cartItemModify}>
                 <button onClick={deleteItem} className={styles.cartItemRemoveBtn}>

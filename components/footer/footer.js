@@ -5,6 +5,11 @@ import AppContainer from '../appContainer'
 import styles from './footer.module.css'
 
 function Footer() {
+    
+    function scrollToTop(){
+        window.scrollTo(0, 0)
+    }
+
   return (
     <footer className={styles.footer}>
         <div className={styles.subscriptionSection}>
@@ -101,7 +106,7 @@ function Footer() {
                 </article>
             </section>
         </div>
-        <div className={styles.backToTop}>
+        <div onClick={scrollToTop} className={styles.backToTop}>
             <FontAwesomeIcon icon={faAngleUp} />
             <span>Back to Top</span>
         </div>
