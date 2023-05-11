@@ -1,6 +1,6 @@
 .header{
     box-shadow: 0 2px 4px rgba(0,0,0,.16);
-    height: 45px;
+    /* height: 45px; */
     font-family: Roboto,Helvetica,Arial,sans-serif;
     color: #6b6866;
     background: #fff;
@@ -12,7 +12,7 @@
     color: var(--primary);
 }
 .headerItemsWrapper{
-    display: flex;
+    display: none;
     align-items: center;
     height: 100%;
 }
@@ -28,4 +28,9 @@
 }
 .mlAuto{
     margin-left: auto;
+}
+@media (min-width: 640px){
+    .headerItemsWrapper{
+        display: flex;
+    }
 }

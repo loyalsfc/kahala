@@ -15,7 +15,7 @@ function Create({user}) {
             <Head>
                 <title>Create Address</title>
             </Head>
-            <AddressCheckout>
+            <AddressCheckout title="Add New Address">
                 <AddressForm callback={moveRoute}/>
             </AddressCheckout>
         </div>

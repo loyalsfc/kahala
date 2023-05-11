@@ -6,7 +6,7 @@ import { urlFor } from '../../utils/utils'
 
 function ShipmentDetails() {
     const {cart} = useSelector(state => state.cart)
-    console.log(cart)
+    
     return (
         <article className={styles.shipmentDetailsContainer}>
             <h4 className={styles.title}>Shipment 1/1</h4>

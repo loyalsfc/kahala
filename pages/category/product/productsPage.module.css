@@ -135,7 +135,7 @@
 }
 .addCartBtn{
     padding: 0.75rem 1rem;
-    width: 100%;
+    width: 100% !important;
     font-size: 0.875rem;
     font-weight: bold;
     color: #fff;
@@ -252,6 +252,9 @@
 .mobileBtn button{
     height: 3rem;
     width: 3rem;
+}
+.mobileBtn > div{
+    justify-content: space-between;
 }
 @media (min-width: 640px){
     .productInfoWrapper{

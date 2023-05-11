@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from '../Layout/layout'
-import Head from 'next/head'
 import { useSelector } from 'react-redux'
 import CheckoutLayout from '../Layout/checkoutLayout/checkoutLayout'
 import styles from './checkoutTemplate.module.css'

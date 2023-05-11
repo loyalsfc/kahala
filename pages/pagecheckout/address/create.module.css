@@ -1,19 +1,16 @@
+.container{
+    padding: 0 0.5rem;
+}
 .mainWrapper{
     display: flex;
     gap: 1rem;
 }
-.container{
-    padding: 1rem;
-    border-bottom: 1px solid var(--borderColor);
-}
-.addressesWrapper{
-    padding: 0.5rem 0;
-}
 .addressContainer{
     margin-bottom: 0.5rem;
     padding: 1rem 0.5rem 1rem 1rem;
-    border: 1px solid #d4d4d6;
     border-radius: 0.25rem;
+    background-color: #FFF;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
 }
 .addressDetails{
     display: flex;
@@ -63,6 +60,9 @@
 .addressDetailsBtn:hover{
     background-color: rgba(246, 139, 30, 0.15);
 }
+.addressDetailsBtn span{
+    display: none;
+}
 .createBtn{
     display: flex;
     align-items: center;
@@ -75,7 +75,7 @@
 }
 .btnContainer{
     padding: 1rem;
-    display: flex;
+    display: none;
     justify-content: flex-end;
     align-items: center;
     gap: 1rem;
@@ -92,4 +92,59 @@
     border-radius: 0.25rem;
     font-weight: 600;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+}
+.createBtnDesktop{
+    display: none;
+}
+.mobileContainer{
+    display: flex;
+    background-color: #FFF; 
+    padding: 0.5rem 1rem;
+    gap: 0.75rem;
+}
+.selectAddressMobile{
+    flex: 1;
+    background-color: var(--primary);
+    color: #FFF;
+    font-size: 0.875rem;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2);
+    text-transform: uppercase;
+}
+.createAddressMobile{
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid var(--primary);
+    border-radius: 0.25rem;
+    display: grid;
+    place-content: center;
+    color: var(--primary);
+    background-color: transparent;
+}
+@media (min-width: 640px){
+    .container{
+        padding: 1rem;
+        border-bottom: 1px solid var(--borderColor);
+    }
+    .addressesWrapper{
+        padding: 0.5rem 0;
+    }
+    .addressContainer{
+        border: 1px solid #d4d4d6;
+        box-shadow: none;
+    }
+    .btnContainer{
+        display: flex;
+    }
+    .createBtnDesktop{
+        display: block;
+    }
+    .addressDetailsBtn span{
+        display: inline ;
+    }
+    .mobileContainer{
+        display: none;
+    }
 }

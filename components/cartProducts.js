@@ -9,6 +9,7 @@ import { calculateTotal, decreaseCartItem, removeCart, increaseCartItem } from '
 import CartModifyBtn from './cartModifyBtn'
 import Toast from './toast/toast'
 import { priceConverion, calculateDiscountedAmount, urlFor, removeCartFromDb, decreaseCartQtyFromDb } from '../utils/utils'
+import DiscountPercentage from './discountPercentage/discountPercentage'
 
 function CartProducts({items}) {
     const {item: product, quantity, id} = items;
@@ -23,17 +24,24 @@ function CartProducts({items}) {
     }
     
     return (
-        <li>
+        <li className={styles.cartItemWrapper}>
             {[...Array(toastCount)].map((_, index) => (
                 <Toast key={index} message="Cart Item Removed" duration={5000} />
             ))}
             <Link className={styles.cartItemsDetails} href={`/category/product/${slug.current}`}>
-                <Image 
-                    width={72}
-                    height={72}
-                    src={urlFor(images[0]?.asset?._ref).url()}
-                    alt={title}
-                />
+                <div style={{position: "relative"}}>
+                    <Image 
+                        width={72}
+                        height={72}
+                        src={urlFor(images[0]?.asset?._ref).url()}
+                        alt={title}
+                    />
+                    {discount !== 0 &&
+                        <span className={styles.discountWrapperMobile}>
+                            <DiscountPercentage discount={discount} />
+                        </span>   
+                    }
+                </div>
                 <div className={styles.cartItemMain}>
                     <article className={styles.cartItemTitleWrapper}>
                         <h4>{title}</h4>
@@ -45,7 +53,7 @@ function CartProducts({items}) {
                             <p>
                                 <span className={styles.slashedPrice}>₦{calculateDiscountedAmount(amount, discount)}</span>
                                 <span className={styles.discountWrapperDesktop}>
-                                    <span className={styles.discountedPercentage}>-{discount}%</span>
+                                    <DiscountPercentage discount={discount} />
                                 </span>
                             </p>
                         }

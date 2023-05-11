@@ -1,5 +1,4 @@
 .wrapper{
-    background-color: #FFF;
     border-radius: 0.25rem;
     margin: 0.5rem 0;
 }
@@ -7,7 +6,7 @@
     margin-top: 0;
 }
 .heading{
-    display: flex;
+    display: none;
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid var(--borderColor);
@@ -236,19 +235,19 @@
     flex-direction: column;
 }
 .newAddressForm{
+    background-color: #FFF;
     flex: 1;
     height: 90%;
     display: flex;
     flex-direction: column;
 }
 .formDetailsContainer{
-    padding: 1.25rem 0;
+    padding: 1rem;
     overflow: scroll;
 }
 .formInputNameWrapper{
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .formInputWrapper{
     font-size: 0.75rem;
@@ -278,8 +277,11 @@
     grid-template-columns: repeat(10, minmax(0, 1fr));
     gap: 10px;
 }
+.countryCode{
+    grid-column: span 2 / span 2;
+}
 .mainNumber{
-    grid-column: span 9 / span 9;
+    grid-column: span 8 / span 8;
 }
 .addMoreBtn{
     margin-left: auto;
@@ -294,12 +296,8 @@
 .addMoreBtn:hover{
     color: var(--primary);
 }
-.formTextArea{
-    min-height: 100px;
-}
 .submitBtnContainer{
-    /* padding: 1.25rem 0; */
-    border-top: 1px solid var(--borderColor);
+    padding: 0 1rem 1rem;
 }
 .formnotes{
     font-size: 0.75rem;
@@ -308,9 +306,11 @@
 .submitBtn{
     width: 100%;
     background-color: var(--primary);
-    padding: 10px;
+    padding: 1rem;
     color: #FFF;
     font-weight: 600;
+    box-shadow: var(--shadow);
+    border-radius: 0.25rem;
 }
 .submitBtn:hover{
     background-color: var(--btnHoverBg);
@@ -320,4 +320,33 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+}
+
+@media (min-width: 640px){
+    .heading{
+        display: flex;
+    }
+    .wrapper{
+        background-color: #FFF;
+    }
+    .formDetailsContainer{
+        padding: 1rem 3rem;
+    }
+    .formInputNameWrapper{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+    .countryCode{
+        grid-column: span 1 / span 1;
+    }
+    .mainNumber{
+        grid-column: span 9 / span 9;
+    }
+    .formTextArea{
+        min-height: 100px;
+    }
+    .submitBtnContainer{
+        padding: 1rem 3rem;
+        border-top: 1px solid var(--borderColor);
+    }
 }

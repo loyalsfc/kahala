@@ -1,0 +1,9 @@
+.discountedPercentage{
+    margin-left: 0.5rem;
+    background-color: #fef3e9;
+    color: #f68b1e;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 2px 4px;
+}

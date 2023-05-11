@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '../layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone, faRotate, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleLeft, faPhone, faRotate, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
 import styles from './checkoutHeader.module.css'
 import Link from 'next/link'
 

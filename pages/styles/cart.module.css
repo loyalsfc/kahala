@@ -48,17 +48,16 @@
     position: relative;
 }
 .cartItemsWrapper{
-    background-color: #FFF;
     border-radius: 5px;
     flex: 1;
 }
 .cartItemsWrapper h1{
     padding: 0.25rem 1rem;
-    font-size: 1.25rem;
-    border-bottom: 1px solid #EDEDED;
+    font-size: 0.75rem;
+    color: #75757A;
 }
 .cartsItemsList{
-    padding: 1rem 1rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -69,7 +68,7 @@
 }
 .cartsItemsList li:last-child{
     border-bottom: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.5rem;
 }
 .cartItemTitleWrapper{
     margin-left: 1rem;
@@ -99,15 +98,6 @@
     text-decoration: line-through;
     font-weight: 600;
     font-size: 0.75rem;
-}
-.discountedPercentage{
-    margin-left: 0.5rem;
-    background-color: #fef3e9;
-    color: #f68b1e;
-    font-size: 14px;
-    font-weight: bold;
-    display: inline-block;
-    padding: 2px 4px;
 }
 .cartItemModify{
     display: flex;
@@ -215,7 +205,39 @@
     display: none;
 }
 .cartItemMain{
+    flex: 1;
+}
+.discountWrapperMobile{
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+}
+.cartItemWrapper{
+    background-color: #FFF;
+    padding: 0.5rem 0.5rem 0;
+    border-radius: 0.25rem;
+}
+.mobileCheckoutBtn{
+    margin-top: 0.5rem;
+    background-color: #FFF;
+    padding: 0.5rem 1rem;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+    left: 0;
     width: 100%;
+}
+.mobileCheckoutBtn button{
+    padding: 1rem;
+    width: 100%;
+    background-color: var(--primary);
+    color: #FFF;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+}
+.mobileCheckoutBtn button:hover{
+    background-color: var(--btnHoverBg);
 }
 @media (min-width: 640px){
     .aside{
@@ -250,5 +272,17 @@
     .cartItemMain{
         display: flex;
         justify-content: space-between;
+    }
+    .discountWrapperMobile{
+        display: none;
+    }
+    .cartItemsWrapper{
+        background-color: #FFF;
+    }
+    .cartItemsWrapper h1{
+        padding: 0.25rem 1rem;
+        font-size: 1.25rem;
+        border-bottom: 1px solid #EDEDED;
+        color: unset;
     }
 }

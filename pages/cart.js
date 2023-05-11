@@ -76,7 +76,9 @@ function Cart({newArrivals}) {
                                             </div>
                                         </aside>
                                         <div className={styles.mobileCheckoutBtn}>
-                                            <button>CHECKOUT (${cart.totalPrice})</button>
+                                            <Link href={user ? "/pagecheckout/summary" : "/auth"}>
+                                                <button>CHECKOUT (₦{priceConverion(cart.totalPrice)})</button>
+                                            </Link>
                                         </div>
                                     </div>
                                 )

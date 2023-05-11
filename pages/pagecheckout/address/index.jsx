@@ -18,8 +18,6 @@ function Index({address}) {
         setDefaultIndex(index);
     }
 
-    console.log(addressLists)
-
     const handleClick = async() => {
         const newAddress = addressLists.map((address, index) => {
             return {...address, isDefault: defaultIndex == index ? true : false}
@@ -36,7 +34,7 @@ function Index({address}) {
             <Head>
                 <title>Address Book </title>
             </Head>
-            <AddressCheckout>
+            <AddressCheckout title="Select delivery address">
                 <div className={styles.container}>
                     <ul className={styles.addressesWrapper}>
                         {
@@ -55,7 +53,7 @@ function Index({address}) {
                                                 {isDefault && <p className={styles.defaultTag}>default address</p>}
                                             </div>
                                             <div className={styles.addressDetailsBtnWrapper}>
-                                                <button className={styles.addressDetailsBtn}>Edit <FontAwesomeIcon icon={faPen} /></button>
+                                                <button className={styles.addressDetailsBtn}><span>Edit</span> <FontAwesomeIcon icon={faPen} /></button>
                                                 {/* <button className={styles.addressDetailsBtn}>Delete <FontAwesomeIcon icon={faTrashAlt} /></button> */}
                                             </div>
                                         </div>
@@ -64,7 +62,7 @@ function Index({address}) {
                             })
                         }
                     </ul>
-                    <Link href='address/create'>
+                    <Link className={styles.createBtnDesktop} href='address/create'>
                         <button className={styles.createBtn}>
                             <FontAwesomeIcon icon={faPlus} />
                             ADD ADDRESS
@@ -76,6 +74,16 @@ function Index({address}) {
                     <button onClick={handleClick} className={styles.selectAddress}>
                         SELECT ADDRESS
                     </button>
+                </div>
+                <div className={styles.mobileContainer}>
+                        <button onClick={handleClick} className={styles.selectAddressMobile}>
+                            Select Address
+                        </button>
+                        <Link className={styles.createAddressMobile} href='address/create'>
+                            <button className={styles.createAddressMobile}>
+                                <FontAwesomeIcon icon={faPlus} />
+                            </button>
+                        </Link>
                 </div>
             </AddressCheckout>
         </div>

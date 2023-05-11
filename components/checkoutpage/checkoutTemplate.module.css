@@ -2,12 +2,13 @@
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 10px;
+    /* padding: 10px; */
     padding-top: 1rem;
 }
 .orderSummary{
     width: 280px;
     flex-shrink: 0;
+    display: none;
 }
 .orderSummary > div{
     background-color: #FFF;
@@ -132,4 +133,9 @@
     font-weight: 700;
     display: block;
     margin: 1rem 0;
+}
+@media (min-width: 640px){
+    .orderSummary{
+        display: block;
+    }
 }

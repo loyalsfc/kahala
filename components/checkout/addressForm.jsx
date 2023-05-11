@@ -50,7 +50,7 @@ function AddressForm({spacing, callback}) {
 
     return (
         <form className={styles.newAddressForm} onSubmit={handleSubmit}>
-            <div style={{padding: spacing ? "1.25rem 30px" : "1rem 3rem"}} className={styles.formDetailsContainer}>
+            <div className={styles.formDetailsContainer}>
                 <div className={styles.formInputNameWrapper}>
                     <div className={styles.formInputWrapper}>
                         <label className={styles.formInputLabel} htmlFor="first_name">First Name</label>
@@ -76,7 +76,7 @@ function AddressForm({spacing, callback}) {
                     </div>
                 </div>
                 <div className={styles.formInputWrapper}>
-                    <label className={styles.formInputLabel} htmlFor="first_name">Mobile Phone Number</label>
+                    <label className={styles.formInputLabel} htmlFor="phone_number">Mobile Phone Number</label>
                     <div className={styles.formInputNumberWrapper}>
                         <input 
                             type="text" 
@@ -144,7 +144,7 @@ function AddressForm({spacing, callback}) {
                 </div>
                 <p className={styles.formnotes}>*Required</p>
             </div>
-            <div style={{padding: spacing ? "1.25rem 30px" : "1rem 3rem"}} className={styles.submitBtnContainer}>
+            <div className={styles.submitBtnContainer}>
                 <button className={styles.submitBtn}>SAVE AND CONTINUE</button>
             </div>
         </form>
