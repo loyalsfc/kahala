@@ -2,6 +2,7 @@ import React from 'react'
 import Checkout from '../checkoutpage/checkouttemplate'
 import CheckoutComponent from '../checkout/checkoutComponent'
 import MobileCheckoutHeader from '../mobileCheckoutHeader/mobileCheckoutHeader'
+import styles from './addressCheckout.module.css'
 
 function AddressCheckout({title, children}) {
     return (
@@ -9,13 +10,15 @@ function AddressCheckout({title, children}) {
             <MobileCheckoutHeader text={title} />
             <Checkout>
                 <CheckoutComponent 
-                    title="1. Address Details"
+                    title="Address Details"
                     showBtn = {false}
                 >
                     {children}
                 </CheckoutComponent>
-                <CheckoutComponent title="2. Delivery Method"/>
-                <CheckoutComponent title="3. Payment Method"/>
+                <div className={styles.showOtherSummary}>
+                    <CheckoutComponent title="Delivery Method"/>
+                    <CheckoutComponent title="Payment Method"/>
+                </div>
             </Checkout>
         </>
     )

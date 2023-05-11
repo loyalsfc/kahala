@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../addressPreview/addressPreview.module.css'
 
 function DeliveryPreview({deliveryMethod}) {
     const currentDate = new Date();
@@ -9,7 +10,7 @@ function DeliveryPreview({deliveryMethod}) {
         return `${date.toLocaleDateString("en", {day: 'numeric', month: "short"})}`
     }
     return (
-        <article style={{padding: "1rem 3rem"}}>
+        <article className={styles.article}>
             <h5>{deliveryMethod == 'door' ? "Door Delivery" : "Pickup Station"}</h5>
             <p>Delivery beween <strong>{getDate(expectedDeliveryDateStart)}</strong> and <strong>{getDate(expectedDeliveryDateEnd)}</strong></p>
         </article> 

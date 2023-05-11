@@ -8,6 +8,7 @@ import { supabase } from '../../lib/supabaseClient'
 import { getSession } from 'next-auth/react'
 import AddressPreview from '../../components/addressPreview/addressPreview'
 import DeliveryPreview from '../../components/deliveryPreview/deliveryPreview'
+import MobileCheckoutHeader from '../../components/mobileCheckoutHeader/mobileCheckoutHeader'
 
 function Payment({user, savedAddress}) {
     const {address, delivery_method, payment_method} = savedAddress;
@@ -17,22 +18,23 @@ function Payment({user, savedAddress}) {
             <Head>
                 <title>Payment</title>
             </Head>
+            <MobileCheckoutHeader text='Select payment' />
             <Checkout deliveryMethod={delivery_method} isPaymentPage={true}>
                 <CheckoutComponent 
-                    title="1. Address Details"
+                    title="Address Details"
                     linkTo="/pagecheckout/address"
                     showBtn = {true}
                 >
                     <AddressPreview address={address}/>
                 </CheckoutComponent>
                 <CheckoutComponent 
-                    title="2. Delivery Method"
+                    title="Delivery Method"
                     linkTo="/pagecheckout/delivery"
                     showBtn={true}
                 >
                     <DeliveryPreview deliveryMethod={delivery_method} />
                 </CheckoutComponent>
-                <CheckoutComponent title="3. Payment Method">
+                <CheckoutComponent title="Payment Method">
                     <PaymentMethod paymentMethod={payment_method} />
                 </CheckoutComponent>
             </Checkout>

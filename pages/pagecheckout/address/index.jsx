@@ -12,21 +12,23 @@ import { useRouter } from 'next/router';
 function Index({address}) {
     const router = useRouter()
     const {address: addressLists, id} = address;
-    const [defaultIndex, setDefaultIndex] = useState()
+    const [defaultIndex, setDefaultIndex] = useState(null)
 
     const handleChange = (index) => {
         setDefaultIndex(index);
     }
 
     const handleClick = async() => {
-        const newAddress = addressLists.map((address, index) => {
-            return {...address, isDefault: defaultIndex == index ? true : false}
-        })
-        const {error} = await supabase
-            .from('user')
-            .update({address: newAddress})
-            .eq('id', id)
-        console.log(error)
+        if(defaultIndex !== null){
+            const newAddress = addressLists.map((address, index) => {
+                return {...address, isDefault: defaultIndex == index ? true : false}
+            })
+            const {error} = await supabase
+                .from('user')
+                .update({address: newAddress})
+                .eq('id', id)
+            console.log(error)
+        }
         router.push('/pagecheckout/summary')
     }
     return (

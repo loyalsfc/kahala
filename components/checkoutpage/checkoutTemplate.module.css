@@ -5,13 +5,14 @@
     /* padding: 10px; */
     padding-top: 1rem;
 }
-.orderSummary{
+.aside{
     width: 280px;
     flex-shrink: 0;
     display: none;
-}
-.orderSummary > div{
     background-color: #FFF;
+}
+.orderSummary{
+    width: 100%;
     border-radius: 0.25rem;
 }
 .totalProduct{
@@ -20,9 +21,16 @@
     align-items: center;
     justify-content: space-between;
 }
-.orderSummary h4, .orderSummary p{
+.orderSummary h4{
+    font-size: 0.75rem;
+    padding: 0 1rem 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #75757A;
+}
+.orderSummary p{
     font-size: 0.875rem;
-    padding: 10px 0.5rem;
+    padding: 0.25rem 1rem;
     font-weight: 600;
 }
 .summaryItemPrice{
@@ -40,6 +48,7 @@
 }
 .confirmOrderBtnBtnWrap{
     padding: 0.5rem;
+    display: none;
 }
 .confirmOrderBtn{
     border: none;
@@ -133,9 +142,28 @@
     font-weight: 700;
     display: block;
     margin: 1rem 0;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+}
+.mainWrap{
+    background-color: #FFF;
 }
 @media (min-width: 640px){
-    .orderSummary{
+    .aside{
         display: block;
+    }
+    .orderSummary h4, .orderSummary p{
+        font-size: 0.875rem;
+        padding: 10px 0.5rem;
+        font-weight: 600;
+        text-transform: unset;
+        color: unset;
+    }
+    .confirmOrderBtnBtnWrap{
+        display: block;
+    }
+    .continueLink{
+        background-color: transparent;
+        padding: 0;
     }
 }

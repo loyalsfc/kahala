@@ -1,0 +1,9 @@
+.showOtherSummary{
+    display: none;
+}
+ 
+@media (min-width: 650px){
+    .showOtherSummary{
+        display: block; 
+    }
+}

@@ -11,9 +11,10 @@ import styles from './summary.module.css'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHandHoldingDollar, faShieldAlt } from '@fortawesome/free-solid-svg-icons'
+import MobileCheckoutHeader from '../../../components/mobileCheckoutHeader/mobileCheckoutHeader'
+import OrderSummary from '../../../components/orderSummary/orderSummary'
 
-function Summary({user, deliveryDetails}) {
-    console.log(deliveryDetails)
+function Summary({deliveryDetails}) {
     const {address, delivery_method, payment_method} = deliveryDetails 
     
     function paymentMethodNote(){
@@ -25,52 +26,66 @@ function Summary({user, deliveryDetails}) {
     }
 
     return (
-        <div>
+        <div style={{position: "relative"}}>
             <Head>
                 <title>Summary</title>
             </Head>
+            <MobileCheckoutHeader text='Select payment' />
             <Checkout 
                 deliveryMethod = {delivery_method}
                 isPaymentPage={true} 
                 isSummaryPage = {true}
-            >
-                <CheckoutComponent
-                    title="DELIVERY ADDRESS"
-                    linkTo = "/pagecheckout/address"
-                    showBtn = {true}
-                >
-                    <AddressPreview address={address} />
-                </CheckoutComponent>
-                <CheckoutComponent
-                    title="DELIVERY METHOD"
-                    linkTo = "/pagecheckout/delivery"
-                    showBtn = {true}
-                >
-                    <DeliveryPreview deliveryMethod={delivery_method} />
-                    <div className={styles.shipmentDetailsWrap}>
-                        <ShipmentDetails/>
-                        <div className={styles.modifyBtnWrapper}>
-                            <Link href="/cart" className={styles.modifyBtn}>Modify Cart</Link>
+            >   
+                <p className={styles.acceptClass}>By proceeding, you are automatically accepting the terms & conditions</p>
+                <section className={styles.section}>
+                    <OrderSummary
+                        deliveryMethod = {delivery_method}
+                        isPaymentPage={true} 
+                        isSummaryPage = {true}
+                    />
+                </section>
+                <div className={styles.wrapper}>
+                    <CheckoutComponent
+                        title="DELIVERY ADDRESS"
+                        linkTo = "/pagecheckout/address"
+                        showBtn = {true}
+                    >
+                        <AddressPreview address={address} />
+                    </CheckoutComponent>
+                    <CheckoutComponent
+                        title="DELIVERY METHOD"
+                        linkTo = "/pagecheckout/delivery"
+                        showBtn = {true}
+                    >
+                        <DeliveryPreview deliveryMethod={delivery_method} />
+                        <div className={styles.shipmentDetailsWrap}>
+                            <ShipmentDetails/>
+                            <div className={styles.modifyBtnWrapper}>
+                                <Link href="/cart" className={styles.modifyBtn}>Modify Cart</Link>
+                            </div>
                         </div>
-                    </div>
-                </CheckoutComponent>
-                <CheckoutComponent
-                    title="PAYMENT METHOD"
-                    linkTo="/pagecheckout/payment"
-                    showBtn={true}
-                >
-                    <article className={styles.paymentSummary}>
-                        <div>
-                            <h5 className={styles.titleCase}>{payment_method.replace('-', " ")}</h5>
-                            <p>{paymentMethodNote()}</p>
-                        </div>
-                        <FontAwesomeIcon 
-                            icon={payment_method == "pay-on-delivery" ? faHandHoldingDollar : faShieldAlt} 
-                            color={payment_method == "pay-on-delivery" ? "#F68B1E" : "#4c90e2"}
-                        />
-                    </article>
-                </CheckoutComponent>
+                    </CheckoutComponent>
+                    <CheckoutComponent
+                        title="PAYMENT METHOD"
+                        linkTo="/pagecheckout/payment"
+                        showBtn={true}
+                    >
+                        <article className={styles.paymentSummary}>
+                            <div>
+                                <h5 className={styles.titleCase}>{payment_method.replace('-', " ")}</h5>
+                                <p>{paymentMethodNote()}</p>
+                            </div>
+                            <FontAwesomeIcon 
+                                icon={payment_method == "pay-on-delivery" ? faHandHoldingDollar : faShieldAlt} 
+                                color={payment_method == "pay-on-delivery" ? "#F68B1E" : "#4c90e2"}
+                            />
+                        </article>
+                    </CheckoutComponent>
+                </div>
             </Checkout>
+            <div className={styles.confirmMobileBtnWrapper}>
+                <button className={styles.confirmMobileBtn}>CONFIRM ORDER</button>
+            </div>
         </div>
     ) 
 }
@@ -123,7 +138,7 @@ export async function getServerSideProps(context){
 
 
     return {
-        props: {user: session, deliveryDetails: deliveryDetails[0]}
+        props: {deliveryDetails: deliveryDetails[0]}
     }
 }
 

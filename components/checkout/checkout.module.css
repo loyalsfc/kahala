@@ -6,13 +6,13 @@
     margin-top: 0;
 }
 .heading{
-    display: none;
+    display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 0.5rem 10px 0.25rem;
     border-bottom: 1px solid var(--borderColor);
     font-weight: 500;
-    font-size: 0.875rem;
-    color: #000;
+    font-size: 0.75rem;
+    color: #75757A;
     text-transform: uppercase;
 }
 .changeBtn{
@@ -27,6 +27,8 @@
     /* padding: 1rem 3rem; */
     color: var(--secondaryText);
     font-size: 13px;
+    background-color: #FFF;
+    border-radius: 0.25rem;
 }
 .mainContent h5{
     font-size: 0.875rem;
@@ -39,7 +41,7 @@
     border-radius: 50%;
     line-height: 1.25rem;
     background-color: #e2e2e2;
-    display: grid;
+    display: none;
     place-content: center;
     color: #FFF;
     margin-right: 1rem;
@@ -48,7 +50,7 @@
     font-size: 13px;
     font-weight: 500;
     color: #000;
-    padding: 2rem 3rem;
+    padding: 1rem;
 }
 .deliveryMethod > h5{
     font-size: 0.875rem;
@@ -76,7 +78,7 @@
     border-radius: 0.25rem;
     padding: 10px;
     font-weight: bold;
-    display: flex;
+    display: none;
     align-items: flex-start;
 }
 .methodDetails span{
@@ -135,7 +137,7 @@
 
 .paymentMethodWrapper{
     color: #000;
-    padding: 0rem 3rem 2rem;
+    padding: 0rem 1rem 1rem;
     width: 100%;
 }
 .paymentMethodWrapper h4{
@@ -148,7 +150,7 @@
     color: var(--secondaryText);
     font-size: 13px;
     font-weight: 500;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 1rem;
 }
@@ -321,10 +323,18 @@
     justify-content: space-between;
     width: 100%;
 }
-
+.fs12{
+    font-size: 0.75rem;
+}
 @media (min-width: 640px){
     .heading{
         display: flex;
+        font-size: 0.875rem;
+        color: #000;
+        padding: 10px;
+    }
+    .status{
+        display: grid;
     }
     .wrapper{
         background-color: #FFF;
@@ -348,5 +358,17 @@
     .submitBtnContainer{
         padding: 1rem 3rem;
         border-top: 1px solid var(--borderColor);
+    }
+    .deliveryMethod{
+        padding: 2rem 3rem;
+    }
+    .methodDetails, .paymentMethodDetails{
+        display: flex;
+    }
+    .paymentMethodWrapper{
+        padding: 0rem 3rem 2rem;
+    }
+    .fs12{
+        font-size: 0.875rem;
     }
 }

@@ -103,7 +103,7 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
             
             <ShipmentDetails/>
 
-            <button onClick={proceedToNextStep} className={styles.proceedBtn}>Proceed to next step</button>
+            <button onClick={proceedToNextStep} className={styles.proceedBtn}>CONFIRM DELIVERY DETAILS</button>
         </div>
     )
 }

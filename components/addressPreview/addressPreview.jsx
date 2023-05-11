@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './addressPreview.module.css'
 
 function AddressPreview({address}) {
     const {country_code, 
@@ -10,7 +11,7 @@ function AddressPreview({address}) {
         delivery_state} = address.find(item => item.isDefault == true)
 
     return (
-        <article style={{padding: "1rem 3rem"}}>
+        <article className={styles.article}>
             <h5>{first_name} {last_name}</h5>
             <p>{delivery_address} | {delivery_lga} {delivery_state} | {country_code + phone_number} </p>
         </article> 

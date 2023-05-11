@@ -30,8 +30,10 @@ function PaymentMethod({paymentMethod}) {
                             defaultChecked={paymentMethod == "card-payment" ? true : false}
                         />
                         <label className={styles.labels} htmlFor="card-payment">
-                            <p>Pay with Cards, Bank Transfer or USSD<br/>
-                            You will be redirected to our secure checkout page</p>
+                            <p>
+                                Pay with Cards, Bank Transfer or USSD<br/>
+                                <span className={styles.fs12}>You will be redirected to our secure checkout page</span>
+                            </p>
                             <FontAwesomeIcon icon={faShieldAlt} color='#4c90e2' />
                         </label>
                     </div>
@@ -54,7 +56,7 @@ function PaymentMethod({paymentMethod}) {
                     <label className={styles.labels} htmlFor='fcb-payment'>
                         <p>
                             <span>Standard Chartered Credit Card @ 1.5% Interest - Up to 12 months</span><br/>
-                            <span>Terms and Conditions Apply</span>
+                            <span className={styles.fs12}>Terms and Conditions Apply</span>
                         </p>   
                         <FontAwesomeIcon icon={faShieldAlt} color='#4c90e2' />
                     </label>
@@ -72,7 +74,7 @@ function PaymentMethod({paymentMethod}) {
                         <label className={styles.labels} htmlFor='pay-on-delivery'> 
                             <p>
                                 Pay on Delivery <br/>
-                                With Cash, Bank Transfer Or Cash
+                                <span className={styles.fs12}> With Cash, Bank Transfer Or Cash</span>
                             </p>
                             <FontAwesomeIcon icon={faHandHoldingDollar} color='#F68B1E' />
                         </label>

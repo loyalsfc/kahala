@@ -1,0 +1,14 @@
+.wrapper{
+    padding: 0.5rem;
+}
+.extraWrap{
+    display: none;
+}
+@media (min-width: 640px){
+    .wrapper{
+        padding: 0; 
+    }
+    .extraWrap{
+        display: block;
+    }
+}

@@ -95,7 +95,7 @@ function Product({product, param, category, relatedProducts}) {
                 <div className={`${styles.productsContainer} ${styles.bgWhite}`}>
                   <div className={styles.productInfo}>
                     <div className={styles.productInfoImages}>
-                      <div className={styles.imagesWrapper}>  
+                      <div className={styles.mobileImagesWrapper}>  
                         {
                           images?.map((img, index) => {
                             return <Image 
@@ -108,20 +108,32 @@ function Product({product, param, category, relatedProducts}) {
                           })
                         }
                       </div>
-                      <div className={styles.otherImages}>
-                        {
-                          images?.map((img, index) => {
-                            return <Image 
-                              key={img._key}
-                              src={urlFor(img.asset._ref).url()} 
-                              height={38} 
-                              width={38} 
-                              alt="image item"
-                              onClick={()=>{console.log(index); setImageIndex(index)}} 
-                            />
-                          })
-                        }
+                      <div className={styles.desktopImagesWrapper}>
+                        <Image 
+                          src={urlFor(images[imageIndex]?.asset?._ref).url()} 
+                          height={240} 
+                          width={240} 
+                          alt="image item"
+                        />
                       </div>
+                      {images.length > 1 &&
+                        <div className={styles.otherImages}>
+                          {
+                            images?.map((img, index) => {
+                              return <div className={imageIndex == index ? 'imagesActive' : null}>
+                                <Image 
+                                key={img._key}
+                                src={urlFor(img.asset._ref).url()} 
+                                height={38} 
+                                width={38} 
+                                alt="image item"
+                                onClick={()=>{console.log(index); setImageIndex(index)}} 
+                              />
+                              </div>
+                            })
+                          }
+                        </div>
+                      }
                       <article className={styles.shareProduct}>
                         <h5>SHARE THIS PRODUCT</h5>
                         <button>
@@ -184,7 +196,11 @@ function Product({product, param, category, relatedProducts}) {
                   <h4>Delivery</h4>
                   <div className={styles.deliveryLocation}>
                     <h5>Choose your location </h5>
-                    <select id='delivery_state' className={styles.selectState} value={selectedState} onChange={(e)=>setSelectedState(e.target.value)}>
+                    <select 
+                      id='delivery_state' 
+                      className={styles.selectState} 
+                      value={selectedState} 
+                      onChange={(e)=>setSelectedState(e.target.value)}>
                       <StatesList/>
                     </select>
                     <select className={styles.selectState} onChange={(e)=>setSelectedLg(e.target.value)}>
