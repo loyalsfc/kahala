@@ -19,6 +19,7 @@ function ShipmentDetails() {
                                     src={urlFor(product?.item?.images[0].asset._ref).url()}
                                     height={40}
                                     width={40}
+                                    alt={product?.item?.title}
                                 />
                                 <h5>
                                     <p>{product?.item?.title}</p>

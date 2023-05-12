@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVrCardboard } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 
-function OrderSummary({deliveryMethod, isPaymentPage, isSummaryPage}) {
+function OrderSummary({deliveryMethod, isPaymentPage, isSummaryPage, confirmOrder}) {
     const [coupon, setCoupon] = useState('')
     const {cart} = useSelector(state => state.cart)
     const {totalProducts, totalPrice} = cart;
@@ -62,7 +62,7 @@ function OrderSummary({deliveryMethod, isPaymentPage, isSummaryPage}) {
                     </form>
                 )}
                 <div className={styles.confirmOrderBtnBtnWrap}>
-                    <button disabled={isSummaryPage ? false : true} className={styles.confirmOrderBtn}>
+                    <button onClick={confirmOrder} disabled={isSummaryPage ? false : true} className={styles.confirmOrderBtn}>
                         Confirm Order
                     </button>
                     <span>(Complete the steps in order to proceed)</span>

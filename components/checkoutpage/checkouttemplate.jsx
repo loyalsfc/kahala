@@ -7,7 +7,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import OrderSummary from '../orderSummary/orderSummary'
 
-function Checkout({children, deliveryMethod, isPaymentPage, isSummaryPage}) {
+function Checkout({children, deliveryMethod, isPaymentPage, isSummaryPage, confirmOrder}) {
     
     return (
             <CheckoutLayout>
@@ -27,6 +27,7 @@ function Checkout({children, deliveryMethod, isPaymentPage, isSummaryPage}) {
                                     deliveryMethod={deliveryMethod}
                                     isPaymentPage={isPaymentPage}
                                     isSummaryPage={isSummaryPage}
+                                    confirmOrder={confirmOrder}
                                 />
                             </aside>
                         </div>
