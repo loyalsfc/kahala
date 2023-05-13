@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './checkout.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +29,8 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
         updateDeliveryMethod(updatedMethod)
     }
 
-    const proceedToNextStep=() =>{
+    const proceedToNextStep=()=>{
+        console.log(deliveryMethod)
         if(!deliveryMethod) return;
         router.push('/pagecheckout/summary');
     }

@@ -29,7 +29,6 @@ export function priceConverion(amount){
 }
 
 export async function saveCartToDb(callback, product, user){
-    console.log(user)
     if(user){
         const {data, error} = await supabase.from('cart')
             .insert({item: product, quantity: 1, user_id: user?.email})
@@ -61,3 +60,9 @@ export async function decreaseCartQtyFromDb(callback, dbId, productId, qty){
 
 const doorDeliveryPerItem = 1200;
 const pickupDeliveryPerItem = 420;
+export const calculateDeliveryFee = (deliveryMethod, totalProducts) =>{
+    if(deliveryMethod === 'door'){
+        return doorDeliveryPerItem * totalProducts;
+    }
+    return pickupDeliveryPerItem * totalProducts;
+}

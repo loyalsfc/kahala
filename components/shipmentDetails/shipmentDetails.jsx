@@ -12,7 +12,7 @@ function ShipmentDetails() {
             <h4 className={styles.title}>Shipment 1/1</h4>
             <div className={styles.cartItemsWrapper}>
                 <ul>
-                    {cart?.products.map((product, index) => {
+                    {cart?.products?.map((product, index) => {
                         return(
                             <li className={styles.cartItems} key={product?.id}>
                                 <Image

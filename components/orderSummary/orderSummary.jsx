@@ -4,20 +4,12 @@ import { priceConverion } from '../../utils/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVrCardboard } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
+import { calculateDeliveryFee } from '../../utils/utils'
 
 function OrderSummary({deliveryMethod, isPaymentPage, isSummaryPage, confirmOrder}) {
     const [coupon, setCoupon] = useState('')
     const {cart} = useSelector(state => state.cart)
     const {totalProducts, totalPrice} = cart;
-    const doorDeliveryPerItem = 1200;
-    const pickupDeliveryPerItem = 420;
-
-    const calculateDeliveryFee = () =>{
-        if(deliveryMethod === 'door'){
-            return doorDeliveryPerItem * totalProducts;
-        }
-        return pickupDeliveryPerItem * totalProducts;
-    }
 
     const handleChange = (e) => {
         setCoupon(e.target.value)
@@ -33,13 +25,13 @@ function OrderSummary({deliveryMethod, isPaymentPage, isSummaryPage, confirmOrde
                     </p>
                     {deliveryMethod && <p className={styles.totalProduct}>
                         <span>Delivery fees</span>
-                        <span className={styles.priceSum}>₦{priceConverion(calculateDeliveryFee())}</span>
+                        <span className={styles.priceSum}>₦{priceConverion(calculateDeliveryFee(deliveryMethod, totalProducts))}</span>
                     </p>}
                 </article>
                 <div className={`${styles.deliverySumWrap} borderBottom`}>
                     <p className={styles.subTotals}>
                         Total
-                        <span>₦{priceConverion(deliveryMethod ? (totalPrice + calculateDeliveryFee()) : totalPrice)}</span>
+                        <span>₦{priceConverion(deliveryMethod ? (totalPrice + calculateDeliveryFee(deliveryMethod, totalProducts)) : totalPrice)}</span>
                     </p>
                     
                 </div> 

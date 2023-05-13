@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Checkout from '../../../components/checkoutpage/checkouttemplate'
 import { getSession } from 'next-auth/react'
 import { supabase } from '../../../lib/supabaseClient'
@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/router'
 import { initCart } from '../../../store/cartSlice'
+import { PaystackButton } from 'react-paystack'
+import { calculateDeliveryFee } from '../../../utils/utils'
 
 
 function Summary({deliveryDetails, user}) {
@@ -26,7 +28,11 @@ function Summary({deliveryDetails, user}) {
     const [showModal, setShowModal] = useState(false)
     const [showLoader, setShowLoader] = useState(false)
     const {cart} = useSelector(state => state.cart)
-    console.log(cart.products)
+    const {totalProducts, totalPrice, products} = cart; 
+    const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+    const {country_code, phone_number} = address[0]
+    const amount = (totalPrice + calculateDeliveryFee(delivery_method, totalProducts)) * 100;
+    
     function paymentMethodNote(){
         if(payment_method == "pay-on-delivery"){
             return "With Cash, Bank Transfers or Cards."
@@ -35,33 +41,46 @@ function Summary({deliveryDetails, user}) {
         }
     }
 
-    async function validateOrder(){
+    async function validateOrder(paidStatus){
         setShowModal(false)
-        setShowLoader(true)
-        if(payment_method === "pay-on-delivery"){
-            const orderId = uuidv4();
-            const {data, error} = await supabase.from('orders')
-                .insert({
-                    user_id: user?.email,
-                    is_paid: false,
-                    delivery_method,
-                    delivery_address: delivery_method == 'door' ?  address.find(item => item.isDefault == true) : {delivery_method},
-                    items: cart,
-                    order_id: orderId
-                })
-                .select()
-            if(data){
-                cart.products.forEach(async (item) =>{
-                    const { error } = await supabase
-                        .from('cart')
-                        .delete()
-                        .eq('id', item.id)
-                })
-                dispatch(initCart([]))
-                router.push(`/ordercomplete/${orderId}`)
-            }
+        setShowLoader(true);
+        const orderId = uuidv4();
+        const {data, error} = await supabase.from('orders')
+            .insert({
+                user_id: user?.email,
+                is_paid: paidStatus,
+                delivery_method,
+                delivery_address: delivery_method == 'door' ?  address.find(item => item.isDefault == true) : {delivery_method},
+                items: cart,
+                order_id: orderId
+            })
+            .select()
+        if(data){
+            products.forEach(async (item) =>{
+                const { error } = await supabase
+                    .from('cart')
+                    .delete()
+                    .eq('id', item.id)
+            })
+            dispatch(initCart([]))
+            router.push(`/ordercomplete/${orderId}`)
         }
     }
+
+    const componentProps = {
+        email: user?.email,
+        amount,
+        metadata: {
+            name: user?.name,
+            phone: country_code + phone_number,
+        },
+        publicKey,
+        text: "Yes",
+        onSuccess: () =>{
+            validateOrder(true)
+        },
+        onClose: () => setShowModal(false),
+      }
 
     return (
         <div style={{position: "relative"}}>
@@ -73,7 +92,10 @@ function Summary({deliveryDetails, user}) {
                     <article className={styles.confirmationContent}>
                         <p>Confirm Order</p>
                         <div className={styles.buttonWrap}>
-                            <button onClick={validateOrder} className={styles.confirmOrder}>Yes</button>
+                            {payment_method === "pay-on-delivery" ?
+                                <button onClick={()=>validateOrder(false)} className={styles.confirmOrder}>Yes</button>:
+                                <PaystackButton className={styles.confirmOrder} {...componentProps}/>
+                            }
                             <button onClick={()=>setShowModal(false)} className={styles.cancelOrder}>No</button>
                         </div>
                     </article>
@@ -186,7 +208,7 @@ export async function getServerSideProps(context){
     if(!deliveryDetails[0].payment_method){
         return{
             redirect: {
-                destination: "/pagecheckout/delivery",
+                destination: "/pagecheckout/payment",
                 parmanent: false
             }
         }
