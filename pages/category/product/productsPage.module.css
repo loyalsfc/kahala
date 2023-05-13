@@ -277,6 +277,7 @@
     }
     .otherImages{
         display: flex;
+        overflow-x: scroll;
     }
     .shareProduct{
         border-top: 1px solid #EDEDED;

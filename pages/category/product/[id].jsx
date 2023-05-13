@@ -120,7 +120,7 @@ function Product({product, param, category, relatedProducts}) {
                         <div className={styles.otherImages}>
                           {
                             images?.map((img, index) => {
-                              return <div className={imageIndex == index ? 'imagesActive' : null}>
+                              return <div key={img?._key} className={imageIndex == index ? 'imagesActive' : null}>
                                 <Image 
                                 key={img._key}
                                 src={urlFor(img.asset._ref).url()} 
