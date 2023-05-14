@@ -13,22 +13,6 @@
 .shipmentDetailsWrap{
     padding: 0 1rem 1rem;
 }
-.modifyBtnWrapper{
-    display: grid;
-    place-content: center;
-}
-.modifyBtn{
-    background-color: transparent;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--primary);
-    font-size: 0.875rem;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-}
-.modifyBtn:hover{
-    background-color: rgba(246, 139, 30, 0.3);
-}
 .titleCase{
     text-transform: capitalize;
 }
@@ -119,9 +103,6 @@
 @media (min-width: 640px){
     .shipmentDetailsWrap{
         padding: 0 3rem 1rem;
-    }
-    .modifyBtnWrapper{
-        padding: 0.5rem;
     }
     .paymentSummary{
         padding: 1rem 3rem;

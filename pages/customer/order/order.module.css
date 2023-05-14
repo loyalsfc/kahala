@@ -1,0 +1,14 @@
+.title{
+    border-bottom: 1px solid var(--borderColor);   
+}
+.title span{
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.875rem;
+    display: block;
+    padding: 0 1rem;
+    line-height: 34px;
+    border-bottom: 2px solid var(--primary);
+    width: fit-content;
+    text-transform: uppercase;
+}

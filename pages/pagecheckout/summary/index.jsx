@@ -139,8 +139,8 @@ function Summary({deliveryDetails, user}) {
                         <DeliveryPreview deliveryMethod={delivery_method} />
                         <div className={styles.shipmentDetailsWrap}>
                             <ShipmentDetails/>
-                            <div className={styles.modifyBtnWrapper}>
-                                <Link href="/cart" className={styles.modifyBtn}>Modify Cart</Link>
+                            <div className='modifyBtnWrapper'>
+                                <Link href="/cart" className='modifyBtn'>Modify Cart</Link>
                             </div>
                         </div>
                     </CheckoutComponent>
