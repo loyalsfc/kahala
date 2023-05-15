@@ -34,7 +34,11 @@ function Header() {
                             {user ? (
                                 <div className={style.userMenuDropDownContainer}>
                                     <ul className={style.dropDownMenu}>
-                                        <li><FontAwesomeIcon icon={faUser}/> My Account</li>
+                                        <li>
+                                            <Link href='/customer/account'>
+                                                <FontAwesomeIcon icon={faUser}/> My Account
+                                            </Link>
+                                        </li>
                                         <li>
                                             <Link href='/customer/order'>
                                                 <FontAwesomeIcon icon={faStore}/> Orders

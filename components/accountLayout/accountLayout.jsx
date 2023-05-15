@@ -11,10 +11,6 @@ import { signOut } from 'next-auth/react'
 
 function AccountLayout({title, children}) {
     return (
-        <div>
-            <Head>
-                <title>Orders</title>
-            </Head>
             <HomeLayout>
                 <Layout>
                     <main className={styles.main}>
@@ -68,7 +64,6 @@ function AccountLayout({title, children}) {
                     </main>
                 </Layout>
             </HomeLayout>
-        </div>
     )
 }
 
