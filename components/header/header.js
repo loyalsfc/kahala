@@ -44,9 +44,21 @@ function Header() {
                                                 <FontAwesomeIcon icon={faStore}/> Orders
                                             </Link>
                                         </li>
-                                        <li><FontAwesomeIcon icon={faEnvelope}/> Inbox</li>
-                                        <li><FontAwesomeIcon icon={faHeart}/> Saved Items</li>
-                                        <li><FontAwesomeIcon icon={faVrCardboard}/> Vouchers</li>
+                                        <li>
+                                            <Link href='/customer/inbox'>
+                                                <FontAwesomeIcon icon={faEnvelope}/> Inbox
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href='/customer/saves'>
+                                                <FontAwesomeIcon icon={faHeart}/> Saved Items
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href='/customer/voucher'>
+                                                <FontAwesomeIcon icon={faVrCardboard}/> Vouchers
+                                            </Link>
+                                        </li>
                                     </ul>
                                     <div className={style.signOutBtnWrapper}>
                                         <button onClick={()=>signOut()} className={style.signOut}>Log out</button>

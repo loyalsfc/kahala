@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { changeDefaultAddress } from '../../../utils/utils';
 
 function Index({address}) {
     const router = useRouter()
@@ -19,16 +20,7 @@ function Index({address}) {
     }
 
     const handleClick = async() => {
-        if(defaultIndex !== null){
-            const newAddress = addressLists.map((address, index) => {
-                return {...address, isDefault: defaultIndex == index ? true : false}
-            })
-            const {error} = await supabase
-                .from('user')
-                .update({address: newAddress})
-                .eq('id', id)
-            console.log(error)
-        }
+        await changeDefaultAddress(defaultIndex, addressLists, id)
         router.push('/pagecheckout/summary')
     }
     return (

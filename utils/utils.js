@@ -66,3 +66,15 @@ export const calculateDeliveryFee = (deliveryMethod, totalProducts) =>{
     }
     return pickupDeliveryPerItem * totalProducts;
 }
+
+export async function changeDefaultAddress(defaultIndex, addressLists, id){
+    if(defaultIndex !== null){
+        const newAddress = addressLists.map((address, index) => {
+            return {...address, isDefault: defaultIndex == index ? true : false}
+        })
+        const {error} = await supabase
+            .from('user')
+            .update({address: newAddress})
+            .eq('id', id)
+    }
+}

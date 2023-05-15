@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AccountLayout from '../../../components/accountLayout/accountLayout'
 import Head from 'next/head'
 import styles from './account.module.css'
@@ -9,9 +9,8 @@ import { faWallet } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 
 function Index({user, address}) {
-    const defaultAddress = address.find(item=>item.isDefault === true);
-    const {first_name, last_name, country_code, delivery_address, delivery_lga, delivery_state, phone_number} = defaultAddress;
-    console.log(defaultAddress);
+    const [defaultAddress, setDefaultIndex] = useState(address[0]?.address.find(item=>item.isDefault === true))
+
     return (
         <div>
             <Head>
@@ -25,12 +24,14 @@ function Index({user, address}) {
                     </AccountItemWrap>
                     <AccountItemWrap title="ADDRESS BOOK">
                         <h4>Your default shipping address:</h4>
-                        <p className={styles.text}>
-                            {first_name} {last_name} <br/>
-                            {delivery_address} <br/>
-                            {delivery_lga} {delivery_state} <br/>
-                            {country_code + phone_number}
+                        {address.length === 0 ? <p className={styles.text}>No default shipping address available.</p> :
+                            <p className={styles.text}>
+                            {defaultAddress.first_name} {defaultAddress.last_name} <br/>
+                            {defaultAddress.delivery_address} <br/>
+                            {defaultAddress.delivery_lga} {defaultAddress.delivery_state} <br/>
+                            {defaultAddress.country_code + defaultAddress.phone_number}
                         </p>
+                        }
                     </AccountItemWrap>
                     <AccountItemWrap title="KAHALA STORE CREDIT">
                         <span className={styles.storeCredit}>
@@ -40,7 +41,7 @@ function Index({user, address}) {
                     <AccountItemWrap title="NEWSLETTER PREFERENCES">
                         <h4>You are currently not subscribed to any of our newsletters.</h4>
                         <div className={styles.newsletter}>
-                            <Link className='modifyBtn' href='/customer/newsletter'>EDIT NEWSLETTER PREFERENCES</Link>
+                            <Link className='modifyBtn' href=''>EDIT NEWSLETTER PREFERENCES</Link>
                         </div>
                     </AccountItemWrap>
                 </section>
@@ -79,7 +80,7 @@ export async function getServerSideProps(context){
     return{
         props: {
             user: session.user,
-            address: address?.data[0]?.address
+            address: address?.data
         }
     }
 }

@@ -1,11 +1,14 @@
 .main{
     padding: 1rem 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 1rem;
-    align-items: flex-start;
+    /* align-items: flex-start; */
+}
+.aside{
+    grid-column: span 2 / span 2;
 }
 .nav{
-    width: 280px;
     background-color: #FFF;
     border-radius: 0.25rem;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
@@ -33,6 +36,9 @@
     border-radius: 0.25rem;
     overflow: hidden;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
+    display: flex;
+    flex-direction: column;
+    grid-column: span 5 / span 5;
 }
 .title{
     border-bottom: 1px solid var(--borderColor);
@@ -43,4 +49,5 @@
 .contentWrap{
     padding: 0 0.5rem;
     background-color: #FFF;
+    flex: 1;
 }

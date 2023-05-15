@@ -125,7 +125,7 @@
     font-weight: 700;
     padding: 0 0.25rem;
 }
-.dropDownMenu li, .dropDownMenu a{
+.dropDownMenu a{
     padding: 0.5rem;
     font-size: 0.875rem;
     color: #313133;

@@ -21,7 +21,9 @@
     --shadow: 0 4px 8px 0 rgba(0,0,0,.2);
     scroll-behavior: smooth;
 }
-
+address{
+    font-style: normal;
+}
 .swiper {
     border-radius: 5px;
 }
@@ -103,6 +105,10 @@ button{
 }
 .border-top{
     border-top: 1px solid var(--borderColor);
+}
+.modifyBtn:disabled{
+    pointer-events: none;
+    color: #a3a3a6;
 }
 @media (min-width: 640px){
     .modifyBtnWrapper{

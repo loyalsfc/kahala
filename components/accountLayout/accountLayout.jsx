@@ -14,47 +14,49 @@ function AccountLayout({title, children}) {
             <HomeLayout>
                 <Layout>
                     <main className={styles.main}>
-                        <nav className={styles.nav}>
-                            <ul>
-                                <li className={styles.links}>
-                                    <Link href='/customer/account'>
-                                        <FontAwesomeIcon icon={faUser} /> My Kahala Account
-                                    </Link>
-                                </li>
-                                <li className={styles.links}>
-                                    <Link href='/customer/order'>
-                                        <FontAwesomeIcon icon={faStore} /> Orders
-                                    </Link>
-                                </li>
-                                <li className={styles.links}>
-                                    <Link href='/customer/Inbox'>
-                                        <FontAwesomeIcon icon={faEnvelope} /> Inbox
-                                    </Link>
-                                </li>
-                                <li className={styles.links}>
-                                    <Link href='/customer/voucher'>
-                                        <FontAwesomeIcon icon={faVrCardboard} /> Voucher
-                                    </Link>
-                                </li>
-                                <li className={styles.links}>
-                                    <Link href='/customer/saves'>
-                                        <FontAwesomeIcon icon={faHeart} /> Saves
-                                    </Link>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li className={`${styles.links} border-top`}>
-                                    <Link href='/customer/account'>Account Management</Link>
-                                </li>
-                                <li className={styles.links}>
-                                    <Link href='/customer/account'>Address Book</Link>
-                                </li>
-                                <li className={styles.links}></li>
-                            </ul>
-                            <div className='modifyBtnWrapper border-top'>
-                                <button className='modifyBtn' onClick={()=>signOut()}>Logout</button>
-                            </div>
-                        </nav>
+                        <aside className={styles.aside}>
+                            <nav className={styles.nav}>
+                                <ul>
+                                    <li className={styles.links}>
+                                        <Link href='/customer/account'>
+                                            <FontAwesomeIcon icon={faUser} /> My Kahala Account
+                                        </Link>
+                                    </li>
+                                    <li className={styles.links}>
+                                        <Link href='/customer/order'>
+                                            <FontAwesomeIcon icon={faStore} /> Orders
+                                        </Link>
+                                    </li>
+                                    <li className={styles.links}>
+                                        <Link href='/customer/inbox'>
+                                            <FontAwesomeIcon icon={faEnvelope} /> Inbox
+                                        </Link>
+                                    </li>
+                                    <li className={styles.links}>
+                                        <Link href='/customer/voucher'>
+                                            <FontAwesomeIcon icon={faVrCardboard} /> Voucher
+                                        </Link>
+                                    </li>
+                                    <li className={styles.links}>
+                                        <Link href='/customer/saves'>
+                                            <FontAwesomeIcon icon={faHeart} /> Saves
+                                        </Link>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li className={`${styles.links} border-top`}>
+                                        <Link href='/customer/account'>Account Management</Link>
+                                    </li>
+                                    <li className={styles.links}>
+                                        <Link href='/customer/address'>Address Book</Link>
+                                    </li>
+                                    <li className={styles.links}></li>
+                                </ul>
+                                <div className='modifyBtnWrapper border-top'>
+                                    <button className='modifyBtn' onClick={()=>signOut()}>Logout</button>
+                                </div>
+                            </nav>
+                        </aside>
                         <section className={styles.section}>
                             <h2 className={styles.title}>{title}</h2>
                             <div className={styles.contentWrap}>

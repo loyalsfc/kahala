@@ -1,0 +1,38 @@
+.container{
+    height: 100%;
+    width: 100%;
+    color: #313133;
+}
+.iconWrapper{
+    padding: 1.5rem 0.5rem;
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.iconWrapper h2{
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    margin-top: 1rem;
+}
+.iconWrapper p{
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+}
+.continueShopping{
+    background-color: var(--primary);
+    color: #FFF;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+.continueShopping:hover{
+    background-color: var(--btnHoverBg);
+}

@@ -1,0 +1,48 @@
+.addressGrid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.addressContainer{
+    padding: 0.5rem;
+}
+.addressWrapper{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #d4d4d6;
+    border-radius: 0.25rem;
+}
+.address{
+    padding: 1rem;
+    font-size: 0.875rem;
+    color: #75757A;
+    font-weight: 600;
+}
+.addressName{
+    font-size: 1rem;
+    color: #313133;
+    padding-bottom: 0.5rem;
+}
+.addressNumber{
+    padding-top: 0.5rem;
+}
+.defaultAddress{
+    color: #4D861C;
+    padding-top: 1rem;
+    display: block;
+}
+.addressFooter{
+    border-top: 1px solid #d4d4d6;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
+.editBtn{
+    margin-left: auto;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+}
+.trashBtn{
+    border-radius: 50%;
+}
