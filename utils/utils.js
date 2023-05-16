@@ -1,5 +1,4 @@
 import imageUrlBuilder from '@sanity/image-url'
-
 import { createClient } from "next-sanity"
 import { supabase } from '../lib/supabaseClient';
 import { addCart, decreaseCartItem, removeCart } from '../store/cartSlice';

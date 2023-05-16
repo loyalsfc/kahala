@@ -6,7 +6,7 @@ import styles from './productsPage.module.css';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileAlt, faHeart, faMessage } from '@fortawesome/free-regular-svg-icons';
-import { faCartPlus, faList, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faHeart as heartRegular, faList, faRetweet, faShieldHalved, faStar } from '@fortawesome/free-solid-svg-icons';
 import {lga} from "../../../utils/lga"
 import DeliveryDetails from '../../../components/deliveryDetails/deliveryDetails';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,8 @@ import { calculateDiscountedAmount, client, decreaseCartQtyFromDb, priceConverio
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
 import ProductSection from '../../../components/productSection/productSection';
 import StatesList from '../../../components/statesList';
+import { supabase } from '../../../lib/supabaseClient';
+import { addSaves, removeSaves } from '../../../store/saveSlice';
 
 function Product({product, param, category, relatedProducts}) {
   const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit, itemsInBox, productType } = product;
@@ -24,8 +26,10 @@ function Product({product, param, category, relatedProducts}) {
   const [selectedState, setSelectedState] = useState("Lagos");
   const [selectedLg, setSelectedLg] = useState('Agege');
   const { cart } = useSelector(state => state.cart);
+  const { saves } = useSelector(state => state.save)
   const {user} = useSelector(state => state.user);
   const [quantity, setQuantity] = useState(1);
+  const [saveId, setSaveId] = useState(null)
   const [dbId, setDbId] = useState(null);
   const dispatch = useDispatch();
   const [toastCount, setToastCount] = useState({
@@ -33,16 +37,40 @@ function Product({product, param, category, relatedProducts}) {
     cartMessage: ""
   });
 
+  console.log(saves)
+
   useEffect(()=>{
     const item = cart.products.find(product => product.item.slug.current == param) 
     setQuantity(item?.quantity)
     setDbId(item?.id)
   }, [cart, param])
 
+  useEffect(()=>{
+    const item = saves.find(product=> product.item.slug.current === param)
+    setSaveId(item?.id)
+  }, [saves, param])
+
   const handleClick = async () => {
-    // if(user){
     saveCartToDb(dispatch, product, user)
     setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
+  }
+
+  const handleWishlist = async () => {
+    
+    if(!saveId){
+      const {error, data} = await supabase
+        .from('saves')
+        .insert({item: product, user_id: user?.email})
+        .select()
+      dispatch(addSaves(data[0]))
+      return
+    }
+    const {error, data} = await supabase
+      .from('saves')
+      .delete()
+      .eq('id', saveId)
+    console.log(error, data)
+    dispatch(removeSaves(saveId))
   }
 
   const decreaseQty = () => {
@@ -83,6 +111,9 @@ function Product({product, param, category, relatedProducts}) {
           {[...Array(toastCount.count)].map((_, index) => (
               <Toast key={index} message={toastCount.cartMessage} duration={5000} />
             ))}
+          {/* <div className='confirmationWrapper'>
+            
+          </div> */}
           <Layout>
             <p className={styles.breadCrumb}>
               <Link href="/">Home</Link> / 
@@ -144,7 +175,9 @@ function Product({product, param, category, relatedProducts}) {
                       <div>
                         <h1>
                           <span>{title}</span>
-                          <FontAwesomeIcon icon={faHeart} style={{color: "#f68b1e"}}/>
+                          <button onClick={handleWishlist} className={styles.heartWrapper}>
+                            <FontAwesomeIcon icon={saveId ? heartRegular : faHeart}/>
+                          </button>
                         </h1>
                         {brand && <p className={styles.brand}>Brand: <span>{brand} | similar products from {brand}</span></p>}
                         <div className={styles.ratingContainer}>
@@ -166,9 +199,9 @@ function Product({product, param, category, relatedProducts}) {
                         </div>
                       </div>
                       <div>
-                        <h2 className={styles.price}>₦{priceConverion(amount)}</h2>
+                        <h2 className={styles.price}>₦ {priceConverion(amount)}</h2>
                         {productDiscount !== 0 &&  <p>
-                          <span className={styles.originalAmount}>₦{calculateDiscountedAmount(amount, productDiscount)}</span>
+                          <span className={styles.originalAmount}>₦ {calculateDiscountedAmount(amount, productDiscount)}</span>
                           <span className={styles.discountedPercentage}>-{productDiscount}%</span>
                         </p>}
                         <span className={styles.inStockTag}>{getStockText()}</span>

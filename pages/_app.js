@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { fetchCart } from '../lib/fetchCart'
 import { initCart } from '../store/cartSlice'
 import { supabase } from '../lib/supabaseClient'
+import { initSaves } from '../store/saveSlice'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -48,14 +49,15 @@ function StateWrapper({children}){
             //Check if there are some carts in localStorage
             if(localStorage.carts){
                 let storageCarts = JSON.parse(localStorage.carts);
-                storageCarts.forEach(cart => {
-                    addToCart(cart, email)
+                storageCarts.forEach(async(cart) => {
+                    await addToCart(cart, email)
                 });
                 //Remove items from cart
                 localStorage.removeItem('carts');
             }
             //Fetch carts from DB
-            dispatch(fetchCart(email))
+            dispatch(fetchCart(email, 'cart'))
+            dispatch(initSaves((fetchCart(email, 'saves'))))
         }else if(status === "unauthenticated"){
             //Otherwise fetch cart from localStorage
             if(localStorage.carts){
@@ -67,7 +69,6 @@ function StateWrapper({children}){
     async function addToCart(cart, email){
         const {data, error} = await supabase.from('cart')
             .insert({item: cart.item, quantity: cart.quantity, user_id: email})
-        console.log(data, error);
     }
 
     return(

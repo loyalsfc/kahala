@@ -73,7 +73,7 @@
 }
 .brand{
     padding: 0.5rem 0 0;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.875rem;
     cursor:pointer;
 }
@@ -257,6 +257,21 @@
 }
 .desktopImagesWrapper{
     display: none;
+}
+.heartWrapper{
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    background-color: transparent;
+    color: var(--primary);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+}
+.heartWrapper:hover{
+    background-color: rgba(246, 139, 30, 0.25);
 }
 @media (min-width: 640px){
     .productInfoWrapper{

@@ -110,6 +110,15 @@ button{
     pointer-events: none;
     color: #a3a3a6;
 }
+.confirmationWrapper{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0,0,0,.15);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
 @media (min-width: 640px){
     .modifyBtnWrapper{
         padding: 0.5rem;

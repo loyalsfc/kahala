@@ -88,7 +88,7 @@ function Summary({deliveryDetails, user}) {
                 <title>Summary</title>
             </Head>
             {showModal &&
-                <div className={styles.confirmationWrapper}>
+                <div className='confirmationWrapper'>
                     <article className={styles.confirmationContent}>
                         <p>Confirm Order</p>
                         <div className={styles.buttonWrap}>
@@ -102,7 +102,7 @@ function Summary({deliveryDetails, user}) {
                 </div>
             }
             {showLoader &&
-                <div className={styles.confirmationWrapper}>
+                <div className='confirmationWrapper'>
                     <article className={styles.loaderWrapper}>
                         <div className={`${styles.loader} animation`}></div>
                     </article>

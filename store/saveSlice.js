@@ -8,6 +8,9 @@ const saveSlice = createSlice({
     name: 'saves',
     initialState,
     reducers: {
+        initSaves: (state, action) => {
+            state.saves = action.payload
+        },
         addSaves: (state, action) => {
             state.saves = [...state.saves, action.payload]
         },
@@ -17,5 +20,5 @@ const saveSlice = createSlice({
     }
 })
 
-export const {addSaves, removeSaves} = saveSlice.actions
+export const {addSaves, removeSaves, initSaves} = saveSlice.actions
 export default saveSlice.reducer
