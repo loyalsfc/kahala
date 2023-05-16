@@ -158,7 +158,7 @@ function Product({product, param, category, relatedProducts}) {
                                 height={38} 
                                 width={38} 
                                 alt="image item"
-                                onClick={()=>{console.log(index); setImageIndex(index)}} 
+                                onClick={()=>{setImageIndex(index)}} 
                               />
                               </div>
                             })

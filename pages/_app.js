@@ -6,7 +6,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 import { store } from '../store/store'
 import {SessionProvider, useSession} from 'next-auth/react'
 import { useEffect } from 'react'
-import { fetchCart } from '../lib/fetchCart'
+import { fetchCart, fetchSaves } from '../lib/fetchCart'
 import { initCart } from '../store/cartSlice'
 import { supabase } from '../lib/supabaseClient'
 import { initSaves } from '../store/saveSlice'
@@ -56,8 +56,8 @@ function StateWrapper({children}){
                 localStorage.removeItem('carts');
             }
             //Fetch carts from DB
-            dispatch(fetchCart(email, 'cart'))
-            dispatch(initSaves((fetchCart(email, 'saves'))))
+            dispatch(fetchCart(email))
+            dispatch(fetchSaves(email))
         }else if(status === "unauthenticated"){
             //Otherwise fetch cart from localStorage
             if(localStorage.carts){
