@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from "../pages/styles/cart.module.css"
-import { increaseCartItem, decreaseCartItem } from '../store/cartSlice'
-import Toast from './toast/toast'
+import { increaseCartItem } from '../store/cartSlice'
 import { supabase } from '../lib/supabaseClient'
+import { toast } from 'react-toastify'
 
 function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
     const {user} = useSelector(state => state.user)
     const dispatch = useDispatch()
-    const [toastCount, setToastCount] = useState(0)
-    const [toastMessage, setToastMessage] = useState("")
     
     const handleCartIncrease = async() => {
         if(user){
@@ -20,27 +18,19 @@ function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
                 .from('cart')
                 .update({quantity: quantity + 1})
                 .eq('id', dbId)
-            console.log(data, error)
         }
         //Show toast
-        setToastCount(toastCount + 1)
-        setToastMessage("Cart Quantity Increased")
+        toast("Cart Quantity Increased!")
         // update state
         dispatch(increaseCartItem(productId))
     }
 
     const handleCartQtyDecrease = () => {
         handleClick()
-        setToastCount(toastCount + 1)
-        setToastMessage("Cart Quantity Decreased")
     }
 
     return (
         <div className={styles.cartItemNumber}>
-            {[...Array(toastCount)].map((_, index) => (
-                <Toast key={index} message={toastMessage} duration={5000} />
-            ))}
-
             <button
                 onClick={handleCartQtyDecrease} 
                 disabled={quantity == qtyLimit ? true : false} 

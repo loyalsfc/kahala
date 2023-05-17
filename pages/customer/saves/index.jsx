@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useMemo } from 'react'
+import React from 'react'
 import AccountLayout from '../../../components/accountLayout/accountLayout'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
 import { getSession } from 'next-auth/react'
@@ -12,12 +12,14 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { increaseCartItem } from '../../../store/cartSlice'
 
 function Index() {
     const dispatch = useDispatch()
     const router = useRouter()
     const {user} = useSelector(state => state.user)
     const {saves} = useSelector(state => state.save)
+    const {cart} = useSelector(state => state.cart)
     
     const removeSave = async (id) => {
         await unsaveProduct(id, dispatch)
@@ -25,7 +27,16 @@ function Index() {
     }
 
     const buyItem = async (product) => {
-        await saveCartToDb(dispatch, product, user)
+        const cartItem = cart.products.find(item => item.item._id === product._id)
+        if(cartItem){
+            const {data, error} = await supabase
+                .from('cart')
+                .update({quantity: cartItem.quantity + 1})
+                .eq('id', cartItem.id)
+            dispatch(increaseCartItem(cartItem?.item._id))
+        } else {
+            await saveCartToDb(dispatch, product, user)
+        }
         router.push('/cart')
     }
 

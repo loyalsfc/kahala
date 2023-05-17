@@ -1,33 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '../pages/styles/cart.module.css'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux'
-import { calculateTotal, decreaseCartItem, removeCart, increaseCartItem } from '../store/cartSlice'
+import { useDispatch } from 'react-redux'
 import CartModifyBtn from './cartModifyBtn'
-import Toast from './toast/toast'
-import { priceConverion, calculateDiscountedAmount, urlFor, removeCartFromDb, decreaseCartQtyFromDb } from '../utils/utils'
+import { priceConverion, calculateDiscountedAmount, urlFor, decreaseCartQtyFromDb } from '../utils/utils'
 import DiscountPercentage from './discountPercentage/discountPercentage'
+import { toast } from 'react-toastify'
 
-function CartProducts({items}) {
+function CartProducts({items, showModal, setId}) {
     const {item: product, quantity, id} = items;
     const {_id, title, images, amount, discount, slug} = product;
-    const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
-    const [toastCount, setToastCount] = useState(0)
 
-    const deleteItem = () => {
-        removeCartFromDb(dispatch, id, _id);
-        setToastCount(toastCount + 1);
+    const handleClick = () => {
+        setId({cartItemId: id, productId: _id})
+        showModal(true)
+    }
+
+    const cartDecrease = async() => {
+        await decreaseCartQtyFromDb(dispatch,id, _id, quantity)
+        toast("Item quantity has been updated")
     }
     
     return (
         <li className={styles.cartItemWrapper}>
-            {[...Array(toastCount)].map((_, index) => (
-                <Toast key={index} message="Cart Item Removed" duration={5000} />
-            ))}
             <Link className={styles.cartItemsDetails} href={`/category/product/${slug.current}`}>
                 <div style={{position: "relative"}}>
                     <Image 
@@ -61,14 +60,14 @@ function CartProducts({items}) {
                 </div>
             </Link>
             <div className={styles.cartItemModify}>
-                <button onClick={deleteItem} className={styles.cartItemRemoveBtn}>
+                <button onClick={handleClick} className={`modifyBtn ${styles.cartItemRemoveBtn}`}>
                     <FontAwesomeIcon icon={faTrashAlt} />
                     <span>Delete</span>
                 </button>
                 <CartModifyBtn 
                     quantity={quantity} 
                     productId={_id} 
-                    handleClick={()=>decreaseCartQtyFromDb(dispatch,id, _id, quantity)} 
+                    handleClick={cartDecrease} 
                     qtyLimit={1}
                     dbId={id}
                 />

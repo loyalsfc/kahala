@@ -20,9 +20,11 @@ export const cartSlice  = createSlice({
         },
         addCart: (state, action) => {
             state.cart.products = [...state.cart.products, action.payload]
+            calculateCartTotals(state);
         },
         removeCart: (state, action) => {
             state.cart.products = state.cart.products.filter((product) => product.item._id !== action.payload)
+            calculateCartTotals(state);
         },
         increaseCartItem: (state, action) => {
             state.cart.products = state.cart.products.map(item => {
@@ -32,6 +34,7 @@ export const cartSlice  = createSlice({
                     return item
                 }
             })
+            calculateCartTotals(state)
         },
         decreaseCartItem: (state, action) => {
             state.cart.products = state.cart.products.map(item => {
@@ -41,6 +44,7 @@ export const cartSlice  = createSlice({
                     return item
                 }
             })
+            calculateCartTotals(state)
         },
         calculateTotal: (state) => {
             calculateCartTotals(state)

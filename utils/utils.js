@@ -41,7 +41,7 @@ export async function saveCartToDb(callback, product, user){
 
 export async function removeCartFromDb(callback, dbId, productId){
     if(dbId){
-        const {error} = await supabase.from('cart')
+        const {error, data} = await supabase.from('cart')
             .delete()
             .eq('id', dbId);
     }

@@ -11,12 +11,12 @@ import {lga} from "../../../utils/lga"
 import DeliveryDetails from '../../../components/deliveryDetails/deliveryDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import CartModifyBtn from '../../../components/cartModifyBtn';
-import Toast from '../../../components/toast/toast';
 import HomeLayout from '../../../components/Layout/homeLayout';
 import { calculateDiscountedAmount, client, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, saveProduct, unsaveProduct, urlFor } from '../../../utils/utils';
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
 import ProductSection from '../../../components/productSection/productSection';
 import StatesList from '../../../components/statesList';
+import { toast } from 'react-toastify';
 
 function Product({product, param, category, relatedProducts}) {
   const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit, itemsInBox, productType } = product;
@@ -30,10 +30,6 @@ function Product({product, param, category, relatedProducts}) {
   const [saveId, setSaveId] = useState(null)
   const [dbId, setDbId] = useState(null);
   const dispatch = useDispatch();
-  const [toastCount, setToastCount] = useState({
-    count: 0,
-    cartMessage: ""
-  });
 
   useEffect(()=>{
     const item = cart.products.find(product => product.item.slug.current == param) 
@@ -48,7 +44,7 @@ function Product({product, param, category, relatedProducts}) {
 
   const handleClick = async () => {
     saveCartToDb(dispatch, product, user)
-    setToastCount({count: toastCount.count + 1, cartMessage: "Item Added Successfully"});
+    toast("Item Added Successfully")
   }
 
   const handleWishlist = async () => {
@@ -59,12 +55,13 @@ function Product({product, param, category, relatedProducts}) {
     }
   }
 
-  const decreaseQty = () => {
+  const decreaseQty = async() => {
     if(quantity > 1) {
-      decreaseCartQtyFromDb(dispatch, dbId, _id, quantity);
+      await decreaseCartQtyFromDb(dispatch, dbId, _id, quantity);
+      toast("Item quantity has been updated")
     }else{
-      removeCartFromDb(dispatch, dbId, _id);
-      setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
+      await removeCartFromDb(dispatch, dbId, _id);
+      toast("Product was removed from cart successfully")
     } 
   }
 
@@ -94,12 +91,6 @@ function Product({product, param, category, relatedProducts}) {
       </Head>
       <HomeLayout>
         <main className={styles.main}>
-          {[...Array(toastCount.count)].map((_, index) => (
-              <Toast key={index} message={toastCount.cartMessage} duration={5000} />
-            ))}
-          {/* <div className='confirmationWrapper'>
-            
-          </div> */}
           <Layout>
             <p className={styles.breadCrumb}>
               <Link href="/">Home</Link> / 

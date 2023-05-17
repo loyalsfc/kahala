@@ -9,7 +9,8 @@ import { useEffect } from 'react'
 import { fetchCart, fetchSaves } from '../lib/fetchCart'
 import { initCart } from '../store/cartSlice'
 import { supabase } from '../lib/supabaseClient'
-import { initSaves } from '../store/saveSlice'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -29,6 +30,9 @@ export default function App ({Component, pageProps: {session, ...pageProps}}){
                 <SessionProvider session={session}>
                     <Provider store={store}>
                         <StateWrapper>
+                            <ToastContainer 
+                                
+                            />
                             <Component {...pageProps} />
                         </StateWrapper>
                     </Provider>

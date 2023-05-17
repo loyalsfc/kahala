@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from "./productLists.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
-import { addCart, decreaseCartItem, removeCart } from '../../store/cartSlice'
 import CartModifyBtn from '../cartModifyBtn'
-import Toast from '../toast/toast'
 import { calculateDiscountedAmount, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, urlFor } from '../../utils/utils'
+import { toast } from 'react-toastify'
 
 function ProductsList({item}) {
     const {_id, images, amount, title, discount, slug } = item;
@@ -18,30 +17,23 @@ function ProductsList({item}) {
     //fetch the quantity and the id
     const quantity = cartItem?.quantity
     const dbId = cartItem?.id
-    
-    const [toastCount, setToastCount] = useState({
-        count: 0,
-        cartMessage: ""
-    })
 
-    const handleClick = () => {
-        saveCartToDb(dispatch, item, user);
-        setToastCount({count: toastCount.count + 1, cartMessage: "Item Added to Cart Successfully"});
+    const handleClick = async() => {
+        await saveCartToDb(dispatch, item, user);
+        toast("Product added successfully");
     }
 
-    const decreaseQty = () => {
+    const decreaseQty = async() => {
         if(quantity > 1) {
-            decreaseCartQtyFromDb(dispatch, dbId, _id, quantity)
+            await decreaseCartQtyFromDb(dispatch, dbId, _id, quantity);
+            toast("Product added successfully");
         }else{
-            removeCartFromDb(dispatch, dbId, _id)
-            setToastCount({count: toastCount.count + 1, cartMessage: "Item removed Successfully"});
+            await removeCartFromDb(dispatch, dbId, _id);
+            toast("Product was removed from cart successfully");
         } 
     }
     return(
             <li className={`${styles.mainItemsWrap} ${styles.mainProducts}`}>
-                {[...Array(toastCount.count)].map((_, index) => (
-                    <Toast key={index} message={toastCount.cartMessage} duration={5000} />
-                ))}
                 <Link href={`/category/product/${slug.current}`}>
                     <div className={styles.imageWrapper}>
                         <Image
