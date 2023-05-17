@@ -13,12 +13,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartModifyBtn from '../../../components/cartModifyBtn';
 import Toast from '../../../components/toast/toast';
 import HomeLayout from '../../../components/Layout/homeLayout';
-import { calculateDiscountedAmount, client, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, urlFor } from '../../../utils/utils';
+import { calculateDiscountedAmount, client, decreaseCartQtyFromDb, priceConverion, removeCartFromDb, saveCartToDb, saveProduct, unsaveProduct, urlFor } from '../../../utils/utils';
 import SpecificationItem from '../../../components/specificationItem/specificationItem';
 import ProductSection from '../../../components/productSection/productSection';
 import StatesList from '../../../components/statesList';
-import { supabase } from '../../../lib/supabaseClient';
-import { addSaves, removeSaves } from '../../../store/saveSlice';
 
 function Product({product, param, category, relatedProducts}) {
   const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit, itemsInBox, productType } = product;
@@ -37,8 +35,6 @@ function Product({product, param, category, relatedProducts}) {
     cartMessage: ""
   });
 
-  console.log(saves)
-
   useEffect(()=>{
     const item = cart.products.find(product => product.item.slug.current == param) 
     setQuantity(item?.quantity)
@@ -56,21 +52,11 @@ function Product({product, param, category, relatedProducts}) {
   }
 
   const handleWishlist = async () => {
-    
     if(!saveId){
-      const {error, data} = await supabase
-        .from('saves')
-        .insert({item: product, user_id: user?.email})
-        .select()
-      dispatch(addSaves(data[0]))
-      return
+      saveProduct(product, user, dispatch);
+    } else {
+      unsaveProduct(saveId, dispatch);
     }
-    const {error, data} = await supabase
-      .from('saves')
-      .delete()
-      .eq('id', saveId)
-    console.log(error, data)
-    dispatch(removeSaves(saveId))
   }
 
   const decreaseQty = () => {

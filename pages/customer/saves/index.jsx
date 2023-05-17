@@ -1,23 +1,40 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useMemo } from 'react'
 import AccountLayout from '../../../components/accountLayout/accountLayout'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
 import { getSession } from 'next-auth/react'
 import { supabase } from '../../../lib/supabaseClient'
 import Image from 'next/image'
-import { calculateDiscountedAmount, priceConverion, urlFor } from '../../../utils/utils'
+import { calculateDiscountedAmount, priceConverion, saveCartToDb, unsaveProduct, urlFor } from '../../../utils/utils'
 import styles from './saves.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-function Index({saves}) {
+function Index() {
+    const dispatch = useDispatch()
+    const router = useRouter()
+    const {user} = useSelector(state => state.user)
+    const {saves} = useSelector(state => state.save)
     
+    const removeSave = async (id) => {
+        await unsaveProduct(id, dispatch)
+        alert('E don do')
+    }
+
+    const buyItem = async (product) => {
+        await saveCartToDb(dispatch, product, user)
+        router.push('/cart')
+    }
+
     return (
         <div>
             <Head>
-                <title>Saves</title>
+                <title>Saved Items</title>
             </Head>
-            <AccountLayout title='saves'>
+            <AccountLayout title={`saved items (${saves.length})`}>
                 {saves.length ? (
                     <ul>
                         {
@@ -25,25 +42,27 @@ function Index({saves}) {
                                 return (
                                     <li key={item.id} className={styles.saveWrapper}>
                                         <article className={styles.saves}>
-                                            <Image
-                                                src={urlFor(item.item.images[0].asset._ref).url(    )}
-                                                height={104}
-                                                width={104}
-                                                alt={item.item.title}
-                                            />
+                                            <Link href={item?.item?.slug?.current}>
+                                                <Image
+                                                    src={urlFor(item.item.images[0].asset._ref).url(    )}
+                                                    height={104}
+                                                    width={104}
+                                                    alt={item.item.title}
+                                                />
+                                            </Link>
                                             <div className={styles.titleContainer}>
-                                                <h2 className={styles.title}>{item.item.title}</h2>
+                                                <h2 className={styles.title}><Link href={item?.item?.slug?.current}>{item.item.title}</Link></h2>
                                                 <p>₦ {priceConverion(item.item.amount)}</p>
                                                 {item.item.discount !==0 && 
                                                     <p className={styles.discountWrapper}>
                                                         <span className={styles.discount}>₦ {calculateDiscountedAmount(item.item.amount, item.item.discount)}</span> 
-                                                        <span className={styles.percentageSlash}>-{item.item.discount}%</span>
+                                                        <span className={styles.percentageSlash}>- {item.item.discount}%</span>
                                                     </p>
                                                 }
                                             </div>
                                             <div className={styles.btnWrapper}>
-                                                <button className={styles.confirmBtn}>Buy now</button>
-                                                <button className="modifyBtn">
+                                                <button onClick={()=>buyItem(item.item)} className={styles.confirmBtn}>Buy now</button>
+                                                <button onClick={()=>removeSave(item.id)} className="modifyBtn">
                                                     <FontAwesomeIcon icon={faTrashAlt} /> Remove
                                                 </button>
                                             </div>
@@ -78,10 +97,8 @@ export async function getServerSideProps(context){
         }
     }
 
-    const {data: saves} = await supabase.from('saves').select().eq('user_id', session?.user?.email)
-
     return {
-        props: {user: session, saves }
+        props: {user: session }
     }
 }
 

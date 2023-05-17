@@ -2,6 +2,7 @@ import imageUrlBuilder from '@sanity/image-url'
 import { createClient } from "next-sanity"
 import { supabase } from '../lib/supabaseClient';
 import { addCart, decreaseCartItem, removeCart } from '../store/cartSlice';
+import { addSaves, removeSaves } from '../store/saveSlice';
 
 export const client = createClient({
     projectId: "cho2ggqw",
@@ -76,4 +77,20 @@ export async function changeDefaultAddress(defaultIndex, addressLists, id){
             .update({address: newAddress})
             .eq('id', id)
     }
+}
+
+export async function saveProduct(product, user, callback){
+    const {error, data} = await supabase
+        .from('saves')
+        .insert({item: product, user_id: user?.email})
+        .select()
+    callback(addSaves(data[0]))
+}
+
+export async function unsaveProduct(saveId, callback){
+    const {error, data} = await supabase
+        .from('saves')
+        .delete()
+        .eq('id', saveId)
+    callback(removeSaves(saveId))
 }
