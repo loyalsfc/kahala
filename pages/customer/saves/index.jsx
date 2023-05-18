@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { increaseCartItem } from '../../../store/cartSlice'
+import { toast } from 'react-toastify'
 
 function Index() {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ function Index() {
     
     const removeSave = async (id) => {
         await unsaveProduct(id, dispatch)
-        alert('E don do')
+        toast('Item removed from wishlist!')
     }
 
     const buyItem = async (product) => {

@@ -1,8 +1,8 @@
 import style from './header.module.css'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faCartShopping, faEnvelope, faHeart, faSearch, faStore, faUser, faVrCardboard } from '@fortawesome/free-solid-svg-icons'
-import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons'
+import { faAngleDown, faCartShopping, faSearch, faStore, faVrCardboard } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faHeart, faQuestionCircle, faUser } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
@@ -13,6 +13,18 @@ function Header() {
     const [showDropDown, setShowDropDown] = useState(false)
     const {cart}  = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
+    const dropDown = useRef()
+
+    if (typeof window !== 'undefined') {
+        window.addEventListener('mousedown', function(e){
+            e.stopPropagation()
+            if(showDropDown){
+                setShowDropDown(false);
+                console.log('hi')
+                return;
+            }
+        })
+    }
     
     return (
         <header className={style.header}>
@@ -26,13 +38,14 @@ function Header() {
                 <div  
                     onClick={()=>setShowDropDown(!showDropDown)} 
                     className={`${style.headerMenu} ${style.userMenu}`}
+                    ref={dropDown}
                 >
                     <FontAwesomeIcon icon={faUser} size='xl'/>
                     <span className={style.headerMenuTitle}>{user ? `Hi, ${user?.name.split(" ")[0]} ` : 'Account'} <FontAwesomeIcon icon={faAngleDown} size='xs'/></span>
                     {showDropDown &&
-                        <>
+                        <div className={style.userMenuDropDownContainer}>
                             {user ? (
-                                <div className={style.userMenuDropDownContainer}>
+                                <>
                                     <ul className={style.dropDownMenu}>
                                         <li>
                                             <Link href='/customer/account'>
@@ -63,22 +76,33 @@ function Header() {
                                     <div className={style.signOutBtnWrapper}>
                                         <button onClick={()=>signOut()} className={style.signOut}>Log out</button>
                                     </div>
-                                </div>
+                                </>
                             ):(
-                                <div className={style.userMenuDropDownContainer}>
+                                <>
                                     <div className={style.signBtnWrapper}>
                                         <Link href="/auth">
                                             <button className={style.signBtn}>Sign in</button>
                                         </Link>
                                     </div>
                                     <ul className={style.dropDownMenu}>
-                                        <li><FontAwesomeIcon icon={faUser}/> My Account</li>
-                                        <li><FontAwesomeIcon icon={faStore}/> Orders</li>
-                                        <li><FontAwesomeIcon icon={faHeart}/> Saved Items</li>
+                                        <li>
+                                            <Link href='/customer/account'>
+                                                <FontAwesomeIcon icon={faUser}/> My Account
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href='/customer/inbox'>
+                                                <FontAwesomeIcon icon={faEnvelope}/> Inbox
+                                            </Link>
+                                        </li>
+                                        <li><Link href='/customer/saves'>
+                                                <FontAwesomeIcon icon={faHeart}/> Saved Items
+                                            </Link>
+                                        </li>
                                     </ul>
-                                </div>
+                                </>
                             )}
-                        </>
+                        </div>
                     }
                 </div>
                 <p className={`${style.headerMenu} ${style.help}`}>
