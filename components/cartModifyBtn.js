@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,9 +9,13 @@ import { toast } from 'react-toastify'
 
 function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
     const {user} = useSelector(state => state.user)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
+    const increaseBtn = useRef()
+    const decreaseBtn = useRef()
     
     const handleCartIncrease = async() => {
+        showLoading();
         if(user){
             //Update data in the DB
             const {data, error} = await supabase
@@ -23,10 +27,27 @@ function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
         toast("Cart Quantity Increased!")
         // update state
         dispatch(increaseCartItem(productId))
+        disableShowLoading();
     }
 
-    const handleCartQtyDecrease = () => {
-        handleClick()
+    const disableShowLoading = () => {
+        if(!decreaseBtn.current) return
+        increaseBtn.current.disabled = false
+        decreaseBtn.current.disabled = false
+        setLoading(false);
+    }
+
+    const showLoading = () => {
+        if(!decreaseBtn.current) return
+        increaseBtn.current.disabled = true
+        decreaseBtn.current.disabled = true
+        setLoading(true);
+    }
+
+    const handleCartQtyDecrease = async () => {
+        showLoading();
+        await handleClick();
+        disableShowLoading();
     }
 
     return (
@@ -35,11 +56,12 @@ function CartModifyBtn({quantity, productId, handleClick, qtyLimit, dbId}) {
                 onClick={handleCartQtyDecrease} 
                 disabled={quantity == qtyLimit ? true : false} 
                 className={styles.cartItemBtn}
+                ref={decreaseBtn}
             >
                 <FontAwesomeIcon icon={faMinus} />
             </button>
-            <span>{quantity}</span>
-            <button onClick={handleCartIncrease} className={styles.cartItemBtn}>
+            {loading ? <p className='loading animation'></p> : <span>{quantity}</span>}
+            <button onClick={handleCartIncrease} ref={increaseBtn} className={styles.cartItemBtn}>
                 <FontAwesomeIcon icon={faPlus} />
             </button>
         </div>

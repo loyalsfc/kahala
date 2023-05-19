@@ -20,7 +20,6 @@ function Header() {
             e.stopPropagation()
             if(showDropDown){
                 setShowDropDown(false);
-                console.log('hi')
                 return;
             }
         })

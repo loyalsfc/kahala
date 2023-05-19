@@ -42,9 +42,10 @@ function Product({product, param, category, relatedProducts}) {
     setSaveId(item?.id)
   }, [saves, param])
 
-  const handleClick = async () => {
-    saveCartToDb(dispatch, product, user)
-    toast("Item Added Successfully")
+  const handleClick = async (e) => {
+    e.currentTarget.innerHTML = "<p class='loading animation'></p>"
+    saveCartToDb(dispatch, product, user);
+    toast("Item Added Successfully");
   }
 
   const handleWishlist = async () => {
@@ -185,17 +186,20 @@ function Product({product, param, category, relatedProducts}) {
                         <p className={styles.shippingSFee}>+ shipping from ₦699 to {selectedLg}</p>
                         <div className={styles.desktopBtn}>
                           {!cart.products.some(product => product.item.slug.current == param) ?
-                          <button onClick={handleClick} className={styles.addCartBtn}>
-                            <FontAwesomeIcon icon={faCartPlus} />
-                            <span>Add to Cart</span>
-                            <span />
-                          </button> : 
-                          <CartModifyBtn 
-                            productId={_id} 
-                            quantity={quantity} 
-                            handleClick={decreaseQty}
-                            dbId={dbId}
-                          />}
+                            (<div className={styles.addCartWrapper} onClick={handleClick}>
+                              <button className={styles.addCartBtn}>
+                                <FontAwesomeIcon icon={faCartPlus} />
+                                <span>Add to Cart</span>
+                                <span />
+                              </button>
+                            </div>) : ( 
+                            <CartModifyBtn 
+                              productId={_id} 
+                              quantity={quantity} 
+                              handleClick={decreaseQty}
+                              dbId={dbId}
+                            />)
+                          }
                       </div>
                       </div>
                     </article>

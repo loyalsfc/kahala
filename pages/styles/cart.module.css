@@ -138,6 +138,7 @@
 .cartItemBtn:disabled{
     box-shadow: none;
     opacity: .5;
+    pointer-events: none;
 }
 .aside{
     width: 221px;

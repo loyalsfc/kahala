@@ -18,7 +18,8 @@ function ProductsList({item}) {
     const quantity = cartItem?.quantity
     const dbId = cartItem?.id
 
-    const handleClick = async() => {
+    const handleClick = async(e) => {
+        e.currentTarget.innerHTML = "<p class='loading animation'></p>";
         await saveCartToDb(dispatch, item, user);
         toast("Product added successfully");
     }
@@ -33,7 +34,7 @@ function ProductsList({item}) {
         } 
     }
     return(
-            <li className={`${styles.mainItemsWrap} ${styles.mainProducts}`}>
+            <li className={styles.mainItemsWrap}>
                 <Link href={`/category/product/${slug.current}`}>
                     <div className={styles.imageWrapper}>
                         <Image
@@ -63,12 +64,13 @@ function ProductsList({item}) {
                                 dbId={dbId}
                             />
                         ):(
-                            <button 
-                                className={styles.addButton}
-                                onClick={handleClick}
-                            >
-                                Add to Cart
-                            </button>
+                            <div className={styles.addBtnWrapper} onClick={handleClick}>
+                                <button 
+                                    className={styles.addButton}
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
                         )
                     }
                 </div>

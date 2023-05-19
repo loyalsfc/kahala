@@ -75,7 +75,13 @@ button{
 .borderBottom{
     border-bottom: 1px solid var(--borderColor);
 }
-
+.loading{
+    height: 0.875rem;
+    width: 0.875rem;
+    border: 2px solid #313133;
+    border-top: 2px solid #FFF;
+    border-radius: 50%;
+}
 .animation{
     animation: loader 1s infinite linear;
 }
