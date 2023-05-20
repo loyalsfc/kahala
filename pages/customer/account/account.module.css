@@ -32,7 +32,29 @@
     margin-left: -0.5rem;
     padding-top: 1rem;
 }
-.storeCredit{
+.storeCredit, .wallet{
     color: #264996;
     font-weight: 600;
+}
+.wrapper{
+    display: none;
+}
+.mobileGreeting{
+    background-color: var(--primary);
+    padding: 1rem;
+    color: #FFF;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.wallet{
+    background-color: #FFF;
+    padding: 0.5rem 1rem;
+}
+@media (min-width: 640px){
+    .wrapper{
+        display: block;
+    }
+    .mobileWrapper{
+        display: none;
+    }
 }

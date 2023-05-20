@@ -54,23 +54,25 @@ function Index() {
                                 return (
                                     <li key={item.id} className={styles.saveWrapper}>
                                         <article className={styles.saves}>
-                                            <Link href={item?.item?.slug?.current}>
-                                                <Image
-                                                    src={urlFor(item.item.images[0].asset._ref).url(    )}
-                                                    height={104}
-                                                    width={104}
-                                                    alt={item.item.title}
-                                                />
-                                            </Link>
-                                            <div className={styles.titleContainer}>
-                                                <h2 className={styles.title}><Link href={item?.item?.slug?.current}>{item.item.title}</Link></h2>
-                                                <p>₦ {priceConverion(item.item.amount)}</p>
-                                                {item.item.discount !==0 && 
-                                                    <p className={styles.discountWrapper}>
-                                                        <span className={styles.discount}>₦ {calculateDiscountedAmount(item.item.amount, item.item.discount)}</span> 
-                                                        <span className={styles.percentageSlash}>- {item.item.discount}%</span>
-                                                    </p>
-                                                }
+                                            <div className={styles.titleWrapper}>
+                                                <Link href={item?.item?.slug?.current}>
+                                                    <Image
+                                                        src={urlFor(item.item.images[0].asset._ref).url(    )}
+                                                        height={104}
+                                                        width={104}
+                                                        alt={item.item.title}
+                                                    />
+                                                </Link>
+                                                <div className={styles.titleContainer}>
+                                                    <h2 className={styles.title}><Link href={item?.item?.slug?.current}>{item.item.title}</Link></h2>
+                                                    <p>₦ {priceConverion(item.item.amount)}</p>
+                                                    {item.item.discount !==0 && 
+                                                        <p className={styles.discountWrapper}>
+                                                            <span className={styles.discount}>₦ {calculateDiscountedAmount(item.item.amount, item.item.discount)}</span> 
+                                                            <span className={styles.percentageSlash}>- {item.item.discount}%</span>
+                                                        </p>
+                                                    }
+                                                </div>
                                             </div>
                                             <div className={styles.btnWrapper}>
                                                 <button onClick={()=>buyItem(item.item)} className={styles.confirmBtn}>Buy now</button>

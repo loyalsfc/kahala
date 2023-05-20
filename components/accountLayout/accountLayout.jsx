@@ -3,59 +3,30 @@ import HomeLayout from '../Layout/homeLayout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faHeart, faMessage, faUser } from '@fortawesome/free-regular-svg-icons'
 import Link from 'next/link'
-import { faStore, faVrCardboard } from '@fortawesome/free-solid-svg-icons'
-import Head from 'next/head'
+import { faArrowLeft, faArrowLeftLong, faStore, faVrCardboard } from '@fortawesome/free-solid-svg-icons'
 import Layout from '../Layout/layout'
 import styles from './accountLayout.module.css'
 import { signOut } from 'next-auth/react'
+import AccountSideMenu from './accountSideMenu'
+import Footer from '../footer/footer'
+import Header from '../header/header'
 
-function AccountLayout({title, children}) {
+function AccountLayout({title, children, showSideMenu}) {
     return (
-            <HomeLayout>
+            <div>
+                <div className={styles.accountHeader}>
+                    <Header />
+                </div>
+                <div className={styles.mobileTile}>
+                    <Link href="/customer/account">
+                        <FontAwesomeIcon icon={faArrowLeft} />
+                    </Link>
+                    <span>{title}</span>
+                </div>
                 <Layout>
                     <main className={styles.main}>
                         <aside className={styles.aside}>
-                            <nav className={styles.nav}>
-                                <ul>
-                                    <li className={styles.links}>
-                                        <Link href='/customer/account'>
-                                            <FontAwesomeIcon icon={faUser} /> My Kahala Account
-                                        </Link>
-                                    </li>
-                                    <li className={styles.links}>
-                                        <Link href='/customer/order'>
-                                            <FontAwesomeIcon icon={faStore} /> Orders
-                                        </Link>
-                                    </li>
-                                    <li className={styles.links}>
-                                        <Link href='/customer/inbox'>
-                                            <FontAwesomeIcon icon={faEnvelope} /> Inbox
-                                        </Link>
-                                    </li>
-                                    <li className={styles.links}>
-                                        <Link href='/customer/voucher'>
-                                            <FontAwesomeIcon icon={faVrCardboard} /> Voucher
-                                        </Link>
-                                    </li>
-                                    <li className={styles.links}>
-                                        <Link href='/customer/saves'>
-                                            <FontAwesomeIcon icon={faHeart} /> Saves
-                                        </Link>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li className={`${styles.links} border-top`}>
-                                        <Link href='/customer/account'>Account Management</Link>
-                                    </li>
-                                    <li className={styles.links}>
-                                        <Link href='/customer/address'>Address Book</Link>
-                                    </li>
-                                    <li className={styles.links}></li>
-                                </ul>
-                                <div className='modifyBtnWrapper border-top'>
-                                    <button className='modifyBtn' onClick={()=>signOut()}>Logout</button>
-                                </div>
-                            </nav>
+                            <AccountSideMenu />
                         </aside>
                         <section className={styles.section}>
                             <h2 className={styles.title}>{title}</h2>
@@ -65,7 +36,8 @@ function AccountLayout({title, children}) {
                         </section>
                     </main>
                 </Layout>
-            </HomeLayout>
+                <Footer/>
+            </div>
     )
 }
 

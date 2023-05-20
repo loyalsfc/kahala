@@ -5,8 +5,7 @@
 }
 .iconWrapper{
     padding: 1.5rem 0.5rem;
-    width: 50%;
-    margin: 0 auto;
+    margin: 1rem 0 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,4 +34,10 @@
 }
 .continueShopping:hover{
     background-color: var(--btnHoverBg);
+}
+@media (min-width: 640px){
+    .iconWrapper{
+        width: 50%;
+        margin: 0 auto;
+    }
 }

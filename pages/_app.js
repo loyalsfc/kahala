@@ -11,6 +11,7 @@ import { initCart } from '../store/cartSlice'
 import { supabase } from '../lib/supabaseClient'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -27,12 +28,13 @@ export default function App ({Component, pageProps: {session, ...pageProps}}){
                     font-family: ${roboto.style.fontFamily};
                 }
             `}</style>
+                <Head>
+                    <link rel='shortcut icon' href='/favicon.png' />
+                </Head>
                 <SessionProvider session={session}>
                     <Provider store={store}>
                         <StateWrapper>
-                            <ToastContainer 
-                                
-                            />
+                            <ToastContainer />
                             <Component {...pageProps} />
                         </StateWrapper>
                     </Provider>

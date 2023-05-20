@@ -1,12 +1,11 @@
 .saveWrapper{
-    padding: 1rem 0.5rem;
+    padding: 0.25rem 0.5rem;
 }
 .saves{
     padding: 0.5rem;
     border-radius: 0.25rem;
     background-color: #FFF;
     border: 1px solid #d4d4d6;
-    display: flex;
     color: #313133;
     font-weight: 600;
 }
@@ -18,7 +17,7 @@
     flex-direction: column;
 }
 .title{
-    font-size: 1rem;
+    font-size: 0.875rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -43,9 +42,11 @@
 }
 .btnWrapper{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    flex-direction: row-reverse;
     padding: 0.5rem;
+    border-top: 1px solid var(--borderColor);
+    margin-top: 0.5rem;
 }
 .confirmBtn{
     padding: 0.75rem 1rem;
@@ -58,4 +59,25 @@
 }
 .confirmBtn:hover{
     background-color: var(--btnHoverBg);
+}
+.titleWrapper{
+    display: flex;
+    flex: 1;
+    font-size: 14px;
+}
+@media (min-width: 640px){
+    .saveWrapper{
+        padding: 1rem 0.5rem;
+    }
+    .saves{
+        display: flex;
+    }
+    .title{
+        font-size: 1rem;
+    }
+    .btnWrapper{
+        flex-direction: column;
+        border-top: none;
+        margin-top: 0;
+    }
 }

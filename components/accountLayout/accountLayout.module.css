@@ -1,20 +1,47 @@
+.accountHeader{
+    display: none;
+}
 .main{
-    padding: 1rem 0;
+    padding: 0 0 1rem;
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 1rem;
-    /* align-items: flex-start; */
-}
-.aside{
-    grid-column: span 2 / span 2;
 }
 .nav{
+    padding: 1rem 0.5rem 0.5rem;
+}
+.aside{
+    display: none;
+}
+.itemList{
     background-color: #FFF;
     border-radius: 0.25rem;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
+    margin-bottom: 1rem;
+}
+.sideTitle{
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #75757A;
+    padding: 0 0.5rem 0.5rem;
+}
+.mobileTile{
+    background-color: #FFF;
+    padding: 1rem;
+    font-size: 1.25rem;
+    color: #313133;
+    font-weight: bold;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
+    margin-bottom: 0.25rem;
 }
 .links{
     padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .links:hover{
     background-color: rgba(0,0,0,.05);
@@ -30,24 +57,58 @@
     height: 1.5rem;
     width: 1.5rem;
 }
-
 .section{
     flex: 1;
     border-radius: 0.25rem;
     overflow: hidden;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
     display: flex;
     flex-direction: column;
-    grid-column: span 5 / span 5;
+    grid-column: span 7 / span 7;
 }
 .title{
     border-bottom: 1px solid var(--borderColor);
     background-color: #FFF;
     padding: 0.5rem 1rem;
     font-size: 1.25rem;
+    display: none;
 }
 .contentWrap{
-    padding: 0 0.5rem;
-    background-color: #FFF;
     flex: 1;
+}
+@media (min-width: 640px){
+    .main{
+        padding: 1rem 0;
+    }
+    .aside{
+        display: block;
+        grid-column: span 2 / span 2;
+    }
+    .section{
+        grid-column: span 5 / span 5;
+    }
+    .nav{
+        background-color: #FFF;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
+        padding: 0;
+    }
+    .section{
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.05);
+    }
+    .sideTitle, .mobileTile{
+        display: none;
+    }
+    .itemList{
+        box-shadow: none;
+        margin-bottom: 0;
+    }
+    .links > svg{
+        display: none;
+    }
+    .accountHeader, .title{
+        display: block;
+    }
+    .contentWrap{
+        background-color: #FFF;
+        padding: 0 0.5rem;
+    }
 }
