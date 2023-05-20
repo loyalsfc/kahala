@@ -90,7 +90,7 @@
 .userMenuDropDownContainer{
     position: absolute;
     background-color: #FFF;
-    left: 50%;
+    left: -2rem; 
     transform: translateX(-50%);
     top: 2rem;
     width: 206px;
@@ -191,5 +191,8 @@
     }
     .inputWrapper{
         border-radius: 5px;
+    }
+    .userMenuDropDownContainer{
+        left: 50%
     }
 }

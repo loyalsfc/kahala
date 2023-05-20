@@ -18,7 +18,6 @@ export default function SwiperContainer() {
         <Swiper
             spaceBetween={30}
             effect={"fade"}
-            // centeredSlides={true}
             autoplay={{
                 delay: 4000,
                 disableOnInteraction: false,
@@ -26,7 +25,6 @@ export default function SwiperContainer() {
             pagination={{
                 clickable: true,
             }}
-            // navigation={true}
             modules={[Autoplay, Pagination, Navigation, EffectFade]}
             className="mySwiper"
         >
@@ -43,7 +41,7 @@ export default function SwiperContainer() {
             <SwiperSlide>
                 <div className={styles.swiperImageWrapper}>
                     <Image
-                        src="/images/sliders/slider.png"
+                        src="/images/sliders/Slider.png"
                         height="384"
                         width="712"
                         alt="swiper image"
@@ -53,7 +51,7 @@ export default function SwiperContainer() {
             <SwiperSlide>
                 <div className={styles.swiperImageWrapper}>
                     <Image
-                        src="/images/sliders/slider_copy.jpg"
+                        src="/images/sliders/Slider_copy.jpg"
                         height="384"
                         width="712"
                         alt="swiper image"

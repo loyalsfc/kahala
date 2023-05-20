@@ -14,16 +14,6 @@ function Header() {
     const {cart}  = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
     const dropDown = useRef()
-
-    // if (typeof window !== 'undefined') {
-    //     window.addEventListener('mousedown', function(e){
-    //         e.stopPropagation()
-    //         if(showDropDown){
-    //             setShowDropDown(false);
-    //             return;
-    //         }
-    //     })
-    // }
     
     return (
         <header className={style.header}>

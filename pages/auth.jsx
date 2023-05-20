@@ -1,21 +1,11 @@
 import { faShieldAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from "./styles/auth.module.css"
-import { signIn, useSession } from 'next-auth/react'
+import { getSession, signIn, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
 
-function Auth() {
-    const router = useRouter();
-    const {data} = useSession();
-    
-    useEffect(()=>{
-        if(data){
-            router.push('/')
-        }
-    }, [data, router])
+function Auth({user}) {
 
     return (
         <>
@@ -41,6 +31,23 @@ function Auth() {
             </div>
         </>
     )
+}
+
+export async function getServerSideProps(context){
+    const session = await getSession(context)
+
+    if(session){
+        return {
+            redirect: {
+                destination: '/',
+                parmanent: false
+            }
+        }
+    }
+    
+    return { 
+        props: {user: session}
+    }
 }
 
 export default Auth

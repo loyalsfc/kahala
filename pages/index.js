@@ -3,8 +3,6 @@ import Image from "next/image"
 import styles from "./styles/index.module.css"
 import Layout from "../components/Layout/layout"
 import SwiperContainer from "../components/swiper/swiper"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import HomeLayout from "../components/Layout/homeLayout"
 import { client, urlFor } from "../utils/utils"
@@ -23,9 +21,9 @@ function Index({
         oraimoProducts,
         hpProducts
     }){
-    const {data: accessories, isError: accesfError} = useFetchApi('phone_accessories')
-    const {data: stores, isError} = useFetchApi('official_stores')
-        
+    const {data: accessories} = useFetchApi('phone_accessories')
+    const {data: stores} = useFetchApi('official_stores')
+
     return (
         <div>
             <Head>
