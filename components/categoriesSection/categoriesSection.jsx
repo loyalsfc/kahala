@@ -11,7 +11,7 @@ function CategoriesSection({title, data}) {
                     data.map(item => {
                         return(
                             <li key={item?.id}>
-                                <div className={styles.accessoriesImageWrapper}>
+                                <div style={{height: title === "Official Stores" ? '80px': ""}} className={styles.accessoriesImageWrapper}>
                                     <Image
                                         className={styles.accessoriesImage}
                                         fill

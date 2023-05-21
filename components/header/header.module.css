@@ -174,9 +174,6 @@
     .headerMenuTitle{
         display: inline;
     }
-    .help{
-        display: flex;
-    }
     .userMenu{
         margin-left: 0;
     }
@@ -194,5 +191,10 @@
     }
     .userMenuDropDownContainer{
         left: 50%
+    }
+}
+@media (min-width: 1024px){
+    .help{
+        display: flex;
     }
 }

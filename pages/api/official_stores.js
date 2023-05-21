@@ -14,7 +14,7 @@ export default function handler(req, res){
             },
             {
                 id: 4,
-                img: '/images/officialstores/infinix.jpg'
+                img: '/images/officialstores/Samsung.jpg'
             },
             {
                 id: 5,

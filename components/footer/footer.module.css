@@ -158,7 +158,9 @@
     grid-template-rows: repeat(6, minmax(0, 1fr));
     grid-auto-flow: column;
 }
-
+.appDownload{
+    display: none;
+}
 @media  (min-width: 640px){
     .subscriptionSection{
         display: block;
@@ -171,5 +173,11 @@
     }
     .backToTop{
         display: none;
+    }
+}
+
+@media (min-width: 1000px){
+    .appDownload{
+        display: block;
     }
 }
