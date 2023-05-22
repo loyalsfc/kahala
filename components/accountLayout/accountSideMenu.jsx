@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faHeart, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faAngleRight, faStoreAlt, faVrCardboard } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
+import { signOut } from 'next-auth/react'
 
 function AccountSideMenu() {
     const {user} = useSelector(state => state.user)

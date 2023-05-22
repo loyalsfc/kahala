@@ -10,7 +10,8 @@ import ProductSection from "../components/productSection/productSection"
 import useFetchApi from "../utils/useFetchApi"
 import CategoriesSection from "../components/categoriesSection/categoriesSection"
 import ScrollBtn from "../components/scrollBtn/scrollBtn"
-
+import banner1 from '../public/images/promoImages/free-delivery.png'
+import banner2 from '../public/images/promoImages/TW-Countdown.gif'
 
 function Index({
         topSellingProducts, 
@@ -36,7 +37,7 @@ function Index({
                         <div className={styles.heroImages}>
                             <div className={styles.heroImageWrapper}>
                                 <Image
-                                    src="/images/promoImages/free-delivery.png"
+                                    src={banner1}
                                     height="184"
                                     width="218"
                                     alt="Hero image"
@@ -44,7 +45,7 @@ function Index({
                             </div>
                             <div className={styles.heroImageWrapper}>
                                 <Image
-                                    src="/images/promoImages/TW-Countdown.gif"
+                                    src={banner2}
                                     height="184"
                                     width="218"
                                     alt="Hero Image"
