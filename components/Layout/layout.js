@@ -9,13 +9,13 @@ export default function Layout({children}){
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.cart)
     const {status} = useSession()
-    console.log(status)
+    
     useEffect(()=>{
         if(data){
             dispatch(signIn(data?.user))
         }
     },[data])
-    console.log(cart)
+    
 
     useEffect(()=>{
         if(status === "unauthenticated"){
