@@ -51,19 +51,7 @@ function StateWrapper({children}){
     useEffect(()=>{
         //Check if user is authenticated
         if(status === "authenticated"){
-            const email = data?.user?.email
-            //Check if there are some carts in localStorage
-            if(localStorage.carts){
-                let storageCarts = JSON.parse(localStorage.carts);
-                storageCarts.forEach(async(cart) => {
-                    await addToCart(cart, email)
-                });
-                //Remove items from cart
-                localStorage.removeItem('carts');
-            }
-            //Fetch carts from DB
-            dispatch(fetchCart(email))
-            dispatch(fetchSaves(email))
+            initAuthenticatedUser()
         }else if(status === "unauthenticated"){
             //Otherwise fetch cart from localStorage
             if(localStorage.carts){
@@ -71,6 +59,22 @@ function StateWrapper({children}){
             }
         }
     },[data])
+
+    async function initAuthenticatedUser(){
+        const email = data?.user?.email
+        //Check if there are some carts in localStorage
+        if(localStorage.carts){
+            let storageCarts = JSON.parse(localStorage.carts);
+            storageCarts.forEach(async(cart) => {
+                await addToCart(cart, email)
+            });
+            //Remove items from cart
+            localStorage.removeItem('carts');
+        }
+        //Fetch carts from DB
+        dispatch(fetchCart(email))
+        dispatch(fetchSaves(email))
+    }
 
     async function addToCart(cart, email){
         const {data, error} = await supabase.from('cart')
