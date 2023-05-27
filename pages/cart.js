@@ -14,6 +14,7 @@ import { client, priceConverion, removeCartFromDb, saveProduct } from '../utils/
 import ProductSection from '../components/productSection/productSection';
 import { faHeart, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 function Cart({newArrivals}) {
     const [showModal, setShowModal] = useState(false)
@@ -22,6 +23,7 @@ function Cart({newArrivals}) {
     const {cart} = useSelector(state => state.cart)
     const {saves} = useSelector(state => state.save)
     const dispatch = useDispatch()
+    const router = useRouter()
 
     const cartsItems = useMemo(()=>
         cart.products.map(item => {
@@ -48,6 +50,10 @@ function Cart({newArrivals}) {
     }
 
     const saveItem = async () => {
+        if(!user){
+            router.push('/auth')
+            return
+        }
         const isSave = saves.some(product => product.item._id == productId?.productId)
         if(isSave){
             await removeItemFromCart();

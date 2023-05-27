@@ -17,8 +17,10 @@ import SpecificationItem from '../../../components/specificationItem/specificati
 import ProductSection from '../../../components/productSection/productSection';
 import StatesList from '../../../components/statesList';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 function Product({product, param, category, relatedProducts}) {
+  const router = useRouter();
   const {_id, title, images, brand, amount, description, discount: productDiscount, rating, feature, specifications, unit, itemsInBox, productType } = product;
   const [imageIndex, setImageIndex] = useState(0);
   const [selectedState, setSelectedState] = useState("Lagos");
@@ -49,6 +51,10 @@ function Product({product, param, category, relatedProducts}) {
   }
 
   const handleWishlist = async () => {
+    if(!user){
+      router.push('/auth')
+      return
+    }
     if(!saveId){
       saveProduct(product, user, dispatch);
     } else {
