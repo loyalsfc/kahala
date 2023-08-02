@@ -94,3 +94,7 @@ export async function unsaveProduct(saveId, callback){
         .eq('id', saveId)
     callback(removeSaves(saveId))
 }
+
+export function calculateDeliveryDate(date, conjunctionText){
+    
+}

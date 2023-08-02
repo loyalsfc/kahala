@@ -41,19 +41,25 @@ function Summary({deliveryDetails, user}) {
         }
     }
 
+    console.log(cart)
+
     async function validateOrder(paidStatus){
         setShowModal(false)
         setShowLoader(true);
-        const orderId = uuidv4();
-        const {data, error} = await supabase.from('orders')
-            .insert({
+        const generalId = uuidv4()
+        let orders = products.map(product => {
+            const orderId = uuidv4();
+            return {
                 user_id: user?.email,
                 is_paid: paidStatus,
                 delivery_method,
                 delivery_address: delivery_method == 'door' ?  address.find(item => item.isDefault == true) : {delivery_method},
-                items: cart,
+                items: product,
                 order_id: orderId
-            })
+            }
+        })
+        const {data, error} = await supabase.from('orders')
+            .insert(orders)
             .select()
         if(data){
             products.forEach(async (item) =>{
@@ -63,7 +69,7 @@ function Summary({deliveryDetails, user}) {
                     .eq('id', item.id)
             })
             dispatch(initCart([]))
-            router.push(`/ordercomplete/${orderId}`)
+            router.push(`/ordercomplete/${generalId}`)
         }
     }
 

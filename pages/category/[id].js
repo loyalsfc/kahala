@@ -46,17 +46,7 @@ function Categories({products, param, productCategory, limitedStock, topDeals}) 
   )
 }
 
-export async function getStaticPaths(){
-    const categories = await client.fetch(`*[_type == "category"]{slug}`)
-
-    const paths = categories.map((category) => ({
-        params: {id: category.slug.current}
-    }))
-
-    return {paths, fallback: false}
-}
-
-export async function getStaticProps({ params }){
+export async function getServerSideProps({ params }){
     const [productCategory] = await client.fetch(`*[_type == "category" && slug.current == "${params.id}"]`);
     const products = await client.fetch(`*[_type == "products" && category._ref == "${productCategory._id}"]`);
     const limitedStock = await client.fetch(`*[_type == "products" && category._ref == "${productCategory._id}" && unit < 20][0...10]`);

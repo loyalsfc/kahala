@@ -329,21 +329,7 @@ function Product({product, param, category, relatedProducts}) {
   )
 }
 
-export async function getStaticPaths(){
-    const data = await client.fetch(`*[_type == "products"]{slug}`);
-    
-    const paths = data.map(item => ({
-        params: {id: item.slug.current}
-    }))
-
-    return {
-        paths,
-        fallback: false
-    }
-     
-}
-
-export async function getStaticProps({params}){
+export async function getServerSideProps({params}){
   const [product] = await client.fetch(`*[_type == "products" && slug.current == "${params.id}"]`);
   const [category] = await client.fetch(`*[_type == "category" && _id == "${product.category._ref}"]`)
   const relatedProducts = await client.fetch(`*[_type == "products" && productType._ref == "${product?.productType?._ref}" && slug.current != "${params.id}" ]`)

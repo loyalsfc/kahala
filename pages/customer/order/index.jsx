@@ -31,24 +31,24 @@ function Index({user, orders}){
                         /> : (
                             <ul>
                                 {
-                                    orders[0].items.products.map(items=>{
+                                    orders.map(item=>{
                                         return(
-                                            <li className={styles.productItemsWrap} key={items.id}>
+                                            <li className={styles.productItemsWrap} key={item.id}>
                                                 <article className={styles.productItems}>
                                                     <div className={styles.imageWrap}>
                                                         <Image
-                                                            src={urlFor(items.item.images[0].asset._ref).url()}
+                                                            src={urlFor(item.items.item.images[0].asset._ref)?.url()}
                                                             height={104}
                                                             width={104}
                                                             alt='Lol'
                                                         />
                                                     </div>
                                                     <div className={styles.productTitle}>
-                                                        <h4>{items.item.title}</h4>
-                                                        <span className={styles.shipped}>Shipped</span>
-                                                        <span>On {new Date(orders[0].created_at).toLocaleDateString().replaceAll('/', '-')}</span>
+                                                        <h4>{item.items.item.title}</h4>
+                                                        <span className={styles.shipped}>{item.order_status}</span>
+                                                        <span>On {new Date(item.created_at).toLocaleDateString().replaceAll('/', '-')}</span>
                                                     </div>
-                                                    <Link className={styles.details} href=''>See Details</Link>
+                                                    <Link className={styles.details} href={`/customer/order/${item.order_id}`}>See Details</Link>
                                                 </article>
                                             </li>
                                         )
