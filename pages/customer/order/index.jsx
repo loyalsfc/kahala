@@ -75,7 +75,10 @@ export async function getServerSideProps(context){
         }
     }
 
-    const {data} = await supabase.from('orders').select().eq('user_id', session?.user?.email)
+    const {data} = await supabase.from('orders').select().eq('user_id', session?.user?.email).order('id', { ascending: false })
+
+
+
 
 
     return{

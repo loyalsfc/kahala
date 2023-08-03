@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
 import { useSelector } from 'react-redux'
 import { supabase } from '../../lib/supabaseClient'
-import { priceConverion } from '../../utils/utils'
+import { calculateDeliveryDate, priceConverion } from '../../utils/utils'
 import { useRouter } from 'next/router'
 import ShipmentDetails from '../shipmentDetails/shipmentDetails'
 
@@ -17,12 +17,6 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
     const pickupDeliveryPerItem = 420;
 
     const currentDate = new Date();
-    const expectedDeliveryDateStart = new Date(currentDate.setDate(currentDate.getDate() + 5))
-    const expectedDeliveryDateEnd = new Date(currentDate.setDate(currentDate.getDate() + 2))
-    
-    function dateLocale(date){
-        return `${date.toLocaleDateString("en", {weekday: 'long', day: 'numeric', month: "short"})}`
-    }
     
     async function setDeliveryMethod(updatedMethod){
         const {error} = await supabase.from('user').update({delivery_method: updatedMethod}).eq("user_id", user?.email)
@@ -51,7 +45,7 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
                         <span className={styles.deliveryTotal}> ₦{priceConverion(pickupDeliveryPerItem * totalProducts)}</span> 
                     </label>
                 </div>
-                <p className={styles.arrivalNotes}>Arriving at pickup station between {dateLocale(expectedDeliveryDateStart)} to {dateLocale(expectedDeliveryDateEnd)} with cheaper shipping fees</p>
+                <p className={styles.arrivalNotes}>Arriving at pickup station between {calculateDeliveryDate(currentDate, "to")} with cheaper shipping fees</p>
                 <div className={styles.methodDetails}>
                     <span>
                         <FontAwesomeIcon icon={faInfo} />
@@ -84,7 +78,7 @@ function DeliveryMethod({deliveryMethod, updateDeliveryMethod}) {
                         <span className={styles.deliveryTotal}> ₦{priceConverion(doorDeliveryPerItem * totalProducts)}</span>
                     </label>
                 </div>
-                <p className={styles.arrivalNotes}>Delivered between {dateLocale(expectedDeliveryDateStart)} and {dateLocale(expectedDeliveryDateEnd)}</p>
+                <p className={styles.arrivalNotes}>Delivered between {calculateDeliveryDate(currentDate, "and")}</p>
                 <div className={styles.methodDetails}>
                     <span>
                         <FontAwesomeIcon icon={faInfo} />

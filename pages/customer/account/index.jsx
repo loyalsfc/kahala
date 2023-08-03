@@ -68,7 +68,7 @@ function Index({user, address}) {
     )
 }
 
-function AccountItemWrap({title, children}){
+export function AccountItemWrap({title, children}){
     return(
         <article className={styles.itemContainer}>
             <div className={styles.itemWrap}>

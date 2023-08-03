@@ -95,6 +95,12 @@ export async function unsaveProduct(saveId, callback){
     callback(removeSaves(saveId))
 }
 
+function dateLocale(date){
+    return `${date.toLocaleDateString("en", {weekday: 'long', day: 'numeric', month: "short"})}`
+}
+
 export function calculateDeliveryDate(date, conjunctionText){
-    
+    const expectedDeliveryDateStart = new Date(date.setDate(date.getDate() + 5))
+    const expectedDeliveryDateEnd = new Date(date.setDate(date.getDate() + 2))
+    return `${dateLocale(expectedDeliveryDateStart)} ${conjunctionText} ${dateLocale(expectedDeliveryDateEnd)}`
 }
