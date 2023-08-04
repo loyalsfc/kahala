@@ -9,6 +9,7 @@ import { faPen, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { changeDefaultAddress } from '../../../utils/utils';
+import { getServerSession } from 'next-auth';
 
 function Index({address}) {
     const router = useRouter()
@@ -85,7 +86,7 @@ function Index({address}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return{

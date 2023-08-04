@@ -7,6 +7,7 @@ import style from './track.module.css'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { supabase } from '../../../../lib/supabaseClient'
+import { getServerSession } from 'next-auth'
 
 function Track({orders}) {
     const router = useRouter();
@@ -61,7 +62,7 @@ function Status({text, date, color, bgColor}){
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return{

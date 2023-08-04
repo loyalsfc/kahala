@@ -8,6 +8,7 @@ import { calculateDeliveryDate, urlFor } from '../../../utils/utils'
 import Link from 'next/link'
 import Head from 'next/head'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
+import { getServerSession } from 'next-auth'
 
 function Index({user, orders}){
     console.log(orders)
@@ -74,7 +75,7 @@ function Index({user, orders}){
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return{

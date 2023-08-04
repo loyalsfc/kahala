@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { increaseCartItem } from '../../../store/cartSlice'
 import { toast } from 'react-toastify'
+import { getServerSession } from 'next-auth'
 
 function Index() {
     const dispatch = useDispatch()
@@ -100,7 +101,7 @@ function Index() {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context)
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return {

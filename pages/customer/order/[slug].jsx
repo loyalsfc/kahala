@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { AccountItemWrap } from '../account';
 import styles from './orderdetails.module.css'
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
 
 function OrderTracking({user, orders, params}) {
     const router = useRouter()
@@ -112,7 +113,7 @@ function OrderTracking({user, orders, params}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return{

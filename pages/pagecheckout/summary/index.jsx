@@ -19,6 +19,7 @@ import { useRouter } from 'next/router'
 import { initCart } from '../../../store/cartSlice'
 import { PaystackButton } from 'react-paystack'
 import { calculateDeliveryFee } from '../../../utils/utils'
+import { getServerSession } from 'next-auth'
 
 
 function Summary({deliveryDetails, user}) {
@@ -176,7 +177,7 @@ function Summary({deliveryDetails, user}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if(!session){
         return {

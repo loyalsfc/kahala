@@ -10,6 +10,7 @@ import Link from 'next/link'
 import Header from '../../../components/header/header'
 import AccountSideMenu from '../../../components/accountLayout/accountSideMenu'
 import Footer from '../../../components/footer/footer'
+import { getServerSession } from 'next-auth'
 
 function Index({user, address}) {
     const [defaultAddress, setDefaultIndex] = useState(address[0]?.address.find(item=>item.isDefault === true))
@@ -82,7 +83,7 @@ export function AccountItemWrap({title, children}){
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return {

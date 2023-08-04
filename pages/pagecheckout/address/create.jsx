@@ -4,6 +4,7 @@ import Head from 'next/head';
 import AddressForm from '../../../components/checkout/addressForm';
 import AddressCheckout from '../../../components/addressCheckout/addressCheckout';
 import { useRouter } from 'next/router';
+import { getServerSession } from 'next-auth';
 function Create({user}) {
     const router = useRouter()
     function moveRoute(){
@@ -23,7 +24,7 @@ function Create({user}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return{

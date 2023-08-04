@@ -3,6 +3,7 @@ import AccountLayout from '../../../components/accountLayout/accountLayout'
 import Head from 'next/head'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
 import { getSession } from 'next-auth/react'
+import { getServerSession } from 'next-auth'
 
 function Index() {
     return (
@@ -22,7 +23,7 @@ function Index() {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context)
+    const session = await getServerSession(context.req, context.res, authOptions);
 
     if(!session){
         return {

@@ -8,6 +8,7 @@ import { useState } from 'react'
 import AddressPreview from '../../../components/addressPreview/addressPreview'
 import styles from './delivery.module.css'
 import MobileCheckoutHeader from '../../../components/mobileCheckoutHeader/mobileCheckoutHeader'
+import { getServerSession } from 'next-auth'
 
 function Delivery({user, savedAddress}) {
     const {address, delivery_method} = savedAddress
@@ -51,7 +52,7 @@ function Delivery({user, savedAddress}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if(!session){
         return{

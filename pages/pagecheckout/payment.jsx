@@ -9,6 +9,7 @@ import { getSession } from 'next-auth/react'
 import AddressPreview from '../../components/addressPreview/addressPreview'
 import DeliveryPreview from '../../components/deliveryPreview/deliveryPreview'
 import MobileCheckoutHeader from '../../components/mobileCheckoutHeader/mobileCheckoutHeader'
+import { getServerSession } from 'next-auth'
 
 function Payment({user, savedAddress}) {
     const {address, delivery_method, payment_method} = savedAddress;
@@ -43,7 +44,7 @@ function Payment({user, savedAddress}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if(!session){
         return{
