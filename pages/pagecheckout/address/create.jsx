@@ -5,6 +5,7 @@ import AddressForm from '../../../components/checkout/addressForm';
 import AddressCheckout from '../../../components/addressCheckout/addressCheckout';
 import { useRouter } from 'next/router';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../../api/auth/[...nextauth]';
 function Create({user}) {
     const router = useRouter()
     function moveRoute(){

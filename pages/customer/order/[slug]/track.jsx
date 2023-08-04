@@ -8,6 +8,7 @@ import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { supabase } from '../../../../lib/supabaseClient'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../../api/auth/[...nextauth]'
 
 function Track({orders}) {
     const router = useRouter();

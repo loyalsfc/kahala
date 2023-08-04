@@ -9,6 +9,7 @@ import AddressPreview from '../../../components/addressPreview/addressPreview'
 import styles from './delivery.module.css'
 import MobileCheckoutHeader from '../../../components/mobileCheckoutHeader/mobileCheckoutHeader'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Delivery({user, savedAddress}) {
     const {address, delivery_method} = savedAddress

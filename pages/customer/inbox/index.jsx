@@ -4,6 +4,7 @@ import Head from 'next/head'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
 import { getSession } from 'next-auth/react'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Index() {
     return (

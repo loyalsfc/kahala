@@ -11,6 +11,7 @@ import styles from './address.module.css'
 import { changeDefaultAddress } from '../../../utils/utils'
 import { useRouter } from 'next/router'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Index({address}) {
     const router = useRouter()

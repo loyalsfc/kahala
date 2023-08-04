@@ -11,6 +11,7 @@ import Header from '../../../components/header/header'
 import AccountSideMenu from '../../../components/accountLayout/accountSideMenu'
 import Footer from '../../../components/footer/footer'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Index({user, address}) {
     const [defaultAddress, setDefaultIndex] = useState(address[0]?.address.find(item=>item.isDefault === true))

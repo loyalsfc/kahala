@@ -20,6 +20,7 @@ import { initCart } from '../../../store/cartSlice'
 import { PaystackButton } from 'react-paystack'
 import { calculateDeliveryFee } from '../../../utils/utils'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 
 function Summary({deliveryDetails, user}) {

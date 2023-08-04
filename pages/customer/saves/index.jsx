@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import { increaseCartItem } from '../../../store/cartSlice'
 import { toast } from 'react-toastify'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Index() {
     const dispatch = useDispatch()

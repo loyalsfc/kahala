@@ -10,6 +10,7 @@ import AddressPreview from '../../components/addressPreview/addressPreview'
 import DeliveryPreview from '../../components/deliveryPreview/deliveryPreview'
 import MobileCheckoutHeader from '../../components/mobileCheckoutHeader/mobileCheckoutHeader'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]'
 
 function Payment({user, savedAddress}) {
     const {address, delivery_method, payment_method} = savedAddress;

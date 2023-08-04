@@ -9,6 +9,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Index({user, orders}){
     console.log(orders)

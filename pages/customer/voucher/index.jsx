@@ -4,6 +4,7 @@ import AccountLayout from '../../../components/accountLayout/accountLayout'
 import EmptyAccount from '../../../components/emptyAccount/emptyAccount'
 import { getSession } from 'next-auth/react'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]'
 
 function Index() {
     return (

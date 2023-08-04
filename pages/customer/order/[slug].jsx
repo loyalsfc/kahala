@@ -10,6 +10,7 @@ import { AccountItemWrap } from '../account';
 import styles from './orderdetails.module.css'
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../../api/auth/[...nextauth]';
 
 function OrderTracking({user, orders, params}) {
     const router = useRouter()
