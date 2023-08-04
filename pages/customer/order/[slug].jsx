@@ -36,7 +36,12 @@ function OrderTracking({user, orders, params}) {
                         <h4 className={styles.title}>ITEMS IN YOUR ORDER</h4>
                         <div className={styles.product_details_wrapper}>
                             <div className={styles.product_info_container}>
-                                <span className={styles.order_status}>{order_status === "placed" ? "Waiting to be shipped" : order_status}</span>
+                                <span 
+                                    className={styles.order_status}
+                                    style={{backgroundColor: order_status === "Delivered" && "#6dbd28"}}
+                                >
+                                    {order_status === "placed" ? "Waiting to be shipped" : order_status}
+                                </span>
                                 <h5 className={styles.delivery_note}>Delivered between {calculateDeliveryDate(new Date(created_at), "and")}</h5>
                                 <article className={styles.product_details}>
                                     <Image
@@ -53,8 +58,11 @@ function OrderTracking({user, orders, params}) {
                                 </article>
                             </div>
                             <div className={styles.button_wrapper}>
-                                {order_status === "placed" && <button className={styles.modify_btn}>CANCEL ITEM</button>}
-                                <Link className={styles.modify_btn} href="">TRACK MY ITEM</Link>
+                                {order_status !== "Delivered" ?  <>
+                                    {order_status === "placed" && <button className={styles.modify_btn}>CANCEL ITEM</button>}
+                                    <Link className={styles.modify_btn} href="">TRACK MY ITEM</Link>
+                                </>:<Link className='modifyBtn' href="">SEE STATUS HISTORY</Link>
+                                }
                             </div>
                         </div>
                     </div>

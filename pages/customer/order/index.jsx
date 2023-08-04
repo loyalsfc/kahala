@@ -45,7 +45,12 @@ function Index({user, orders}){
                                                     </div>
                                                     <div className={styles.productTitle}>
                                                         <h4>{item.items.item.title}</h4>
-                                                        <span className={styles.shipped}>{item.order_status}</span>
+                                                        <span 
+                                                            className={styles.shipped}
+                                                            style={{backgroundColor: item.order_status === "Delivered" && "#6dbd28"}}
+                                                        >
+                                                            {item.order_status}
+                                                        </span>
                                                         <span>On {new Date(item.created_at).toLocaleDateString().replaceAll('/', '-')}</span>
                                                     </div>
                                                     <Link className={styles.details} href={`/customer/order/${item.order_id}`}>See Details</Link>
