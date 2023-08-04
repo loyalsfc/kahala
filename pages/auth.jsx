@@ -4,6 +4,8 @@ import styles from "./styles/auth.module.css"
 import { getSession, signIn, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
+import { getServerSession } from 'next-auth'
+import { authOptions } from './api/auth/[...nextauth]'
 
 function Auth({user}) {
 
@@ -34,7 +36,7 @@ function Auth({user}) {
 }
 
 export async function getServerSideProps(context){
-    const session = await getSession(context)
+    const session = await getServerSession(context.req, context.res, authOptions)
 
     if(session){
         return {
