@@ -14,7 +14,6 @@ function OrderTracking({user, orders, params}) {
     const router = useRouter()
     const slug = router.query.slug
     const selectedOrder = orders.find(item => item.order_id === slug)
-    console.log(selectedOrder)
     const {order_id, items, created_at, order_status, delivery_method, delivery_address} = selectedOrder
     return (
         <div>
@@ -51,7 +50,7 @@ function OrderTracking({user, orders, params}) {
                                         alt='Image'
                                     />
                                     <div className={styles.product_details_text}>
-                                        <Link className={styles.title} href={`/category/product/${items.item?.slug?.current}`}>{items?.item?.title}</Link>
+                                        <Link className={styles.product_title} href={`/category/product/${items.item?.slug?.current}`}>{items?.item?.title}</Link>
                                         <span>Qty: {items?.quantity}</span>
                                         <p >₦{items?.item.amount.toLocaleString()} <span>₦{calculateDiscountedAmount(items?.item.amount, items?.item?.discount)}</span></p>
                                     </div>
@@ -60,8 +59,8 @@ function OrderTracking({user, orders, params}) {
                             <div className={styles.button_wrapper}>
                                 {order_status !== "Delivered" ?  <>
                                     {order_status === "placed" && <button className={styles.modify_btn}>CANCEL ITEM</button>}
-                                    <Link className={styles.modify_btn} href="">TRACK MY ITEM</Link>
-                                </>:<Link className='modifyBtn' href="">SEE STATUS HISTORY</Link>
+                                    <Link className={styles.modify_btn} href={`/customer/order/${slug}/track`}>TRACK MY ITEM</Link>
+                                </>:<Link className='modifyBtn' href={`/customer/order/${slug}/track`}>SEE STATUS HISTORY</Link>
                                 }
                             </div>
                         </div>
@@ -111,20 +110,6 @@ function OrderTracking({user, orders, params}) {
         </div>
     )
 }
-
-// export async function getStaticPaths(){
-//     const {data} = await supabase.from('orders').select()
-    
-//     const paths = data.map(item => ({
-//         params: {id: item.order_id}
-//     }))
-
-//     return {
-//         paths,
-//         fallback: false
-//     }
-     
-// }
 
 export async function getServerSideProps(context){
     const session = await getSession(context);

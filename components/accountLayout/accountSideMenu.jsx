@@ -14,35 +14,35 @@ function AccountSideMenu() {
             <nav className={styles.nav}>
                 <h4 className={styles.sideTitle}>My Kahala Account</h4>
                 <ul className={styles.itemList}>
-                    <li className={styles.links}>
-                        <Link href='/customer/account'>
-                            <FontAwesomeIcon icon={faUser} /> My Kahala Account
+                    <li>
+                        <Link className={styles.links} href='/customer/account'>
+                            <span><FontAwesomeIcon icon={faUser} /> My Kahala Account</span>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </Link>
-                        <FontAwesomeIcon icon={faAngleRight} />
                     </li>
-                    <li className={styles.links}>
-                        <Link href='/customer/order'>
-                            <FontAwesomeIcon icon={faStoreAlt} /> Orders
+                    <li>
+                        <Link className={styles.links} href='/customer/order'>
+                            <span><FontAwesomeIcon icon={faStoreAlt} /> Orders</span>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </Link>
-                        <FontAwesomeIcon icon={faAngleRight} />
                     </li>
-                    <li className={styles.links}>
-                        <Link href='/customer/inbox'>
-                            <FontAwesomeIcon icon={faEnvelope} /> Inbox
+                    <li>
+                        <Link className={styles.links} href='/customer/inbox'>
+                            <span><FontAwesomeIcon icon={faEnvelope} /> Inbox</span>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </Link>
-                        <FontAwesomeIcon icon={faAngleRight} />
                     </li>
-                    <li className={styles.links}>
-                        <Link href='/customer/voucher'>
-                            <FontAwesomeIcon icon={faVrCardboard} /> Voucher
+                    <li>
+                        <Link className={styles.links} href='/customer/voucher'>
+                            <span><FontAwesomeIcon icon={faVrCardboard} /> Voucher</span>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </Link>
-                        <FontAwesomeIcon icon={faAngleRight} />
                     </li>
-                    <li className={styles.links}>
-                        <Link href='/customer/saves'>
-                            <FontAwesomeIcon icon={faHeart} /> Saves
+                    <li>
+                        <Link className={styles.links} href='/customer/saves'>
+                            <span><FontAwesomeIcon icon={faHeart} /> Saves</span>
+                            <FontAwesomeIcon icon={faAngleRight} />
                         </Link>
-                        <FontAwesomeIcon icon={faAngleRight} />
                     </li>
                 </ul>
                 <h4 className={styles.sideTitle}>Account Settings</h4>

@@ -36,7 +36,6 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    margin-bottom: auto;
 }
 .details{
     color: var(--primary);
@@ -56,6 +55,14 @@
 }
 .imageWrap{
     padding: 0.25rem;
+}
+.orderTitle{
+    font-size: 0.875rem;
+    opacity: 0.5;
+    margin-bottom: auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 @media (min-width: 640px){
     .details{

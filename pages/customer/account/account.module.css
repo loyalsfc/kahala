@@ -1,19 +1,19 @@
 .itemContainer{
-    padding: 0.5rem;
     color: #313133;    
 }
 .itemWrap{
-    border: 1px solid #d4d4d6;
     border-radius: 0.25rem;
     height: 100%;
 }
 .title{
-    padding: 1rem;
-    font-size: 0.875rem;
+    padding: 0.5rem;
+    padding-top: 1rem;
+    font-size: 0.75rem;
     border-bottom: 1px solid #d4d4d6;
 }
 .content{
     padding: 1rem;
+    background-color: #FFF;
 }
 .section{
     padding: 0.5rem 0;
@@ -56,5 +56,15 @@
     }
     .mobileWrapper{
         display: none;
+    }
+    .itemWrap{
+        border: 1px solid #d4d4d6;
+    }
+    .itemContainer{
+        padding: 0.5rem;
+    }
+    .title{
+        padding: 1rem;
+        font-size: 0.875rem;
     }
 }
