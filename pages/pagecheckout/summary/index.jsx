@@ -43,8 +43,6 @@ function Summary({deliveryDetails, user}) {
         }
     }
 
-    console.log(cart)
-
     async function validateOrder(paidStatus){
         setShowModal(false)
         setShowLoader(true);

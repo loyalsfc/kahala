@@ -1,15 +1,15 @@
-import { getSession } from 'next-auth/react';
 import React, { useState } from 'react'
 import { supabase } from '../../../lib/supabaseClient';
 import Head from 'next/head';
 import AddressCheckout from '../../../components/addressCheckout/addressCheckout';
 import styles from './create.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { changeDefaultAddress } from '../../../utils/utils';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '../../api/auth/[...nextauth]';
 
 function Index({address}) {
     const router = useRouter()
