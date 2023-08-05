@@ -1,7 +1,6 @@
 import React from 'react'
 import AccountLayout from '../../../components/accountLayout/accountLayout'
 import Head from 'next/head'
-import { getSession } from 'next-auth/react';
 import { supabase } from '../../../lib/supabaseClient';
 import { useRouter } from 'next/router';
 import { calculateDeliveryDate, calculateDeliveryFee, calculateDiscountedAmount, urlFor } from '../../../utils/utils';

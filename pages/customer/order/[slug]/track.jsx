@@ -4,7 +4,6 @@ import AccountLayout from '../../../../components/accountLayout/accountLayout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import style from './track.module.css'
-import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { supabase } from '../../../../lib/supabaseClient'
 import { getServerSession } from 'next-auth'
@@ -14,7 +13,6 @@ function Track({orders}) {
     const router = useRouter();
     const slug = router.query.slug;
     const selectedOrder = orders.find(item => item.order_id === slug);
-    console.log(selectedOrder)
     const {created_at, order_status} = selectedOrder
     
     function dateLocale(date){

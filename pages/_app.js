@@ -65,20 +65,19 @@ function StateWrapper({children}){
         //Check if there are some carts in localStorage
         if(localStorage.carts){
             let storageCarts = JSON.parse(localStorage.carts);
-            storageCarts.forEach(async(cart) => {
-                await addToCart(cart, email)
-            });
-            //Remove items from cart
+            let items_to_cart = storageCarts.map(item =>{
+                return {...item, user_id: email}
+            })
+            const { error } = await supabase
+                .from('cart')
+                .insert(items_to_cart)
+            console.log(error)
+            //Remove items from local storage
             localStorage.removeItem('carts');
         }
         //Fetch carts from DB
         dispatch(fetchCart(email))
         dispatch(fetchSaves(email))
-    }
-
-    async function addToCart(cart, email){
-        const {data, error} = await supabase.from('cart')
-            .insert({item: cart.item, quantity: cart.quantity, user_id: email})
     }
 
     return(
