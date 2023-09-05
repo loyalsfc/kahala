@@ -12,6 +12,7 @@ import { supabase } from '../lib/supabaseClient'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head'
+import Script from 'next/script'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -23,6 +24,12 @@ const roboto = Roboto({
 export default function App ({Component, pageProps: {session, ...pageProps}}){
     return(
         <>
+            <Script
+                id='adsnygoogle-init'
+                async={true} 
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4285423806922676"
+                crossorigin="anonymous"
+            />
             <style jsx global>{`
                 html{
                     font-family: ${roboto.style.fontFamily};
