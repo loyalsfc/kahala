@@ -5,7 +5,7 @@ import { faAngleDown, faCartShopping, faSearch, faStore, faVrCardboard } from '@
 import { faEnvelope, faHeart, faQuestionCircle, faUser } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'
 
@@ -14,6 +14,18 @@ function Header() {
     const {cart}  = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
     const dropDown = useRef()
+
+    useEffect(()=>{
+        const handleClose = (e) => {
+            if(!dropDown.current.contains(e.target)){
+                setShowDropDown(false)
+            }
+        }
+
+        document.addEventListener("click", handleClose);
+
+        return(()=> document.removeEventListener("click", handleClose))
+    },[])
     
     return (
         <header className={style.header}>
